@@ -1,0 +1,325 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nengolib.synapses.PadeDelay &#8212; nengolib 0.4.0-beta documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.0-beta',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nengolib.synapses.DiscreteDelay" href="nengolib.synapses.DiscreteDelay.html" />
+    <link rel="prev" title="nengolib.synapses.Highpass" href="nengolib.synapses.Highpass.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="nengolib-synapses-padedelay">
+<h1>nengolib.synapses.PadeDelay<a class="headerlink" href="#nengolib-synapses-padedelay" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="nengolib.synapses.PadeDelay">
+<code class="descclassname">nengolib.synapses.</code><code class="descname">PadeDelay</code><span class="sig-paren">(</span><em>theta</em>, <em>order</em>, <em>p=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.0-beta/nengolib/synapses\analog.py#L372-L466"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.PadeDelay" title="Permalink to this definition">¶</a></dt>
+<dd><p>A finite-order approximation of a pure time-delay.</p>
+<p>Implements the transfer function:</p>
+<div class="math">
+\[F(s) = e^{-\theta s} + \mathcal{O}(s^{\texttt{order}+\texttt{p}})\]</div>
+<p>or <span class="math">\(y(t) \approx u(t - \theta)\)</span> in the time-domain (for
+slowly changing inputs).</p>
+<p>This is the optimal approximation for a time-delay system given
+low-frequency inputs implemented using a finite-dimensional state.
+This is achieved via Padé approximants. The state-space of the
+system encodes a rolling window of input history
+(see <a class="reference internal" href="nengolib.networks.RollingWindow.html#nengolib.networks.RollingWindow" title="nengolib.networks.RollingWindow"><code class="xref py py-class docutils literal"><span class="pre">RollingWindow</span></code></a>). This can be used to approximate
+FIR filters and window functions in continuous time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>theta</strong> : <code class="docutils literal"><span class="pre">float</span></code></p>
+<blockquote>
+<div><p>Length of time-delay in seconds.</p>
+</div></blockquote>
+<p><strong>order</strong> : <code class="docutils literal"><span class="pre">integer</span></code></p>
+<blockquote>
+<div><p>Order of approximation in the denominator
+(dimensionality of resulting system).</p>
+</div></blockquote>
+<p><strong>p</strong> : <code class="docutils literal"><span class="pre">integer</span></code>, optional</p>
+<blockquote>
+<div><p>Order of approximation in the numerator. Defaults to <code class="docutils literal"><span class="pre">p=order-1</span></code>,
+since this gives the highest-order approximation without a passthrough.
+If <code class="docutils literal"><span class="pre">p=order</span></code>, then the system will have a passthrough, which has
+a nonideal step response.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a></p>
+<blockquote class="last">
+<div><p>Finite-order approximation of a pure time-delay.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#nengolib.synapses.pade_delay_error" title="nengolib.synapses.pade_delay_error"><code class="xref py py-func docutils literal"><span class="pre">pade_delay_error()</span></code></a>, <a class="reference internal" href="nengolib.networks.RollingWindow.html#nengolib.networks.RollingWindow" title="nengolib.networks.RollingWindow"><code class="xref py py-class docutils literal"><span class="pre">RollingWindow</span></code></a>, <a class="reference internal" href="nengolib.synapses.DiscreteDelay.html#nengolib.synapses.DiscreteDelay" title="nengolib.synapses.DiscreteDelay"><code class="xref py py-func docutils literal"><span class="pre">DiscreteDelay()</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.misc.pade.html#scipy.misc.pade" title="(in SciPy v0.19.0)"><code class="xref py py-func docutils literal"><span class="pre">scipy.misc.pade()</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Closed-form derivations are found in <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>A. R. Voelker and C. Eliasmith, “Improving spiking dynamical
+networks: Accurate delays, higher-order synapses, and time cells”,
+2017, Submitted. [<a class="reference external" href="https://github.com/arvoelke/delay2017">URL</a>]</td></tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengolib.synapses</span> <span class="k">import</span> <span class="n">PadeDelay</span>
+</pre></div>
+</div>
+<p>Delay 15 Hz band-limited white noise by 100 ms using various orders of
+approximations:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengolib.signal</span> <span class="k">import</span> <span class="n">z</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengo.processes</span> <span class="k">import</span> <span class="n">WhiteSignal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">process</span> <span class="o">=</span> <span class="n">WhiteSignal</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">y0</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">run_steps</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">ntrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="n">z</span><span class="o">**-</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">filt</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ideal&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">)):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">sys</span> <span class="o">=</span> <span class="n">PadeDelay</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span> <span class="o">==</span> <span class="n">order</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">filt</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;order=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">order</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//nengolib-synapses-PadeDelay-1.py">Source code</a>)</p>
+<div class="figure">
+<img alt="_images/nengolib-synapses-PadeDelay-1.png" src="_images/nengolib-synapses-PadeDelay-1.png" />
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="nengolib-synapses-pade-delay-error">
+<h1>nengolib.synapses.pade_delay_error<a class="headerlink" href="#nengolib-synapses-pade-delay-error" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="nengolib.synapses.pade_delay_error">
+<code class="descclassname">nengolib.synapses.</code><code class="descname">pade_delay_error</code><span class="sig-paren">(</span><em>theta_times_freq</em>, <em>order</em>, <em>p=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.0-beta/nengolib/synapses\analog.py#L308-L369"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.pade_delay_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the approximation error in <a class="reference internal" href="#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a>.</p>
+<p>For a given order, the difficulty of the delay is a function of the
+input frequency (<span class="math">\(s = 2j \pi f\)</span>) times the delay length
+(<span class="math">\(\theta\)</span>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>theta_times_freq</strong> : <code class="docutils literal"><span class="pre">array_like</span></code></p>
+<blockquote>
+<div><p>A float or array of floats (delay length times frequency) at which to
+evaluate the error.</p>
+</div></blockquote>
+<p><strong>order</strong> : <code class="docutils literal"><span class="pre">integer</span></code></p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">order</span></code> parameter passed to <a class="reference internal" href="#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a>.</p>
+</div></blockquote>
+<p><strong>p</strong> : <code class="docutils literal"><span class="pre">integer</span></code>, optional</p>
+<blockquote>
+<div><p><code class="docutils literal"><span class="pre">p</span></code> parameter passed to <a class="reference internal" href="#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a>. Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><code class="docutils literal"><span class="pre">np.array</span></code> of <code class="docutils literal"><span class="pre">np.complex</span></code></p>
+<blockquote class="last">
+<div><p>Shaped like <code class="docutils literal"><span class="pre">theta_times_freq</span></code>, with each element corresponding
+to the complex error term</p>
+<div class="math">
+\[F(2j \pi f) - e^{-\theta \times 2j \pi f}\]</div>
+<p>where <span class="math">\(F(s)\)</span> is the transfer function constructed by
+<a class="reference internal" href="#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a> for a delay of length <span class="math">\(\theta\)</span>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengolib.synapses</span> <span class="k">import</span> <span class="n">pade_delay_error</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">pade_delay_error</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">6</span><span class="p">))</span>
+<span class="go">0.0070350205992081461</span>
+</pre></div>
+</div>
+<p>This means that for <code class="docutils literal"><span class="pre">order=6</span></code> and frequencies less than <code class="docutils literal"><span class="pre">1/theta</span></code>,
+the approximation error is less than one percent!</p>
+<p>Now visualize the error across a range of frequencies, with various orders:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freq_times_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq_times_theta</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>             <span class="nb">abs</span><span class="p">(</span><span class="n">pade_delay_error</span><span class="p">(</span><span class="n">freq_times_theta</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)),</span>
+<span class="gp">&gt;&gt;&gt; </span>             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;order=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">order</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Frequency $\times \, \theta$ (Unitless)&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Absolute Error&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//nengolib-synapses-PadeDelay-2.py">Source code</a>)</p>
+<div class="figure">
+<img alt="_images/nengolib-synapses-PadeDelay-2.png" src="_images/nengolib-synapses-PadeDelay-2.png" />
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nengolib.html">Main (<code class="docutils literal"><span class="pre">nengolib</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.networks.html">Networks (<code class="docutils literal"><span class="pre">nengolib.networks</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.signal.html">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.stats.html">Stats (<code class="docutils literal"><span class="pre">nengolib.stats</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+  <li><a href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a><ul>
+      <li>Previous: <a href="nengolib.synapses.Highpass.html" title="previous chapter">nengolib.synapses.Highpass</a></li>
+      <li>Next: <a href="nengolib.synapses.DiscreteDelay.html" title="next chapter">nengolib.synapses.DiscreteDelay</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/nengolib.synapses.PadeDelay.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

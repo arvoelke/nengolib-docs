@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>import nengolib &#8212; nengolib 0.4.0 documentation</title>
+    <title>import nengolib &#8212; nengolib 0.4.0-beta documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.0',
+        VERSION:     '0.4.0-beta',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="next" title="Notebooks" href="notebooks.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -49,18 +49,35 @@
 <a class="reference external" href="https://github.com/nengo/nengo">Nengo</a>.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.examples.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks.research.html">Research</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.html">Main (<code class="docutils literal"><span class="pre">nengolib</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.networks.html">Networks (<code class="docutils literal"><span class="pre">nengolib.networks</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.signal.html">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.stats.html">Stats (<code class="docutils literal"><span class="pre">nengolib.stats</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#thanks">Thanks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/arvoelke/nengolib/">Nengolib</a>
 is tested against Python 2.7, 3.4, 3.5, and 3.6, and <a class="reference external" href="https://github.com/nengo/nengo">Nengo</a>
-2.1.0, 2.2.0, 2.3.0, 2.4.0, and its development branch.
+2.1.0, 2.2.0, 2.3.0, and 2.4.0.
 The <a class="reference external" href="https://github.com/nengo/nengo_gui">Nengo GUI</a> is not officially
-supported.</p>
-<p>To install:</p>
+supported.
+To install:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">nengolib</span>
 </pre></div>
 </div>
@@ -70,10 +87,9 @@ supported.</p>
 <a class="reference external" href="https://github.com/scipy/scipy/releases/tag/v0.17.0">scipy&gt;=0.17.0</a>.
 If you are having difficulty installing SciPy or NumPy, we recommend the
 <a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a> installer.</p>
+<div class="section" id="genindex">
+<h3><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a><a class="headerlink" href="#genindex" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="resources">
-<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
-<p>[<a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a>]</p>
 </div>
 </div>
 
@@ -134,7 +150,9 @@ If you are having difficulty installing SciPy or NumPy, we recommend the
 </p>
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -152,7 +170,7 @@ If you are having difficulty installing SciPy or NumPy, we recommend the
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="examples.html" title="next chapter">Examples</a></li>
+      <li>Next: <a href="notebooks.html" title="next chapter">Notebooks</a></li>
   </ul></li>
 </ul>
 </div>

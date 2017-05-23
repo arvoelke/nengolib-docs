@@ -1,0 +1,306 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Signal (nengolib.signal) &#8212; nengolib 0.4.0-beta documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.0-beta',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nengolib.signal.LinearSystem" href="nengolib.signal.LinearSystem.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-nengolib.signal"></span><div class="section" id="signal-nengolib-signal">
+<h1>Signal (<a class="reference internal" href="#module-nengolib.signal" title="nengolib.signal"><code class="xref py py-mod docutils literal"><span class="pre">nengolib.signal</span></code></a>)<a class="headerlink" href="#signal-nengolib-signal" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="linear-systems">
+<h2>Linear Systems<a class="headerlink" href="#linear-systems" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-obj docutils literal"><span class="pre">LinearSystem</span></code></a>(sys[,&nbsp;analog])</td>
+<td>Generic linear system representation.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.cont2discrete.html#nengolib.signal.cont2discrete" title="nengolib.signal.cont2discrete"><code class="xref py py-obj docutils literal"><span class="pre">cont2discrete</span></code></a>(sys,&nbsp;dt[,&nbsp;method,&nbsp;alpha])</td>
+<td>Convert linear system from continuous to discrete time-domain.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.discrete2cont.html#nengolib.signal.discrete2cont" title="nengolib.signal.discrete2cont"><code class="xref py py-obj docutils literal"><span class="pre">discrete2cont</span></code></a>(sys,&nbsp;dt[,&nbsp;method,&nbsp;alpha])</td>
+<td>Convert linear system from discrete to continuous time-domain.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="model-reduction">
+<h2>Model Reduction<a class="headerlink" href="#model-reduction" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.pole_zero_cancel.html#nengolib.signal.pole_zero_cancel" title="nengolib.signal.pole_zero_cancel"><code class="xref py py-obj docutils literal"><span class="pre">pole_zero_cancel</span></code></a>(sys[,&nbsp;tol])</td>
+<td>Pole/zero cancellation within a given tolerance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.modred.html#nengolib.signal.modred" title="nengolib.signal.modred"><code class="xref py py-obj docutils literal"><span class="pre">modred</span></code></a>(sys,&nbsp;keep_states[,&nbsp;method])</td>
+<td>Reduces model order by eliminating a subset of states.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.balance.html#nengolib.signal.balance" title="nengolib.signal.balance"><code class="xref py py-obj docutils literal"><span class="pre">balance</span></code></a>(sys)</td>
+<td>Transforms a linear system to its balanced realization.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.balred.html#nengolib.signal.balred" title="nengolib.signal.balred"><code class="xref py py-obj docutils literal"><span class="pre">balred</span></code></a>(sys,&nbsp;order[,&nbsp;method])</td>
+<td>Reduces a linear system to given order using balance and modred.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="realizations">
+<h2>Realizations<a class="headerlink" href="#realizations" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.Identity.html#nengolib.signal.Identity" title="nengolib.signal.Identity"><code class="xref py py-obj docutils literal"><span class="pre">Identity</span></code></a></td>
+<td>Scaled realization given only by the <code class="docutils literal"><span class="pre">radii</span></code>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.Balanced.html#nengolib.signal.Balanced" title="nengolib.signal.Balanced"><code class="xref py py-obj docutils literal"><span class="pre">Balanced</span></code></a></td>
+<td>Balanced realization given by the Gramiam matrices.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.Hankel.html#nengolib.signal.Hankel" title="nengolib.signal.Hankel"><code class="xref py py-obj docutils literal"><span class="pre">Hankel</span></code></a></td>
+<td>Scaled realization given by the Hankel singular values.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.L1Norm.html#nengolib.signal.L1Norm" title="nengolib.signal.L1Norm"><code class="xref py py-obj docutils literal"><span class="pre">L1Norm</span></code></a>([rtol,&nbsp;max_length])</td>
+<td>Scaled realization given by the L1-norm of the system’s state.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.H2Norm.html#nengolib.signal.H2Norm" title="nengolib.signal.H2Norm"><code class="xref py py-obj docutils literal"><span class="pre">H2Norm</span></code></a></td>
+<td>Scaled realization given by the H2-norm of the system’s state.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="distributions">
+<h2>Distributions<a class="headerlink" href="#distributions" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.EvalPoints.html#nengolib.signal.EvalPoints" title="nengolib.signal.EvalPoints"><code class="xref py py-obj docutils literal"><span class="pre">EvalPoints</span></code></a>(sys,&nbsp;process[,&nbsp;n_steps,&nbsp;dt])</td>
+<td>Samples the output of a LinearSystem given some input process.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.Encoders.html#nengolib.signal.Encoders" title="nengolib.signal.Encoders"><code class="xref py py-obj docutils literal"><span class="pre">Encoders</span></code></a>(sys,&nbsp;process[,&nbsp;n_steps,&nbsp;dt])</td>
+<td>Samples axis-aligned encoders from the maximum radii of a LinearSystem.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="learning">
+<h2>Learning<a class="headerlink" href="#learning" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.pes_learning_rate.html#nengolib.signal.pes_learning_rate" title="nengolib.signal.pes_learning_rate"><code class="xref py py-obj docutils literal"><span class="pre">pes_learning_rate</span></code></a>(epsilon,&nbsp;activities,&nbsp;t[,&nbsp;dt])</td>
+<td>Determine the ideal learning rate for PES without noise or filtering.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="lyapunov-theory">
+<h2>Lyapunov Theory<a class="headerlink" href="#lyapunov-theory" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.l1_norm.html#nengolib.signal.l1_norm" title="nengolib.signal.l1_norm"><code class="xref py py-obj docutils literal"><span class="pre">l1_norm</span></code></a>(sys[,&nbsp;rtol,&nbsp;max_length])</td>
+<td>Computes the L1-norm of a linear system within a relative tolerance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.state_norm.html#nengolib.signal.state_norm" title="nengolib.signal.state_norm"><code class="xref py py-obj docutils literal"><span class="pre">state_norm</span></code></a>(sys[,&nbsp;norm])</td>
+<td>Computes the norm of each dimension of <code class="docutils literal"><span class="pre">x</span></code> in the state-space.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.control_gram.html#nengolib.signal.control_gram" title="nengolib.signal.control_gram"><code class="xref py py-obj docutils literal"><span class="pre">control_gram</span></code></a>(sys)</td>
+<td>Computes the controllability/reachability gramiam of a linear system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.observe_gram.html#nengolib.signal.observe_gram" title="nengolib.signal.observe_gram"><code class="xref py py-obj docutils literal"><span class="pre">observe_gram</span></code></a>(sys)</td>
+<td>Computes the observability gramiam of a linear system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.hsvd.html#nengolib.signal.hsvd" title="nengolib.signal.hsvd"><code class="xref py py-obj docutils literal"><span class="pre">hsvd</span></code></a>(sys)</td>
+<td>Compute Hankel singular values of a linear system.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.balanced_transformation.html#nengolib.signal.balanced_transformation" title="nengolib.signal.balanced_transformation"><code class="xref py py-obj docutils literal"><span class="pre">balanced_transformation</span></code></a>(sys)</td>
+<td>Computes the balancing transformation, its inverse, and eigenvalues.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.signal.nrmse.html#nengolib.signal.nrmse" title="nengolib.signal.nrmse"><code class="xref py py-obj docutils literal"><span class="pre">nrmse</span></code></a>(actual,&nbsp;target,&nbsp;**kwargs)</td>
+<td>Returns RMSE(actual, target) / RMS(target).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.signal.shift.html#nengolib.signal.shift" title="nengolib.signal.shift"><code class="xref py py-obj docutils literal"><span class="pre">shift</span></code></a>(signal[,&nbsp;amount,&nbsp;value])</td>
+<td>Shift the <code class="docutils literal"><span class="pre">signal</span></code> <code class="docutils literal"><span class="pre">amount</span></code> steps, prepending with <code class="docutils literal"><span class="pre">value</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nengolib.html">Main (<code class="docutils literal"><span class="pre">nengolib</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.networks.html">Networks (<code class="docutils literal"><span class="pre">nengolib.networks</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.stats.html">Stats (<code class="docutils literal"><span class="pre">nengolib.stats</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+      <li>Next: <a href="nengolib.signal.LinearSystem.html" title="next chapter">nengolib.signal.LinearSystem</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/nengolib.signal.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

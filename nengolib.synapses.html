@@ -1,0 +1,239 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Synapses (nengolib.synapses) &#8212; nengolib 0.4.0-beta documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.0-beta',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nengolib.Lowpass" href="nengolib.synapses.Lowpass.html" />
+    <link rel="prev" title="nengolib.stats.leech_kissing" href="nengolib.stats.leech_kissing.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="module-nengolib.synapses"></span><div class="section" id="synapses-nengolib-synapses">
+<h1>Synapses (<a class="reference internal" href="#module-nengolib.synapses" title="nengolib.synapses"><code class="xref py py-mod docutils literal"><span class="pre">nengolib.synapses</span></code></a>)<a class="headerlink" href="#synapses-nengolib-synapses" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="analog">
+<h2>Analog<a class="headerlink" href="#analog" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.synapses.Lowpass.html#nengolib.synapses.Lowpass" title="nengolib.synapses.Lowpass"><code class="xref py py-obj docutils literal"><span class="pre">Lowpass</span></code></a>(tau)</td>
+<td>A first-order lowpass: <code class="docutils literal"><span class="pre">1/(tau*s</span> <span class="pre">+</span> <span class="pre">1)</span></code>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.synapses.Alpha.html#nengolib.synapses.Alpha" title="nengolib.synapses.Alpha"><code class="xref py py-obj docutils literal"><span class="pre">Alpha</span></code></a>(tau)</td>
+<td>A second-order lowpass: <code class="docutils literal"><span class="pre">1/(tau*s</span> <span class="pre">+</span> <span class="pre">1)**2</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.synapses.DoubleExp.html#nengolib.synapses.DoubleExp" title="nengolib.synapses.DoubleExp"><code class="xref py py-obj docutils literal"><span class="pre">DoubleExp</span></code></a>(tau1,&nbsp;tau2)</td>
+<td>A second-order lowpass: <code class="docutils literal"><span class="pre">1/((tau1*s</span> <span class="pre">+</span> <span class="pre">1)*(tau2*s</span> <span class="pre">+</span> <span class="pre">1))</span></code>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.synapses.Bandpass.html#nengolib.synapses.Bandpass" title="nengolib.synapses.Bandpass"><code class="xref py py-obj docutils literal"><span class="pre">Bandpass</span></code></a>(freq,&nbsp;Q)</td>
+<td>A second-order bandpass with given frequency and width.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.synapses.Highpass.html#nengolib.synapses.Highpass" title="nengolib.synapses.Highpass"><code class="xref py py-obj docutils literal"><span class="pre">Highpass</span></code></a>(tau[,&nbsp;order])</td>
+<td>A differentiated lowpass of given order: <code class="docutils literal"><span class="pre">(tau*s/(tau*s</span> <span class="pre">+</span> <span class="pre">1))**order</span></code>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.synapses.PadeDelay.html#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-obj docutils literal"><span class="pre">PadeDelay</span></code></a>(theta,&nbsp;order[,&nbsp;p])</td>
+<td>A finite-order approximation of a pure time-delay.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="digital">
+<h2>Digital<a class="headerlink" href="#digital" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.synapses.DiscreteDelay.html#nengolib.synapses.DiscreteDelay" title="nengolib.synapses.DiscreteDelay"><code class="xref py py-obj docutils literal"><span class="pre">DiscreteDelay</span></code></a>(steps)</td>
+<td>A discrete (pure) time-delay: <code class="docutils literal"><span class="pre">z**-steps</span></code>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.synapses.BoxFilter.html#nengolib.synapses.BoxFilter" title="nengolib.synapses.BoxFilter"><code class="xref py py-obj docutils literal"><span class="pre">BoxFilter</span></code></a>(width[,&nbsp;normalized])</td>
+<td>A discrete box-filter with a given <code class="docutils literal"><span class="pre">width</span></code>, and optionally unit area.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="theory">
+<h2>Theory<a class="headerlink" href="#theory" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-obj docutils literal"><span class="pre">ss2sim</span></code></a>(sys,&nbsp;synapse,&nbsp;dt)</td>
+<td>Maps a linear system onto a synapse in state-space form.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="nengolib.synapses.PadeDelay.html#nengolib.synapses.pade_delay_error" title="nengolib.synapses.pade_delay_error"><code class="xref py py-obj docutils literal"><span class="pre">pade_delay_error</span></code></a>(theta_times_freq,&nbsp;order[,&nbsp;p])</td>
+<td>Computes the approximation error in <a class="reference internal" href="nengolib.synapses.PadeDelay.html#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.synapses.HeteroSynapse.html#nengolib.synapses.HeteroSynapse" title="nengolib.synapses.HeteroSynapse"><code class="xref py py-obj docutils literal"><span class="pre">HeteroSynapse</span></code></a>(systems[,&nbsp;dt,&nbsp;elementwise,&nbsp;method])</td>
+<td>Callable class for applying different synapses to an input vector.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nengolib.html">Main (<code class="docutils literal"><span class="pre">nengolib</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.networks.html">Networks (<code class="docutils literal"><span class="pre">nengolib.networks</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.signal.html">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.stats.html">Stats (<code class="docutils literal"><span class="pre">nengolib.stats</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+      <li>Previous: <a href="nengolib.stats.leech_kissing.html" title="previous chapter">nengolib.stats.leech_kissing</a></li>
+      <li>Next: <a href="nengolib.synapses.Lowpass.html" title="next chapter">nengolib.Lowpass</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/nengolib.synapses.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
