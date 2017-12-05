@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nengolib.signal.LinearSystem &#8212; nengolib 0.4.0-beta documentation</title>
-    
+    <title>nengolib.signal.LinearSystem &#8212; nengolib 0.4.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.0-beta',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Signal (nengolib.signal)" href="nengolib.signal.html" />
@@ -57,17 +55,17 @@
 
 <dl class="class">
 <dt id="nengolib.signal.LinearSystem">
-<em class="property">class </em><code class="descclassname">nengolib.signal.</code><code class="descname">LinearSystem</code><span class="sig-paren">(</span><em>sys</em>, <em>analog=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.0-beta/nengolib/signal\system.py#L242-L749"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.LinearSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.signal.</code><code class="descname">LinearSystem</code><span class="sig-paren">(</span><em>sys</em>, <em>analog=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.1/nengolib/signal/system.py#L242-L749"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.LinearSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generic linear system representation.</p>
-<p>This extends <a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a> to unify a variety of
+<p>This extends <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a> to unify a variety of
 representations (<cite>transfer function</cite>, <cite>state-space</cite>, <cite>zero-pole gain</cite>)
 in continuous (i.e., analog) and discrete (i.e., digital) time-domains.
 Instances provide access to a number of common attributes and methods
 that are core to a variety of routines and networks throughout nengolib.</p>
-<p>This can be used anywhere a <a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a> (or
-<a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>) object is expected within Nengo. For
+<p>This can be used anywhere a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a> (or
+<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>) object is expected within Nengo. For
 instance, this can be passed as a <code class="docutils literal"><span class="pre">synapse</span></code> parameter to
-<a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.
+<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.
 If the system is analog, then it will be automatically discretized using
 the simulation time-step (see <a class="reference internal" href="nengolib.signal.cont2discrete.html#nengolib.signal.cont2discrete" title="nengolib.signal.cont2discrete"><code class="xref py py-func docutils literal"><span class="pre">cont2discrete()</span></code></a>). We advocate for
 using this class to represent and manipulate linear systems whenever
@@ -89,7 +87,7 @@ and <code class="docutils literal"><span class="pre">z</span></code>–domains r
 <p><strong>analog</strong> : <code class="docutils literal"><span class="pre">boolean</span></code>, optional</p>
 <blockquote class="last">
 <div><p>Continuous or discrete time-domain. Defaults to <code class="docutils literal"><span class="pre">sys.analog</span></code> if
-<code class="docutils literal"><span class="pre">isinstance(sys,</span></code> <a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>), otherwise <code class="docutils literal"><span class="pre">True</span></code>.
+<code class="docutils literal"><span class="pre">isinstance(sys,</span></code> <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>), otherwise <code class="docutils literal"><span class="pre">True</span></code>.
 If specified, it must not contradict <code class="docutils literal"><span class="pre">sys.analog</span></code>.</p>
 </div></blockquote>
 </td>
@@ -333,37 +331,40 @@ forth between the same formats.</p>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">apply</span></code>(x[,&nbsp;d,&nbsp;dt,&nbsp;rng,&nbsp;copy])</td>
 <td>Run process on a given input.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">evaluate</span></code>(frequencies)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">combine</span></code>(obj)</td>
+<td>Combine in series with another LinearFilter.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">evaluate</span></code>(frequencies)</td>
 <td>Evaluate the transfer function at the given frequencies.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">filt</span></code>(u[,&nbsp;dt,&nbsp;axis,&nbsp;y0,&nbsp;copy,&nbsp;filtfilt])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">filt</span></code>(u[,&nbsp;dt,&nbsp;axis,&nbsp;y0,&nbsp;copy,&nbsp;filtfilt])</td>
 <td>Filter the input using this linear system.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">filtfilt</span></code>(x,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">filtfilt</span></code>(x,&nbsp;**kwargs)</td>
 <td>Zero-phase filtering of <code class="docutils literal"><span class="pre">x</span></code> using this filter.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_rng</span></code>(rng)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_rng</span></code>(rng)</td>
 <td>Get a properly seeded independent RNG for the process step.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">impulse</span></code>(length[,&nbsp;dt])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">impulse</span></code>(length[,&nbsp;dt])</td>
 <td>Impulse response with <code class="docutils literal"><span class="pre">length</span></code> timesteps and width <code class="docutils literal"><span class="pre">dt</span></code>.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">make_step</span></code>(shape_in,&nbsp;shape_out,&nbsp;dt,&nbsp;rng[,&nbsp;…])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">make_step</span></code>(shape_in,&nbsp;shape_out,&nbsp;dt,&nbsp;rng[,&nbsp;…])</td>
 <td>Produces the function for filtering across one time-step.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ntrange</span></code>(n_steps[,&nbsp;dt])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ntrange</span></code>(n_steps[,&nbsp;dt])</td>
 <td>Create time points corresponding to a given number of steps.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">run</span></code>(t[,&nbsp;d,&nbsp;dt,&nbsp;rng])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">run</span></code>(t[,&nbsp;d,&nbsp;dt,&nbsp;rng])</td>
 <td>Run process without input for given length of time.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">run_steps</span></code>(n_steps[,&nbsp;d,&nbsp;dt,&nbsp;rng])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">run_steps</span></code>(n_steps[,&nbsp;d,&nbsp;dt,&nbsp;rng])</td>
 <td>Run process without input for given number of steps.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">trange</span></code>(t[,&nbsp;dt])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">trange</span></code>(t[,&nbsp;dt])</td>
 <td>Create time points corresponding to a given length of time.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(T[,&nbsp;Tinv])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">transform</span></code>(T[,&nbsp;Tinv])</td>
 <td>Changes basis of state-space matrices to <code class="docutils literal"><span class="pre">T</span></code>.</td>
 </tr>
 </tbody>
@@ -508,7 +509,7 @@ forth between the same formats.</p>
       &copy;2017, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

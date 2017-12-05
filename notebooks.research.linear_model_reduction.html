@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>notebooks/research/linear_model_reduction.ipynb &#8212; nengolib 0.4.0-beta documentation</title>
-    
+    <title>notebooks/research/linear_model_reduction.ipynb &#8212; nengolib 0.4.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.0-beta',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="notebooks/research/sampling_high_dimensional_vectors.ipynb" href="notebooks.research.sampling_high_dimensional_vectors.html" />
@@ -1751,7 +1749,7 @@ Populating the interactive namespace from numpy and matplotlib
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\2b4bb357567540f9840b270d90337856output_7_0.png"
+<img src="./_images/c1d37897ddcb4968aaf24c5cf9e331e2output_7_0.png"
 >
 </div>
 
@@ -1768,10 +1766,10 @@ Populating the interactive namespace from numpy and matplotlib
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="balanced-realizations">Balanced Realizations</h3>
 <p>First we need to compute some special matrices from Lyapunov theory.</p>
-<p>The &quot;controllability gramian&quot; (a.k.a. &quot;reachability gramian&quot; for linear systems) <span class="math">\(W_r\)</span> satisfies:</p>
-<p><span class="math">\[AW_r + W_rA&#39; = -BB&#39;\]</span></p>
-<p>The &quot;observability gramian&quot; <span class="math">\(W_o\)</span> satisfies:</p>
-<p><span class="math">\[A&#39;W_o + W_oA = -C&#39;C\]</span></p>
+<p>The &quot;controllability gramian&quot; (a.k.a. &quot;reachability gramian&quot; for linear systems) <span class="math inline">\(W_r\)</span> satisfies:</p>
+<p><span class="math display">\[AW_r + W_rA&#39; = -BB&#39;\]</span></p>
+<p>The &quot;observability gramian&quot; <span class="math inline">\(W_o\)</span> satisfies:</p>
+<p><span class="math display">\[A&#39;W_o + W_oA = -C&#39;C\]</span></p>
 <p>See [2] for more background information.</p>
 </div>
 </div>
@@ -1800,7 +1798,7 @@ Populating the interactive namespace from numpy and matplotlib
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The algorithm from [3] computes the lower cholesky factorizations of <span class="math">\(W_r \, ( = L_rL_r&#39;)\)</span> and <span class="math">\(W_o \, ( = L_oL_o&#39;)\)</span>, and the singular value decomposition of <span class="math">\(L_o&#39;L_r\)</span>.</p>
+<p>The algorithm from [3] computes the lower cholesky factorizations of <span class="math inline">\(W_r \, ( = L_rL_r&#39;)\)</span> and <span class="math inline">\(W_o \, ( = L_oL_o&#39;)\)</span>, and the singular value decomposition of <span class="math inline">\(L_o&#39;L_r\)</span>.</p>
 </div>
 </div>
 </div>
@@ -1834,7 +1832,7 @@ Populating the interactive namespace from numpy and matplotlib
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This gives the similarity transform [4] that maps the state to the &quot;balanced realization&quot; of the same order. This system is equivalent up to a change of basis <span class="math">\(T\)</span> in the state-space.</p>
+<p>This gives the similarity transform [4] that maps the state to the &quot;balanced realization&quot; of the same order. This system is equivalent up to a change of basis <span class="math inline">\(T\)</span> in the state-space.</p>
 </div>
 </div>
 </div>
@@ -1883,7 +1881,7 @@ Populating the interactive namespace from numpy and matplotlib
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\2b4bb357567540f9840b270d90337856output_15_0.png"
+<img src="./_images/c1d37897ddcb4968aaf24c5cf9e331e2output_15_0.png"
 >
 </div>
 
@@ -2001,7 +1999,7 @@ Populating the interactive namespace from numpy and matplotlib
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>
-c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\signal\system.py:213: UserWarning: Synapse ((A=[[ 0.98382223]], B=[[-0.00375194]], C=[[-3.7826243]], D=[[ 0.02273466]], analog=False)) has extra delay due to passthrough (https://github.com/nengo/nengo/issues/938).
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:213: UserWarning: Synapse ((A=[[ 0.98382223]], B=[[-0.00375194]], C=[[-3.7826243]], D=[[ 0.02273466]], analog=False)) has extra delay due to passthrough (https://github.com/nengo/nengo/issues/938).
   &quot;(https://github.com/nengo/nengo/issues/938).&quot; % sys)
 
 </pre>
@@ -2012,7 +2010,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\2b4bb357567540f9840b270d90337856output_22_1.png"
+<img src="./_images/c1d37897ddcb4968aaf24c5cf9e331e2output_22_1.png"
 >
 </div>
 
@@ -2022,7 +2020,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\2b4bb357567540f9840b270d90337856output_22_2.png"
+<img src="./_images/c1d37897ddcb4968aaf24c5cf9e331e2output_22_2.png"
 >
 </div>
 
@@ -2064,7 +2062,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\2b4bb357567540f9840b270d90337856output_24_0.png"
+<img src="./_images/c1d37897ddcb4968aaf24c5cf9e331e2output_24_0.png"
 >
 </div>
 
@@ -2074,7 +2072,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\2b4bb357567540f9840b270d90337856output_24_1.png"
+<img src="./_images/c1d37897ddcb4968aaf24c5cf9e331e2output_24_1.png"
 >
 </div>
 
@@ -2123,7 +2121,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
     </div>
   </div>
 
-</div><p>Download <code class="docutils literal"><span class="pre">linear_model_reduction</span></code> as an <a class="reference external" href="linear_model_reduction.ipynb">IPython notebook</a> or <a class="reference external" href="linear_model_reduction.py">Python script</a>.</p>
+</div><p>Download <code class="docutils literal"><span class="pre">linear_model_reduction</span></code> as a <a class="reference external" href="linear_model_reduction.ipynb">Jupyter notebook</a> or <a class="reference external" href="linear_model_reduction.py">Python script</a>.</p>
 </div>
 
 
@@ -2224,7 +2222,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
       &copy;2017, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

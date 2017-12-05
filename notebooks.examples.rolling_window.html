@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>notebooks/examples/rolling_window.ipynb &#8212; nengolib 0.4.0-beta documentation</title>
-    
+    <title>notebooks/examples/rolling_window.ipynb &#8212; nengolib 0.4.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.0-beta',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Research" href="notebooks.research.html" />
@@ -1611,7 +1609,7 @@ div#notebook {
 <h1 id="computing-functions-across-a-rolling-window-of-time">Computing Functions Across a Rolling Window of Time</h1>
 <p>The following notebook demonstrates use of the <code>RollingWindow</code> network, which is a wrapper around <code>LinearNetwork</code> that sets <code>sys=PadeDelay(theta, order=dimensions)</code> and uses a few extra formulas / tricks. This network allows one to compute nonlinear functions over a finite rolling window of input history. It is most accurate for low-frequency inputs and for low-order nonlinearities. See [1] for details.</p>
 <h3 id="references">References</h3>
-<p>[1] A. R. Voelker and C. Eliasmith, &quot;Improving spiking dynamical networks: Accurate delays, higher-order synapses, and time cells,&quot; 2017, Submitted. [<a href="https://github.com/arvoelke/delay2017">URL</a>]</p>
+<p>[1] A. R. Voelker and C. Eliasmith, &quot;Improving spiking dynamical networks: Accurate delays, higher-order synapses, and time cells&quot;, Neural Computation (preprint), accepted 09 2017. [<a href="https://github.com/arvoelke/delay2017">URL</a>]</p>
 </div>
 </div>
 </div>
@@ -1660,7 +1658,7 @@ Populating the interactive namespace from numpy and matplotlib
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="setting-up-the-network">1. Setting up the network</h2>
-<p>We first create a <code>RollingWindow</code> network with <span class="math">\(\theta=0.1\,s\)</span> corresponding to the size of the window in seconds, and pick some number of <code>LIFRate</code> neurons (<code>2000</code>). The order of the approximation (the dimension of the network's state ensemble) defaults to 6, since this was found to give the best fit to neural &quot;time cell&quot; data in rodents.</p>
+<p>We first create a <code>RollingWindow</code> network with <span class="math inline">\(\theta=0.1\,s\)</span> corresponding to the size of the window in seconds, and pick some number of <code>LIFRate</code> neurons (<code>2000</code>). The order of the approximation (the dimension of the network's state ensemble) defaults to 6, since this was found to give the best fit to neural &quot;time cell&quot; data in rodents.</p>
 <p>We also need to create an input stimulus. Here, we use a band-limited white noise <code>process</code> since these methods are optimal for low-frequency inputs. Next, connect this to the <code>input</code> node within the rolling window network.</p>
 <p>Additionally, we provide this <code>process</code> to the network's constructor to optimize its evaluation points and encoders (during the build phase) for this particular process. Note that we do <em>not</em> fix the seed of the process in order to prevent overfitting, but we do make the process long enough (<code>10</code> seconds) for it to generalize. This step is optional, but can dramatically improve the performance. If <code>process=None</code> the input should ideally be modelled, or the <code>eval_points</code>, (orthogonal) <code>encoders</code>, and <code>radii</code> should be manually specified.</p>
 </div>
@@ -1694,7 +1692,7 @@ Populating the interactive namespace from numpy and matplotlib
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>
-c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\scipy\signal\filter_design.py:1092: BadCoefficients: Badly conditioned filter coefficients (numerator): the results may be meaningless
+/home/arvoelke/py3env/lib/python3.5/site-packages/scipy/signal/filter_design.py:1549: BadCoefficients: Badly conditioned filter coefficients (numerator): the results may be meaningless
   &quot;results may be meaningless&quot;, BadCoefficients)
 
 </pre>
@@ -1712,12 +1710,12 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\scipy\signa
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="decoding-functions-from-the-window">2. Decoding functions from the window</h2>
 <p>Next we use the <code>add_output(...)</code> method to decode functions from the state ensemble. This method takes a <code>t</code> argument specifying the relative time-points of interest, and a <code>function</code> argument that specifies the ideal function to be computed along this window of points. The method returns a node which approximates this function from the window of input history.</p>
-<p>The <code>t</code> parameter can either be a single float, or an array of floats in the range <span class="math">\([0, 1]\)</span>. The size of <code>t</code> corresponds to the length of the window array <span class="math">\({\bf w}\)</span> passed to your function, and each element of the <code>t</code> array corresponds to the normalized delay in time for its respective point from the window. The <code>function</code> parameter must then accept a parameter <code>w</code> that is sized according to <code>t</code>, and should output the desired function from the given window <code>w</code>. Decoders will be optimized to approximate this function from the state of the rolling window network.</p>
+<p>The <code>t</code> parameter can either be a single float, or an array of floats in the range <span class="math inline">\([0, 1]\)</span>. The size of <code>t</code> corresponds to the length of the window array <span class="math inline">\({\bf w}\)</span> passed to your function, and each element of the <code>t</code> array corresponds to the normalized delay in time for its respective point from the window. The <code>function</code> parameter must then accept a parameter <code>w</code> that is sized according to <code>t</code>, and should output the desired function from the given window <code>w</code>. Decoders will be optimized to approximate this function from the state of the rolling window network.</p>
 <p>For example:</p>
 <ul>
-<li><code>add_output(t=0, function=lambda w: w)</code> approximates a communication channel <span class="math">\(f(x(t)) = x(t)\)</span> (<em>Note</em>: this effectively undoes the filtering from the synapse!).</li>
-<li><code>add_output(t=1, function=lambda w: w**2)</code> approximates the function <span class="math">\(f(x(t)) = x(t-\theta)^2\)</span>.</li>
-<li><code>add_output(t=[.5, 1], function=lambda w: w[1] - w[0])</code> approximates the function <span class="math">\(f(x(t)) = x(t-\theta) - x(t-\theta/2)\)</span>.</li>
+<li><code>add_output(t=0, function=lambda w: w)</code> approximates a communication channel <span class="math inline">\(f(x(t)) = x(t)\)</span> (<em>Note</em>: this effectively undoes the filtering from the synapse!).</li>
+<li><code>add_output(t=1, function=lambda w: w**2)</code> approximates the function <span class="math inline">\(f(x(t)) = x(t-\theta)^2\)</span>.</li>
+<li><code>add_output(t=[.5, 1], function=lambda w: w[1] - w[0])</code> approximates the function <span class="math inline">\(f(x(t)) = x(t-\theta) - x(t-\theta/2)\)</span>.</li>
 </ul>
 <p>By default, <code>t</code> will be <code>1000</code> points spaced evenly between <code>0</code> and <code>1</code>. For example:</p>
 <ul>
@@ -1727,7 +1725,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\scipy\signa
 <li><code>add_output(function=lambda w: np.argmax(w)/float(len(w)))</code> approximates how long ago the largest peak occured.</li>
 </ul>
 <p>The function can also return multiple dimensions.</p>
-<p>Here we compute two functions from the same state: (1) a delay of <span class="math">\(\theta\)</span> seconds, and (2) the first four <em>moments</em> of the window.</p>
+<p>Here we compute two functions from the same state: (1) a delay of <span class="math inline">\(\theta\)</span> seconds, and (2) the first four <em>moments</em> of the window.</p>
 </div>
 </div>
 </div>
@@ -1815,8 +1813,8 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\scipy\signa
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-Building finished in 0:00:12.                                                   
-Simulating finished in 0:00:01.                                                 
+Building finished in 0:00:06.                                                                                                                                                                 
+Simulating finished in 0:00:01.                                                                                                                                                               
 
 </pre>
 </div>
@@ -1825,7 +1823,7 @@ Simulating finished in 0:00:01.
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>
-c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\signal\system.py:717: UserWarning: Filtering with non-SISO systems is an experimental feature that may not behave as expected.
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:717: UserWarning: Filtering with non-SISO systems is an experimental feature that may not behave as expected.
   &quot;expected.&quot;, UserWarning)
 
 </pre>
@@ -1902,7 +1900,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\f773e305b69a40b99a65817533f6f9a6output_12_0.png"
+<img src="./_images/37ee2c1c8f0f4b1ba4a0c12f5a283f70output_12_0.png"
 >
 </div>
 
@@ -1912,7 +1910,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\f773e305b69a40b99a65817533f6f9a6output_12_1.png"
+<img src="./_images/37ee2c1c8f0f4b1ba4a0c12f5a283f70output_12_1.png"
 >
 </div>
 
@@ -1947,7 +1945,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\f773e305b69a40b99a65817533f6f9a6output_13_0.png"
+<img src="./_images/37ee2c1c8f0f4b1ba4a0c12f5a283f70output_13_0.png"
 >
 </div>
 
@@ -1963,7 +1961,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="understanding-the-network">Understanding the network</h2>
-<p>This network essentially uses the <code>PadeDelay</code> system of order <span class="math">\(d\)</span> to compress the input into a <span class="math">\(d\)</span>-dimensional state <span class="math">\({\bf x}\)</span>. This state vector represents a rolling window of input history by a linear combination of <span class="math">\(d\)</span> basis functions:</p>
+<p>This network essentially uses the <code>PadeDelay</code> system of order <span class="math inline">\(d\)</span> to compress the input into a <span class="math inline">\(d\)</span>-dimensional state <span class="math inline">\({\bf x}\)</span>. This state vector represents a rolling window of input history by a linear combination of <span class="math inline">\(d\)</span> basis functions:</p>
 </div>
 </div>
 </div>
@@ -1993,7 +1991,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\f773e305b69a40b99a65817533f6f9a6output_15_0.png"
+<img src="./_images/37ee2c1c8f0f4b1ba4a0c12f5a283f70output_15_0.png"
 >
 </div>
 
@@ -2039,7 +2037,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\f773e305b69a40b99a65817533f6f9a6output_17_0.png"
+<img src="./_images/37ee2c1c8f0f4b1ba4a0c12f5a283f70output_17_0.png"
 >
 </div>
 
@@ -2055,11 +2053,11 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Since the encoders of the network are axis-aligned (to improve accuracy of the linear system), this means that the function is able to accurately decode functions of the form:</p>
-<p><span class="math">\[f \left( \sum_{i=1}^d x_i {\bf u}_i \right) = \sum_{i=1}^{d} f_i ( x_i )\]</span></p>
-<p>where <span class="math">\({\bf u}_i\)</span> is the <span class="math">\(i^\texttt{th}\)</span> basis function, <span class="math">\(x_i\)</span> is the corresponding weight given by the state vector <span class="math">\({\bf x}\)</span>, and each <span class="math">\(f_i\)</span> is some nonlinear function supported by the neural tuning curves (typically a low-order polynomial).</p>
-<p>We now write <span class="math">\({\bf w} = B {\bf x} = \sum_{i=1}^d x_i {\bf u}_i\)</span> where <span class="math">\(B = \left[ {\bf u}_1 \ldots {\bf u}_d \right]\)</span> is our basis matrix, and <span class="math">\({\bf w}\)</span> is the window of history. Then the Moore-Penrose pseudoinverse <span class="math">\(B^+ = (B^T B)^{-1} B^T\)</span> gives us the relationship <span class="math">\({\bf x} = B^+ {\bf w}\)</span>, where <span class="math">\(B^+ = \left[ {\bf v}_1 \ldots {\bf v}_d \right]^T\)</span> and <span class="math">\({\bf v}_i \)</span> can be called the <span class="math">\(i^\texttt{th}\)</span> &quot;inverse basis function&quot;. Finally, we can rewrite the computed function <span class="math">\(f\)</span> with respect to the window <span class="math">\({\bf w}\)</span> as:</p>
-<p><span class="math">\[f ( {\bf w} ) = \sum_{i=1}^{d} f_i ( {\bf v}_i  \cdot {\bf w} )\]</span></p>
-<p>In other words, the functions that we can compute most accurately will be some linear combination of low-order nonlinearities applied to each <span class="math">\({\bf v}_i  \cdot {\bf w}\)</span>. Below we visualize each of these inverse basis function:</p>
+<p><span class="math display">\[f \left( \sum_{i=1}^d x_i {\bf u}_i \right) = \sum_{i=1}^{d} f_i ( x_i )\]</span></p>
+<p>where <span class="math inline">\({\bf u}_i\)</span> is the <span class="math inline">\(i^\texttt{th}\)</span> basis function, <span class="math inline">\(x_i\)</span> is the corresponding weight given by the state vector <span class="math inline">\({\bf x}\)</span>, and each <span class="math inline">\(f_i\)</span> is some nonlinear function supported by the neural tuning curves (typically a low-order polynomial).</p>
+<p>We now write <span class="math inline">\({\bf w} = B {\bf x} = \sum_{i=1}^d x_i {\bf u}_i\)</span> where <span class="math inline">\(B = \left[ {\bf u}_1 \ldots {\bf u}_d \right]\)</span> is our basis matrix, and <span class="math inline">\({\bf w}\)</span> is the window of history. Then the Moore-Penrose pseudoinverse <span class="math inline">\(B^+ = (B^T B)^{-1} B^T\)</span> gives us the relationship <span class="math inline">\({\bf x} = B^+ {\bf w}\)</span>, where <span class="math inline">\(B^+ = \left[ {\bf v}_1 \ldots {\bf v}_d \right]^T\)</span> and ${}_i $ can be called the <span class="math inline">\(i^\texttt{th}\)</span> &quot;inverse basis function&quot;. Finally, we can rewrite the computed function <span class="math inline">\(f\)</span> with respect to the window <span class="math inline">\({\bf w}\)</span> as:</p>
+<p><span class="math display">\[f ( {\bf w} ) = \sum_{i=1}^{d} f_i ( {\bf v}_i  \cdot {\bf w} )\]</span></p>
+<p>In other words, the functions that we can compute most accurately will be some linear combination of low-order nonlinearities applied to each <span class="math inline">\({\bf v}_i \cdot {\bf w}\)</span>. Below we visualize each of these inverse basis function:</p>
 </div>
 </div>
 </div>
@@ -2087,7 +2085,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 
 
 <div class="output_png output_subarea ">
-<img src=".\_images\f773e305b69a40b99a65817533f6f9a6output_19_0.png"
+<img src="./_images/37ee2c1c8f0f4b1ba4a0c12f5a283f70output_19_0.png"
 >
 </div>
 
@@ -2137,7 +2135,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
 <li>Pass <code>solver=nengo.solvers.LstsqL2(reg=1e-X)</code> with different X ranging between <code>1</code> and <code>4</code></li>
 <li>Pass this to either <code>add_output</code> (to apply only to the decoded function), or to the constructor (to apply to both the recurrent function and the decoded function)</li>
 </ul>
-<p>Otherwise, if your function is not expressable as <span class="math">\(\sum_{i=1}^{d} f_i ( {\bf v}_i  \cdot {\bf w} )\)</span> for the above <span class="math">\({\bf v}_i\)</span> and for low-order <span class="math">\(f_i\)</span>, try:</p>
+<p>Otherwise, if your function is not expressable as <span class="math inline">\(\sum_{i=1}^{d} f_i ( {\bf v}_i \cdot {\bf w} )\)</span> for the above <span class="math inline">\({\bf v}_i\)</span> and for low-order <span class="math inline">\(f_i\)</span>, try:</p>
 <ol style="list-style-type: decimal">
 <li><p>Pass a different state-space realization by providing a different <code>realizer</code> object to the <code>RollingWindow</code>. See <code>LinearNetwork</code> for details on realizers. This might rotate the state-space into the form of the above (analogous to how the nonlinear <code>Product</code> network is just a diagonal rotation of the linear <code>EnsembleArray</code>).</p></li>
 <li><p>Create a second ensemble with uniformly distributed encoders (or some other non-orthogonal distribution) and communicate the state variable to that ensemble. Then decode the desired function from that second ensemble using the above basis matrix to define the function with respect to <code>x</code>.</p></li>
@@ -2158,7 +2156,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
     </div>
   </div>
 
-</div><p>Download <code class="docutils literal"><span class="pre">rolling_window</span></code> as an <a class="reference external" href="rolling_window.ipynb">IPython notebook</a> or <a class="reference external" href="rolling_window.py">Python script</a>.</p>
+</div><p>Download <code class="docutils literal"><span class="pre">rolling_window</span></code> as a <a class="reference external" href="rolling_window.ipynb">Jupyter notebook</a> or <a class="reference external" href="rolling_window.py">Python script</a>.</p>
 </div>
 
 
@@ -2259,7 +2257,7 @@ c:\users\aaron\appdata\local\enthought\canopy\user\lib\site-packages\nengolib\si
       &copy;2017, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

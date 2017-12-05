@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nengolib.PerfectLIF &#8212; nengolib 0.4.0-beta documentation</title>
-    
+    <title>nengolib.PerfectLIF &#8212; nengolib 0.4.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.0-beta',
+        VERSION:     '0.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -46,9 +44,9 @@
 <h1>nengolib.PerfectLIF<a class="headerlink" href="#nengolib-perfectlif" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.PerfectLIF">
-<em class="property">class </em><code class="descclassname">nengolib.</code><code class="descname">PerfectLIF</code><span class="sig-paren">(</span><em>tau_rc=0.02</em>, <em>tau_ref=0.002</em>, <em>min_voltage=0</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.0-beta/nengolib/neurons.py#L11-L65"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.PerfectLIF" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.</code><code class="descname">PerfectLIF</code><span class="sig-paren">(</span><em>tau_rc=0.02</em>, <em>tau_ref=0.002</em>, <em>min_voltage=0</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.1/nengolib/neurons.py#L11-L65"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.PerfectLIF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Spiking version of the leaky integrate-and-fire (LIF) neuron model.</p>
-<p>This model spikes with the same rate as <a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.LIFRate" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIFRate</span></code></a> assuming
+<p>This model spikes with the same rate as <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LIFRate" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIFRate</span></code></a> assuming
 zero-order hold (ZOH). <a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -56,11 +54,11 @@ zero-order hold (ZOH). <a class="footnote-reference" href="#id2" id="id1">[1]</a
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*args</strong> : <code class="docutils literal"><span class="pre">list</span></code>, optional</p>
 <blockquote>
-<div><p>Additional arguments passed to <a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.LIF" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIF</span></code></a>.</p>
+<div><p>Additional arguments passed to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LIF" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIF</span></code></a>.</p>
 </div></blockquote>
 <p><strong>**kwargs</strong> : <code class="docutils literal"><span class="pre">dictionary</span></code>, optional</p>
 <blockquote class="last">
-<div><p>Additional keyword arguments passed to <a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.LIF" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIF</span></code></a>.</p>
+<div><p>Additional keyword arguments passed to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LIF" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIF</span></code></a>.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -68,7 +66,7 @@ zero-order hold (ZOH). <a class="footnote-reference" href="#id2" id="id1">[1]</a
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.LIF" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIF</span></code></a>, <a class="reference external" href="https://pythonhosted.org/nengo/frontend_api.html#nengo.neurons.NeuronType" title="(in Nengo v2.4)"><code class="xref py py-class docutils literal"><span class="pre">nengo.neurons.NeuronType</span></code></a></p>
+<p class="last"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LIF" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LIF</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.neurons.NeuronType" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.neurons.NeuronType</span></code></a></p>
 </div>
 <p class="rubric">Notes</p>
 <p>This is Nengo’s default neuron model since <code class="docutils literal"><span class="pre">nengo&gt;=2.1.1</span></code>.</p>
@@ -86,8 +84,14 @@ zero-order hold (ZOH). <a class="footnote-reference" href="#id2" id="id1">[1]</a
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">gain_bias</span></code>(max_rates,&nbsp;intercepts)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">current</span></code>(x,&nbsp;gain,&nbsp;bias)</td>
+<td>Compute current injected in each neuron given input, gain and bias.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">gain_bias</span></code>(max_rates,&nbsp;intercepts)</td>
 <td>Analytically determine gain, bias.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">max_rates_intercepts</span></code>(gain,&nbsp;bias)</td>
+<td>Compute the inverse of gain_bias.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">rates</span></code>(x,&nbsp;gain,&nbsp;bias)</td>
 <td>Always use LIFRate to determine rates.</td>
@@ -189,7 +193,7 @@ zero-order hold (ZOH). <a class="footnote-reference" href="#id2" id="id1">[1]</a
       &copy;2017, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
