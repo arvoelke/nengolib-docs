@@ -7,6 +7,7 @@
 
 # In[ ]:
 
+
 import pylab
 try:
     import seaborn as sns  # optional; prettier graphs
@@ -19,6 +20,7 @@ import nengolib
 
 
 # In[ ]:
+
 
 def go(sys=nengolib.synapses.Bandpass(20, 5), T=1.0, dt=0.001, n_neurons=200,
        synapse=0.02, seed=0, discretized=True, neuron_type=nengolib.PerfectLIF()):
@@ -46,6 +48,7 @@ t, ideal, expected = go(neuron_type=nengo.Direct())
 
 # In[ ]:
 
+
 pylab.figure(figsize=(16, 6))
 pylab.title("Comparison of Synapse Mapping Methods on a Bandpass Filter")
 pylab.plot(t, disc_actual, linewidth=2, label="Discretized")
@@ -54,9 +57,4 @@ pylab.plot(t, ideal, linestyle='--', linewidth=2, label="Target")
 pylab.legend()
 pylab.xlabel("Time (s)")
 pylab.show()
-
-
-# In[ ]:
-
-
 

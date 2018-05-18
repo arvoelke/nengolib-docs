@@ -13,6 +13,7 @@
 
 # In[ ]:
 
+
 import pylab
 try:
     import seaborn as sns  # optional; prettier graphs
@@ -38,9 +39,4 @@ def plot_points(module, n_neurons=100):
 
 plot_points(nengo)
 plot_points(nengolib)
-
-
-# In[ ]:
-
-
 

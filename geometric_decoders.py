@@ -7,6 +7,7 @@
 
 # In[ ]:
 
+
 import numpy as np
 import scipy.linalg
 import pylab
@@ -28,6 +29,7 @@ from nengolib.compat import get_activities
 
 # In[ ]:
 
+
 identity = np.poly1d([1, 0])  # f(x) = 1x + 0
 square = np.poly1d([1, 0, 0])  # f(x) = 1x^2 + 0x + 0
 quartic = np.poly1d([1, -1, -1, 0, 0])
@@ -39,6 +41,7 @@ function = identity
 # (Limited to these three for now.)
 
 # In[ ]:
+
 
 #neuron_type = RectifiedLinear()
 #neuron_type = Sigmoid()
@@ -59,6 +62,7 @@ neuron_type = LIFRate()
 
 # In[ ]:
 
+
 n_neurons = 10
 n_eval_points = 50
 solver = nengo.solvers.LstsqL2(reg=0.01)
@@ -66,6 +70,7 @@ tuning_seed = None
 
 
 # In[ ]:
+
 
 with nengo.Network() as model:
     x = nengo.Ensemble(
@@ -81,6 +86,7 @@ with nengo.Simulator(model) as sim: pass
 
 # In[ ]:
 
+
 eval_points = sim.data[x].eval_points
 e = sim.data[x].encoders.squeeze()
 gain = sim.data[x].gain
@@ -95,9 +101,10 @@ if neuron_type == nengo.neurons.Sigmoid():
 d_alg = sim.data[conn].weights.T
 
 
-### Refined Decoders
+# ## Refined Decoders
 
 # In[ ]:
+
 
 boundaries = e * intercepts
 on, off = [], []
@@ -109,6 +116,7 @@ for i in range(n_neurons):
 # Some useful helper functions:
 
 # In[ ]:
+
 
 def dint(p, x1, x2):
     """Computes `int_{x1}^{x2} p(x) dx` where `p` is a polynomial."""
@@ -143,6 +151,7 @@ def segments(x1, x2, max_segments, min_width=0.05):
 
 # In[ ]:
 
+
 if neuron_type == nengo.neurons.RectifiedLinear():
     n_segments = 1
     def curve(i, _):
@@ -175,6 +184,7 @@ else:
 
 # In[ ]:
 
+
 G = np.zeros((n_neurons, n_neurons))
 U = np.zeros(n_neurons)
 
@@ -191,6 +201,7 @@ assert np.allclose(G.T, G)
 # Invert the gamma matrix and multiply by upsilon, as we normally do:
 
 # In[ ]:
+
 
 # d_geo = np.linalg.inv(G).dot(U)
 
@@ -219,6 +230,7 @@ d_geo = scipy.linalg.cho_solve(factor, U)
 
 # In[ ]:
 
+
 i = 1
 
 x_test = np.linspace(-1, 1, 100000)
@@ -234,9 +246,10 @@ for j, (x1, xm, x2) in enumerate(segments(on[i], off[i], n_segments)):
 pylab.show()
 
 
-### Results
+# ## Results
 
 # In[ ]:
+
 
 vertices = np.concatenate(([-1], np.sort(boundaries), [1]))
 
@@ -257,9 +270,4 @@ for x_test, title in ((np.sort(eval_points.squeeze()), "Training Data"),
                   edgecolors=edgecolors, alpha=0.8, label="Vertices")
     pylab.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     pylab.show()
-
-
-# In[ ]:
-
-
 

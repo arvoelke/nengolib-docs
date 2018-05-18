@@ -1,9 +1,10 @@
 
 # coding: utf-8
 
-## Linear System Model Reduction
+# # Linear System Model Reduction
 
 # In[ ]:
+
 
 import numpy as np
 import pylab
@@ -25,6 +26,7 @@ from nengolib import Lowpass
 
 # In[ ]:
 
+
 isys = Lowpass(0.05)
 noise = 0.5*Lowpass(0.2) + 0.25*Lowpass(0.007) - 0.25*Lowpass(0.003)
 p = 0.8
@@ -37,6 +39,7 @@ sys = p*isys + (1-p)*noise
 
 # In[ ]:
 
+
 assert nengolib.signal.pole_zero_cancel(isys/isys) == 1  # demonstration
 
 minsys = nengolib.signal.pole_zero_cancel(sys)
@@ -46,6 +49,7 @@ assert minsys == sys
 # As a crude way of getting around this problem, we can raise the tolerance for detecting similar poles/zeros until repeats are found. By setting the tolerance appropriately for this example, we can reduce the model to a first-order filter, with a surprisingly similar response. However, as we will soon see further down, we can do *much* better.
 
 # In[ ]:
+
 
 minsys_crude = nengolib.signal.pole_zero_cancel(sys, tol=1000.0)
 assert minsys_crude.order_den == 1
@@ -82,6 +86,7 @@ test_sys(white, minsys_crude)
 
 # In[ ]:
 
+
 A, B, C, D = sys.ss
 
 R = nengolib.signal.control_gram(sys)
@@ -94,6 +99,7 @@ assert np.allclose(np.dot(A.T, O) + np.dot(O, A), -np.dot(C.T, C))
 # The algorithm from [3] computes the lower cholesky factorizations of $W_r \, ( = L_rL_r')$ and $W_o \, ( = L_oL_o')$, and the singular value decomposition of $L_o'L_r$.
 
 # In[ ]:
+
 
 LR = cholesky(R, lower=True)
 assert np.allclose(R, np.dot(LR, LR.T))
@@ -114,6 +120,7 @@ assert np.allclose(np.dot(T, Tinv), np.eye(len(T)))
 
 # In[ ]:
 
+
 TA, TB, TC, TD = sys.transform(T, Tinv=Tinv).ss
 assert sys == (TA, TB, TC, TD)
 
@@ -121,6 +128,7 @@ assert sys == (TA, TB, TC, TD)
 # And the reason we do this is because the singular values reflect a measure of importance for each of the states in the new realization. The order should then be reduced by removing the least important states.
 
 # In[ ]:
+
 
 pylab.figure()
 pylab.plot(S)
@@ -130,6 +138,7 @@ pylab.show()
 # The short-cut to do the above procedure in `nengolib` is the function `balanced_transformation` followed by `sys.transform`:
 
 # In[ ]:
+
 
 T, Tinv, S_check = nengolib.signal.balanced_transformation(sys)
 sys_check = sys.transform(T, Tinv)
@@ -144,6 +153,7 @@ assert np.allclose(S, S_check)
 # Lastly, note that this diagonalizes the two gramiam matrices:
 
 # In[ ]:
+
 
 P = nengolib.signal.control_gram((TA, TB, TC, TD))
 Q = nengolib.signal.observe_gram((TA, TB, TC, TD))
@@ -165,11 +175,13 @@ assert np.allclose(Q[offdiag], 0)
 
 # In[ ]:
 
+
 redsys = nengolib.signal.modred((TA, TB, TC, TD), 0, method='dc')
 assert redsys.order_den == 1
 
 
 # In[ ]:
+
 
 step = np.zeros(1000)
 step[50:] = 1.0
@@ -180,6 +192,7 @@ test_sys(white, redsys)
 # However, this doesn't work very well for matching the response of the system given white-noise input. If we care less about the steady-state response, then it is much more accurate to simply delete the less important states.
 
 # In[ ]:
+
 
 delsys = nengolib.signal.modred((TA, TB, TC, TD), 0, method='del')
 assert delsys.order_den == 1
@@ -200,8 +213,3 @@ test_sys(white, delsys)
 # [4] http://www.mathworks.com/help/control/ref/balreal.html
 # 
 # [5] http://www.mathworks.com/help/control/ref/modred.html
-
-# In[ ]:
-
-
-

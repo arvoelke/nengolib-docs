@@ -15,6 +15,7 @@
 
 # In[ ]:
 
+
 import numpy as np
 
 import nengo
@@ -37,6 +38,7 @@ encoders = sphere.sample(n_neurons, dims_in)
 # When `elementwise = False`, each input dimension is effectively broadcast to all of the neurons with a different synapse per neuron. We also note that since we are connecting directly to the neurons, we must embed the encoders in the transformation.
 
 # In[ ]:
+
 
 hs = HeteroSynapse(synapses, dt)
 
@@ -89,6 +91,7 @@ assert np.allclose(sim.data[p_act], sim.data[p_exp])
 
 # In[ ]:
 
+
 n_neurons = 20
 dt = 0.0005
 T = 0.1
@@ -102,6 +105,7 @@ encoders = sphere.sample(n_neurons, dims_in)
 # Similar to the last example, we create two ensembles, one to obtain the expected result for verification, and another to be computed using the `HeteroSynapse` node.
 
 # In[ ]:
+
 
 with nengolib.Network() as model:
     # Input stimulus
@@ -145,6 +149,7 @@ assert np.allclose(sim.data[p_act_elemwise], sim.data[p_exp])
 
 # In[ ]:
 
+
 n_neurons = 20
 dt = 0.0005
 T = 0.1
@@ -158,6 +163,7 @@ encoders = sphere.sample(n_neurons, dims_out)
 # We also demonstrate that this can be achieved in two different ways. The first is with `elementwise=False`, by a broadcasting similar to the first example. The second is with `elementwise=True`, by replicating each synapse to align with each dimension, and then proceeding similar to the second example.
 
 # In[ ]:
+
 
 with nengolib.Network() as model:
     # Input stimulus
@@ -202,9 +208,4 @@ sim.run(T)
 
 assert np.allclose(sim.data[p_act_dot], sim.data[p_exp])
 assert np.allclose(sim.data[p_act_elemwise], sim.data[p_exp])
-
-
-# In[ ]:
-
-
 

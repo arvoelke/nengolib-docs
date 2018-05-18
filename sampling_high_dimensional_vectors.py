@@ -6,6 +6,7 @@
 
 # In[ ]:
 
+
 import numpy as np
 import pylab
 try:
@@ -29,6 +30,7 @@ scatter_sphere = ScatteredHypersphere(surface=True)
 
 # In[ ]:
 
+
 def plot_dist(dist, title, num_samples=500):
     pylab.figure(figsize=(4, 4))
     pylab.title(title)
@@ -44,6 +46,7 @@ plot_dist(uniform_ball, 'Uniform 2-Ball')
 
 # In[ ]:
 
+
 plot_dist(scatter_ball, 'Scattered 2-Ball')
 
 
@@ -58,6 +61,7 @@ plot_dist(scatter_ball, 'Scattered 2-Ball')
 # In fact, problems 1 and 2 are basically equivalent. When sampling encoders, we are effectively choosing which vectors should have the least error (by principle (1) they fire the most, and then by principle (2) they contribute the most to the estimate). The only 'real' difference is that encoders are on the $D$-sphere, while evaluation points are on the $D$-ball. These two problems can be solved efficiently by the **number-theoretic method (NTM)**, also known as the **quasi Monte Carlo method**, to generate scattered points. These solutions can then be used to sample encoders and evaluation points, to improve the representation of a population and its decoders.
 
 # In[ ]:
+
 
 def do_trial(seed, encoders, eval_points, n_eval_points, test_points, n_test_points,
              n_neurons, dims):
@@ -199,6 +203,7 @@ do_experiment(n_neurons=100, dims=16)
 
 # In[ ]:
 
+
 def plot_3d(xyz, title, s=10, alpha=0.7):
     from mpl_toolkits.mplot3d import Axes3D
     fig = pylab.figure(figsize=(7, 7))
@@ -230,6 +235,7 @@ plot_3d(normalize(sample - 0.5), 'Normalized Sobol 3-Cube')
 
 # In[ ]:
 
+
 plot_3d(scatter_sphere.sample(n_samples, 3), 'Scattered 3-Sphere')
 
 
@@ -253,6 +259,7 @@ plot_3d(scatter_sphere.sample(n_samples, 3), 'Scattered 3-Sphere')
 
 # In[ ]:
 
+
 plot_3d(scatter_ball.sample(10000, 3), 'Scattered 3-Ball', 1)
 plot_3d(uniform_ball.sample(10000, 3), 'Uniform 3-Ball', 1)
 
@@ -262,8 +269,3 @@ plot_3d(uniform_ball.sample(10000, 3), 'Uniform 3-Ball', 1)
 # Many thanks to Michael Hopkins from the SpiNNaker group in Manchester for providing me with all of the relevant background and reading material.
 # 
 # [1] K.-T. Fang and Y. Wang, _Number-Theoretic Methods in Statistics_. Chapman & Hall, 1994.
-
-# In[ ]:
-
-
-

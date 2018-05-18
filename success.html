@@ -5,13 +5,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Success stories &#8212; nengolib 0.4.1 documentation</title>
+    
+    <title>Success stories &#8212; nengolib 0.4.2 documentation</title>
+    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,7 +24,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -46,9 +49,20 @@
 <p>Nengolib has been used successfully for several peer-reviewed publications and
 self-published projects. We highlight these applications below:</p>
 <ul>
+<li><p class="first">Aaron R. Voelker and Chris Eliasmith, “Improving spiking dynamical networks:
+Accurate delays, higher-order synapses, and time cells”, Neural Computation,
+30(3):569-609, 03 2018.</p>
+<blockquote>
+<div><p>[<a class="reference external" href="http://compneuro.uwaterloo.ca/files/publications/voelker.2018.pdf">PDF</a>]
+[<a class="reference external" href="https://github.com/arvoelke/delay2017">Code</a>]
+Used <a class="reference internal" href="nengolib.networks.RollingWindow.html#nengolib.networks.RollingWindow" title="nengolib.networks.RollingWindow"><code class="xref py py-class docutils literal"><span class="pre">RollingWindow</span></code></a>, <a class="reference internal" href="nengolib.synapses.PadeDelay.html#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a>,
+and <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a> to model time cell activity in rodents and
+improve the accuracy of dynamical systems in spiking neural networks.</p>
+</div></blockquote>
+</li>
 <li><p class="first">Aaron R. Voelker and Chris Eliasmith, “Methods for applying the Neural
 Engineering Framework to neuromorphic hardware”, arXiv preprint
-arXiv:1708.08133, 2017.</p>
+arXiv:1708.08133, 08 2017.</p>
 <blockquote>
 <div><p>[<a class="reference external" href="https://arxiv.org/abs/1708.08133">Paper</a>]
 Provides a theoretical overview of the math leveraged by <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a>
@@ -73,17 +87,6 @@ Used <a class="reference internal" href="nengolib.synapses.HeteroSynapse.html#ne
 <a class="reference internal" href="nengolib.stats.ScatteredHypersphere.html#nengolib.stats.ball" title="nengolib.stats.ball"><code class="xref py py-attr docutils literal"><span class="pre">ball</span></code></a>, <a class="reference internal" href="nengolib.stats.ScatteredHypersphere.html#nengolib.stats.sphere" title="nengolib.stats.sphere"><code class="xref py py-attr docutils literal"><span class="pre">sphere</span></code></a>, and the theory behind
 <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a> to improve the accuracy of nonlinear dynamics on
 a mixed-analog-digital neuromorphic architecture.</p>
-</div></blockquote>
-</li>
-<li><p class="first">Aaron R. Voelker and Chris Eliasmith, “Improving spiking dynamical networks:
-Accurate delays, higher-order synapses, and time cells”, Neural Computation
-(preprint), accepted 09 2017.</p>
-<blockquote>
-<div><p>[<a class="reference external" href="https://github.com/arvoelke/delay2017/raw/master/NECO-04-17-2838-Source.pdf">PDF</a>]
-[<a class="reference external" href="https://github.com/arvoelke/delay2017">Code</a>]
-Used <a class="reference internal" href="nengolib.networks.RollingWindow.html#nengolib.networks.RollingWindow" title="nengolib.networks.RollingWindow"><code class="xref py py-class docutils literal"><span class="pre">RollingWindow</span></code></a>, <a class="reference internal" href="nengolib.synapses.PadeDelay.html#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a>,
-and <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a> to model time cell activity in rodents and
-improve the accuracy of dynamical systems in spiking neural networks.</p>
 </div></blockquote>
 </li>
 <li><p class="first">James Knight, Aaron R. Voelker, Andrew Mundy, Chris Eliasmith, and Steve
@@ -197,10 +200,10 @@ of surface textures.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017, Aaron Voelker.
+      &copy;2017-2018, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

@@ -11,6 +11,7 @@
 
 # In[ ]:
 
+
 import pylab
 try:
     import seaborn as sns  # optional; prettier graphs
@@ -32,6 +33,7 @@ import nengolib
 # Additionally, we provide this `process` to the network's constructor to optimize its evaluation points and encoders (during the build phase) for this particular process. Note that we do _not_ fix the seed of the process in order to prevent overfitting, but we do make the process long enough (`10` seconds) for it to generalize. This step is optional, but can dramatically improve the performance. If `process=None` the input should ideally be modelled, or the `eval_points`, (orthogonal) `encoders`, and `radii` should be manually specified.
 
 # In[ ]:
+
 
 process = nengo.processes.WhiteSignal(10.0, high=15, y0=0)
 neuron_type = nengo.LIFRate()  # try out LIF() or Direct()
@@ -70,6 +72,7 @@ with nengolib.Network() as model:
 
 # In[ ]:
 
+
 with model:
     delay = rw.output  # equivalent to: rw.add_output(t=1)
 
@@ -80,9 +83,10 @@ with model:
     moments = rw.add_output(function=compute_moments)
 
 
-### 3. Set up probes
+# ## 3. Set up probes
 
 # In[ ]:
+
 
 tau_probe = 0.01  # to filter the spikes
 
@@ -98,17 +102,19 @@ with model:
     p_x = nengo.Probe(rw.state, synapse=tau_probe)  # for later analysis
 
 
-### 4. Simulate the network
+# ## 4. Simulate the network
 
 # In[ ]:
+
 
 with nengo.Simulator(model, seed=0) as sim:
     sim.run(1.0)
 
 
-### 5. Plot results
+# ## 5. Plot results
 
 # In[ ]:
+
 
 # Compute the ideal for comparison
 ideal = np.zeros_like(sim.data[p_moments])
@@ -121,6 +127,7 @@ ideal = nengolib.Lowpass(tau_probe).filt(ideal, dt=rw.dt, axis=0)
 
 
 # In[ ]:
+
 
 pylab.figure(figsize=(14, 4))
 pylab.title("Decoding a Delay")
@@ -143,6 +150,7 @@ pylab.show()
 
 # In[ ]:
 
+
 pylab.figure(figsize=(14, 6))
 pylab.title("State Space")
 pylab.plot(sim.trange(), sim.data[p_x])
@@ -157,6 +165,7 @@ pylab.show()
 
 # In[ ]:
 
+
 B_canonical = rw.canonical_basis()
 
 pylab.figure()
@@ -169,6 +178,7 @@ pylab.show()
 # But since the state-space is transformed (by default it is a "balanced realization"), we have the following change of basis (by the linearly independent transformation `rw.realizer_result.T`):
 
 # In[ ]:
+
 
 B = rw.basis()
 assert np.allclose(B_canonical.dot(rw.realizer_result.T), B)
@@ -193,6 +203,7 @@ pylab.show()
 # In other words, the functions that we can compute most accurately will be some linear combination of low-order nonlinearities applied to each ${\bf v}_i  \cdot {\bf w}$. Below we visualize each of these inverse basis function:
 
 # In[ ]:
+
 
 pylab.figure()
 pylab.title("Inverse Basis Functions")

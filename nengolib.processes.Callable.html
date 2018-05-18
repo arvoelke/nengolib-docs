@@ -5,13 +5,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.processes.Callable &#8212; nengolib 0.4.1 documentation</title>
+    
+    <title>nengolib.processes.Callable &#8212; nengolib 0.4.2 documentation</title>
+    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.1',
+        VERSION:     '0.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -21,7 +24,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -44,7 +47,7 @@
 <h1>nengolib.processes.Callable<a class="headerlink" href="#nengolib-processes-callable" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.processes.Callable">
-<em class="property">class </em><code class="descclassname">nengolib.processes.</code><code class="descname">Callable</code><span class="sig-paren">(</span><em>func</em>, <em>default_dt=0.001</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.1/nengolib/processes.py#L10-L70"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.processes.Callable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.processes.</code><code class="descname">Callable</code><span class="sig-paren">(</span><em>func</em>, <em>default_dt=0.001</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.2/nengolib/processes.py#L10-L70"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.processes.Callable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adapter to convert any callable into a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Process" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Process</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -93,26 +96,26 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">apply</span></code>(x[,&nbsp;d,&nbsp;dt,&nbsp;rng,&nbsp;copy])</td>
-<td>Run process on a given input.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_rng</span></code>(rng)</td>
-<td>Get a properly seeded independent RNG for the process step.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">make_step</span></code>(shape_in,&nbsp;shape_out,&nbsp;dt,&nbsp;rng)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">apply</span></code></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ntrange</span></code>(n_steps[,&nbsp;dt])</td>
-<td>Create time points corresponding to a given number of steps.</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_rng</span></code></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">run</span></code>(t[,&nbsp;d,&nbsp;dt,&nbsp;rng])</td>
-<td>Run process without input for given length of time.</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">make_step</span></code></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">run_steps</span></code>(n_steps[,&nbsp;d,&nbsp;dt,&nbsp;rng])</td>
-<td>Run process without input for given number of steps.</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ntrange</span></code></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">trange</span></code>(t[,&nbsp;dt])</td>
-<td>Create time points corresponding to a given length of time.</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">run</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">run_steps</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">trange</span></code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -216,10 +219,10 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017, Aaron Voelker.
+      &copy;2017-2018, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
