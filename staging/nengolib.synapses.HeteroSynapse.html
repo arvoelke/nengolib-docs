@@ -1,0 +1,224 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>nengolib.synapses.HeteroSynapse &#8212; nengolib 0.4.3-dev documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.3-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="nengolib-synapses-heterosynapse">
+<h1>nengolib.synapses.HeteroSynapse<a class="headerlink" href="#nengolib-synapses-heterosynapse" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="nengolib.synapses.HeteroSynapse">
+<em class="property">class </em><code class="descclassname">nengolib.synapses.</code><code class="descname">HeteroSynapse</code><span class="sig-paren">(</span><em>systems</em>, <em>dt=None</em>, <em>elementwise=False</em>, <em>method='zoh'</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/synapses\hetero_synapse.py#L12-L108"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.HeteroSynapse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callable class for applying different synapses to an input vector.</p>
+<p>This is typically to be used as the <code class="docutils literal"><span class="pre">output</span></code> parameter for some
+intermediate <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Node" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Node</span></code></a> in a Nengo model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>systems</strong> <span class="classifier-delimiter">:</span> <span class="classifier">(one or more) <a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></span></dt>
+<dd><p class="first last">One or more linear system representations, providing each synapse.</p>
+</dd>
+<dt><strong>dt</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">float</span></code>, optional</span></dt>
+<dd><p class="first last">Simulation time-step used to discretize each of the systems.
+If <code class="docutils literal"><span class="pre">dt</span></code> is <code class="docutils literal"><span class="pre">None</span></code> (the default), then all of the systems must
+already be digital.</p>
+</dd>
+<dt><strong>elementwise</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">boolean</span></code>, optional</span></dt>
+<dd><p class="first">If <code class="docutils literal"><span class="pre">elementwise</span> <span class="pre">==</span> <span class="pre">False</span></code> (default), each synapse is applied to every
+dimension, and so <code class="docutils literal"><span class="pre">size_out</span> <span class="pre">==</span> <span class="pre">size_in*len(synapses)</span></code>. The
+output dimensions are ordered by input dimension, such that
+index <code class="docutils literal"><span class="pre">i*len(synapses)</span> <span class="pre">+</span> <span class="pre">j</span></code> is the <code class="docutils literal"><span class="pre">i</span></code>’th input dimension convolved
+with the <code class="docutils literal"><span class="pre">j</span></code>’th filter.</p>
+<p>If <code class="docutils literal"><span class="pre">elementwise</span> <span class="pre">==</span> <span class="pre">True</span></code>, <code class="docutils literal"><span class="pre">len(synapses)</span></code> must match <code class="docutils literal"><span class="pre">size_in</span></code>,
+in which case each synapse is applied separately to each dimension,
+and so <code class="docutils literal"><span class="pre">size_out</span> <span class="pre">==</span> <span class="pre">size_in</span></code>.</p>
+<p class="last">The latter can be used to connect to a population of neurons with a
+different synapse for each neuron. The former can be used to apply a
+number of synapses to each dimension in state-space.</p>
+</dd>
+<dt><strong>method</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">string</span></code>, optional</span></dt>
+<dd><p class="first last">Method passed to <a class="reference internal" href="nengolib.signal.cont2discrete.html#nengolib.signal.cont2discrete" title="nengolib.signal.cont2discrete"><code class="xref py py-func docutils literal"><span class="pre">cont2discrete()</span></code></a>. Defaults to <code class="docutils literal"><span class="pre">'zoh'</span></code>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<p>See <a class="reference internal" href="notebooks/examples/hetero_synapse.html"><span class="doc">Heterogeneous Synapses</span></a> for a notebook example.</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(t,&nbsp;u)</td>
+<td>Node function called by simulator on each time-step.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">from_vector</span></code>(x)</td>
+<td>Inverse of <code class="docutils literal"><span class="pre">to_vector</span></code>; recovers matrix from output vector.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">to_vector</span></code>(y)</td>
+<td>Inverse of <code class="docutils literal"><span class="pre">from_vector</span></code>; flattens matrix into an output vector.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nengolib.html">Main (<code class="docutils literal"><span class="pre">nengolib</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.networks.html">Networks (<code class="docutils literal"><span class="pre">nengolib.networks</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.signal.html">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.stats.html">Stats (<code class="docutils literal"><span class="pre">nengolib.stats</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+  <li><a href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017-2018, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/nengolib.synapses.HeteroSynapse.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

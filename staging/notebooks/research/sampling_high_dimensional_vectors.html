@@ -1,0 +1,749 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sampling High-Dimensional Vectors &#8212; nengolib 0.4.3-dev documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.4.3-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../_static/logo.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reference" href="../../reference.html" />
+    <link rel="prev" title="Linear System Model Reduction" href="linear_model_reduction.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+</style>
+<div class="section" id="Sampling-High-Dimensional-Vectors">
+<h1>Sampling High-Dimensional Vectors<a class="headerlink" href="#Sampling-High-Dimensional-Vectors" title="Permalink to this headline">¶</a></h1>
+<p>Aaron R. Voelker (January 15, 2016)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">pylab</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pylab</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>  <span class="c1"># optional; prettier graphs</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">sns</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="kn">import</span> <span class="nn">nengo</span>
+<span class="kn">from</span> <span class="nn">nengolib.compat</span> <span class="kn">import</span> <span class="n">get_activities</span>
+<span class="kn">from</span> <span class="nn">nengolib.stats</span> <span class="kn">import</span> <span class="n">ScatteredHypersphere</span><span class="p">,</span> <span class="n">Sobol</span>
+
+<span class="n">uniform_ball</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">dists</span><span class="o">.</span><span class="n">UniformHypersphere</span><span class="p">(</span><span class="n">surface</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">uniform_sphere</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">dists</span><span class="o">.</span><span class="n">UniformHypersphere</span><span class="p">(</span><span class="n">surface</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">scatter_ball</span> <span class="o">=</span> <span class="n">ScatteredHypersphere</span><span class="p">(</span><span class="n">surface</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">scatter_sphere</span> <span class="o">=</span> <span class="n">ScatteredHypersphere</span><span class="p">(</span><span class="n">surface</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Populating the interactive namespace from numpy and matplotlib
+</pre></div></div>
+</div>
+<div class="section" id="Abstract">
+<h2>Abstract<a class="headerlink" href="#Abstract" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>Monte Carlo (MC)</strong> method of sampling is notoriously bad at
+reproducing the same statistics as the distribution being sampled.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">plot_dist</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">dist</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plot_dist</span><span class="p">(</span><span class="n">uniform_ball</span><span class="p">,</span> <span class="s1">&#39;Uniform 2-Ball&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_3_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_3_0.png" />
+</div>
+</div>
+<p>Intuitively, MC sampling gives lots of “gaps” and “clumps”, while
+instead what we want is more of a “<strong>scattering</strong>” of points uniformly
+about the sphere.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2"><div class="highlight"><pre>
+<span></span><span class="n">plot_dist</span><span class="p">(</span><span class="n">scatter_ball</span><span class="p">,</span> <span class="s1">&#39;Scattered 2-Ball&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_5_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_5_0.png" />
+</div>
+</div>
+<p>We currently have three reasons to sample vectors in Nengo: 1. Choosing
+the <strong>encoders</strong> for a population 2. Choosing the <strong>evaluation points</strong>
+to solve for decoders 3. Choosing the <strong>semantic pointers</strong> in a
+vocabulary</p>
+<p>MC is bad for problem 1, because the neurons should be uniformly
+representing all parts of the vector space. MC sampling is <em>also</em> bad
+for problem 2, because the “<strong>empirical distribution</strong>” does not match
+the actual distribution unless there are a large number of samples, and
+so the decoders are biased to minimize the approximation error of
+certain vectors over others. A scattered distribution overcomes this
+problem by giving a closer match to the uniform distribution with fewer
+samples.</p>
+<p>In fact, problems 1 and 2 are basically equivalent. When sampling
+encoders, we are effectively choosing which vectors should have the
+least error (by principle (1) they fire the most, and then by principle
+(2) they contribute the most to the estimate). The only ‘real’
+difference is that encoders are on the <span class="math">\(D\)</span>-sphere, while
+evaluation points are on the <span class="math">\(D\)</span>-ball. These two problems can be
+solved efficiently by the <strong>number-theoretic method (NTM)</strong>, also known
+as the <strong>quasi Monte Carlo method</strong>, to generate scattered points. These
+solutions can then be used to sample encoders and evaluation points, to
+improve the representation of a population and its decoders.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">do_trial</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">encoders</span><span class="p">,</span> <span class="n">eval_points</span><span class="p">,</span> <span class="n">n_eval_points</span><span class="p">,</span> <span class="n">test_points</span><span class="p">,</span> <span class="n">n_test_points</span><span class="p">,</span>
+             <span class="n">n_neurons</span><span class="p">,</span> <span class="n">dims</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+        <span class="c1"># Make a single ensemble and connection</span>
+        <span class="n">ens</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span>
+            <span class="n">n_neurons</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">encoders</span><span class="o">=</span><span class="n">encoders</span><span class="p">,</span> <span class="n">eval_points</span><span class="o">=</span><span class="n">eval_points</span><span class="p">,</span>
+            <span class="n">n_eval_points</span><span class="o">=</span><span class="n">n_eval_points</span><span class="p">)</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">ens</span><span class="p">,</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">size_in</span><span class="o">=</span><span class="n">dims</span><span class="p">))</span>
+
+        <span class="c1"># Build the model</span>
+        <span class="n">built</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">decoder_cache</span><span class="o">=</span><span class="n">nengo</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">NoDecoderCache</span><span class="p">())</span>
+        <span class="n">built</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">built</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># Find the optimal decoders and their corresponding RMSE on the eval_points</span>
+        <span class="n">decoders</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">conn</span><span class="p">]</span><span class="o">.</span><span class="n">weights</span>
+        <span class="n">eval_rmses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">conn</span><span class="p">]</span><span class="o">.</span><span class="n">solver_info</span><span class="p">[</span><span class="s1">&#39;rmses&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Sample some new test_points and test them on the same decoders</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">test_points</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n_test_points</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="p">))</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">get_activities</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">ens</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">x_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">decoders</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">test_rmses</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">numpy</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_hat</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Return the average training and test errors</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">eval_rmses</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">test_rmses</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">do_experiment</span><span class="p">(</span><span class="n">n_neurons</span><span class="p">,</span> <span class="n">dims</span><span class="p">,</span> <span class="n">n_eval_points</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">test_points</span><span class="o">=</span><span class="n">uniform_ball</span><span class="p">,</span>
+                  <span class="n">n_test_points</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">trials</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pylab</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Train Error&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Test Error&#39;</span><span class="p">)</span>
+    <span class="n">default_means</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">encoders</span><span class="p">,</span> <span class="n">eval_points</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span>
+            <span class="p">(</span><span class="s1">&#39;Default&#39;</span><span class="p">,</span>     <span class="n">uniform_sphere</span><span class="p">,</span> <span class="n">uniform_ball</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;Encoders&#39;</span><span class="p">,</span>    <span class="n">scatter_sphere</span><span class="p">,</span> <span class="n">uniform_ball</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;Eval Points&#39;</span><span class="p">,</span> <span class="n">uniform_sphere</span><span class="p">,</span> <span class="n">scatter_ball</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;Both&#39;</span><span class="p">,</span>        <span class="n">scatter_sphere</span><span class="p">,</span> <span class="n">scatter_ball</span><span class="p">))):</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">trials</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">trials</span><span class="p">):</span>
+            <span class="n">errors</span><span class="p">[</span><span class="n">seed</span><span class="p">]</span> <span class="o">=</span> <span class="n">do_trial</span><span class="p">(</span>
+                <span class="n">seed</span><span class="p">,</span> <span class="n">encoders</span><span class="p">,</span> <span class="n">eval_points</span><span class="p">,</span> <span class="n">n_eval_points</span><span class="p">,</span>
+                <span class="n">test_points</span><span class="p">,</span> <span class="n">n_test_points</span><span class="p">,</span> <span class="n">n_neurons</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
+        <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">default_means</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">default_means</span> <span class="o">=</span> <span class="n">means</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> (</span><span class="si">%d%%</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">default_means</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">means</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sns</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">errors</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">errors</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">do_experiment</span><span class="p">(</span><span class="n">n_neurons</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_7_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_7_0.png" />
+</div>
+</div>
+<p>However, problem 3 is <em>strictly</em> harder (and in fact almost completely
+different), and so we will save that talk for a later day.</p>
+</div>
+<div class="section" id="The-Number-Theoretic-Method-(NTM)">
+<h2>The Number-Theoretic Method (NTM)<a class="headerlink" href="#The-Number-Theoretic-Method-(NTM)" title="Permalink to this headline">¶</a></h2>
+<p>This exact same problem showed up as early as 1961 and was studied
+extensively in the 1980s [1] for applications in <strong>experimental design</strong>
+and <strong>statistical finance</strong>, in which the task boils down to evaluating
+a high-dimensional integral:</p>
+<div class="math">
+\[\int_{S} f({\bf u})\,{\rm d}{\bf u}\]</div>
+<p>where <span class="math">\(S\)</span> is some <span class="math">\(D\)</span>-dimensional space. Due to the <strong>curse
+of dimensionality</strong>, even modestly sized <span class="math">\(D\)</span> requires too many
+points to evaluate using standard numerical integration techniques like
+the trapezoidal rule. Instead, the standard approach is to choose a
+sub-sampling of <strong>representative points</strong>
+<span class="math">\(\{{\bf x_1}, \ldots, {\bf x_N}\}\)</span> over the domain of <span class="math">\(S\)</span>,
+and compute:</p>
+<div class="math">
+\[\approx \frac{1}{N}\,\sum_{i=1}^N f({\bf x_i})\]</div>
+<p>This works well as long as we can sample these points uniformly. It has
+been theoretically proven that the approximation error from using the
+NTM is superior to that of MC sampling.</p>
+<hr class="docutils" />
+<p>To make the connection back to our original problem explicit, when
+solving for the decoders we are minimizing the mean squared error given
+by:</p>
+<div class="math">
+\[\int_{S} ({\bf x} - {\bf \hat{x}})^2 \,{\rm d}{\bf x}\]</div>
+<p>where <span class="math">\(S\)</span> is the <span class="math">\(D\)</span>-ball. Thus,
+<span class="math">\(f({\bf u}) = ({\bf u} - {\bf \hat{u}})^2\)</span> is the function we need
+to integrate. And the points <span class="math">\(\{{\bf x_1}, \ldots, {\bf x_N}\}\)</span>
+are precisely the set of <span class="math">\(N\)</span> evaluation points that we are, in
+effect, choosing to approximate this integral. This explains more
+formally why this new approach out-performs the old approach.</p>
+<hr class="docutils" />
+<p>Now the NTM goes by a number of roughly equivalent names: - uniform
+design - NT-net - quasi Monte Carlo - quasi-random - low-discrepancy
+sequence - representative points - uniformly scattered points</p>
+<p>We will refer to the collective theory as the NTM, and to a specific
+sampling as a uniform scattering.</p>
+<p>There are many algorithms to generate scattered points in the
+literature: - Faure - Good Points - Good Lattice Points -
+[STRIKEOUT:Latin Square] - Haber - Halton (van der Corput) - Hammersley
+- Hua and Wang (cyclotomic field) - Niederreiter - [STRIKEOUT:Poisson
+Disk] - Sobol</p>
+<p>Since <strong>Sobol</strong> had the most readily-available Python library (and the
+largest Wikipedia page), I used it for all my experiments.</p>
+<p>All of these approaches (except the Latin Square and Poisson Disk
+sampling) attempt to minimize the <strong>discrepancy</strong> of the samples.
+Informally, the discrepancy measure tells us how much the sample
+distribution differs from the underlying distribution. Formally, we
+define the empirical distribution as the cumulative distribution
+function (CDF) <span class="math">\(F_N({\bf x}) = P({\bf X} \le {\bf x})\)</span>, where:</p>
+<div class="math">
+\[P({\bf X} = {\bf x_i}) = \frac{1}{N}, \quad i = 1 \ldots N\]</div>
+<p>Then the discrepancy of this set is defined as:</p>
+<div class="math">
+\[D(N) = sup_{x \in \mathbb{R}^D} |F_N({\bf x}) - F({\bf x})|\]</div>
+<p>where <span class="math">\(F\)</span> is the true CDF. This gives an upper-bound on how well
+the empirical CDF approximates the true CDF. The lower this is, the
+better our sample set represents the true distribution at all points
+(not just the points that were sampled). And all of these approaches
+(again, except for Latin/Poisson) have worst-case (guaranteed) bounds
+that are asymptotically dominated by MC in theory (and for lower
+<span class="math">\(N\)</span> as well in practice).</p>
+<div class="math">
+\[\begin{split}D(N) = \begin{cases}
+      O(\frac{1}{\sqrt{N}}) &amp; \text{MC Sampling} \\
+      O(\frac{(log N)^D}{N}) &amp; \text{NTM Sampling}
+   \end{cases}\end{split}\]</div>
+<p>The <span class="math">\(\sqrt{N} = o(N)\)</span> is the important part. The numerator is a
+worst-case that is reported to be a small constant in practice.</p>
+<p>The nice fact that comes out of all of this, is that: the discrepancy is
+related to the error when computing the above integral by a constant
+factor (fixed for a given <span class="math">\(f\)</span>), and thus reflects the error in
+approximating the decoders’ true RMSE (its generalizability).</p>
+<div class="math">
+\[\left|\underbrace{\int_{S} ({\bf x} - {\bf \hat{x}})^2 \,{\rm d}{\bf x}}_{\text{Testing Error}} - \underbrace{\frac{1}{N}\,\sum_{i=1}^N ({\bf x_i} - {\bf \hat{x_i}})^2}_{\text{Training Error}} \right| \le \underbrace{C(f) \, D(N)}_{\text{Generalization Error}}\]</div>
+<p>where <span class="math">\(C(f)\)</span> is a constant that depends on the ensemble and the
+function being optimized, and <span class="math">\(D(N)\)</span> is the discrepancy of the
+<span class="math">\(N\)</span> evaluation points. When choosing evaluation points, we are
+fixing <span class="math">\(C(f)\)</span> and trying to minimize <span class="math">\(D(N)\)</span>. Therefore, when
+using NTMs over MC sampling, we only need on the order of
+<span class="math">\(\sqrt{N}\)</span> as many evaluation points to get the same level of
+performance; NTM squares the effective number of evaluation points!</p>
+<p>Now, everything is fine and dandy. It’s a simple one-line call in Python
+to generate a sequence that does exactly what we need. However… all of
+these methods generate points on the <span class="math">\(D\)</span>-cube, but not the
+<span class="math">\(D\)</span>-sphere or <span class="math">\(D\)</span>-ball as required. Fortunately, [1]
+describes an <strong>inverse transform method</strong> which allows us to generate
+scattered points on any distribution provided we can represent
+<span class="math">\({\bf x}\)</span> as a set of independent random variables with some known
+inverse CDF. Furthermore, the authors have already done this for the
+<span class="math">\(D\)</span>-sphere and <span class="math">\(D\)</span>-ball using the <strong>spherical coordinate
+transformation</strong>!</p>
+</div>
+<div class="section" id="The-Inverse-Transform-Method">
+<h2>The Inverse Transform Method<a class="headerlink" href="#The-Inverse-Transform-Method" title="Permalink to this headline">¶</a></h2>
+<p>It is not at all clear how to map scattered points from the
+<span class="math">\(D\)</span>-cube to the <span class="math">\(D\)</span>-sphere or <span class="math">\(D\)</span>-ball. If we just try
+to normalize the vectors to the sphere, then the results are poor.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">plot_3d</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">xyz</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">nengo</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">numpy</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">Sobol</span><span class="p">()</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plot_3d</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="s1">&#39;Sobol 3-Cube&#39;</span><span class="p">)</span>
+<span class="n">plot_3d</span><span class="p">(</span><span class="n">normalize</span><span class="p">(</span><span class="n">sample</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;Normalized Sobol 3-Cube&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_10_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_10_0.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+C:\Users\Aaron\Anaconda2\lib\site-packages\ipykernel_launcher.py:14: RuntimeWarning: invalid value encountered in divide
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_10_2.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_10_2.png" />
+</div>
+</div>
+<p>And it actually gets worse as the dimensionality goes up, because the
+volume of a <span class="math">\(D\)</span>-cube is concentrated outside the region of the
+<span class="math">\(D\)</span>-ball (and so vectors tend to get normalized to the corners)!</p>
+<p>The following procedure (referred to as the “inverse transform method”)
+is a general way to sample an arbitrary multivariate random variable
+<span class="math">\({\bf X}\)</span>, using only the hyper-cube: 1. Pick a transformation
+<span class="math">\(T\)</span> that maps each <span class="math">\({\bf x}\)</span> to a vector
+<span class="math">\({\bf y} = T({\bf x})\)</span> such that its components are mutually
+independent (might be identity). 2. Given the CDF of <span class="math">\({\bf X}\)</span> and
+the chosen transformation, determine the CDF <span class="math">\(F\)</span> of
+<span class="math">\({\bf Y}\)</span> by a substitution of variables (hard part). 3. Then
+<span class="math">\({\bf x} = T^{-1}(F^{-1}({\bf z}))\)</span> samples <span class="math">\({\bf X}\)</span>
+uniformly, when <span class="math">\({\bf z}\)</span> is sampled from a hyper-cube with the
+same dimensionality as <span class="math">\({\bf Y}\)</span> (numerical part).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2"><div class="highlight"><pre>
+<span></span><span class="n">plot_3d</span><span class="p">(</span><span class="n">scatter_sphere</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;Scattered 3-Sphere&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_12_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_12_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Spherical-Coordinate-Transformation">
+<h2>Spherical Coordinate Transformation<a class="headerlink" href="#Spherical-Coordinate-Transformation" title="Permalink to this headline">¶</a></h2>
+<p>There’s a 10 page derivation in [1] for both the <span class="math">\(D\)</span>-ball and
+<span class="math">\(D\)</span>-sphere. The sphere case proceeds as follows: 1. The
+transformation <span class="math">\(T\)</span> is the spherical coordinate transformation,
+such that <span class="math">\({\bf y}\)</span> is a <span class="math">\((D-1)\)</span>-dimensional vector of
+angles. 2. The distribution of the <span class="math">\(i^{th}\)</span> element of
+<span class="math">\({\bf y}\)</span> is:</p>
+<div class="math">
+\[\begin{split}F_i(y_i) = \begin{cases}
+      \frac{1}{2} B(sin(\pi y_i)^2; \frac{D-i}{2}, \frac{1}{2}) &amp; y_i &lt; \frac{1}{2} \\
+      1 - \frac{1}{2} B(sin(\pi y_i)^2; \frac{D-i}{2}, \frac{1}{2}) &amp; otherwise
+   \end{cases}, \quad i=1 \ldots D-1\end{split}\]</div>
+<p>where <span class="math">\(B\)</span> is the regularized incomplete beta function. 3. This
+distribution can be inverted using scipy’s <code class="docutils literal"><span class="pre">betaincinv</span></code> function.
+Also, <span class="math">\(T\)</span> is easy to invert. Then take a scattered sample from the
+<span class="math">\((D-1)\)</span>-cube and apply the inverse functions.</p>
+<p>To modify this to work for the <span class="math">\(D\)</span>-ball, we instead sample from
+the <span class="math">\(D\)</span>-cube and take the last component to be a normalization
+coefficient for the resulting vector (by raising it to the power of
+<span class="math">\(\frac{1}{D}\)</span>). See code for details.</p>
+<p>Note: The distribution given by <span class="math">\(F\)</span> is closely related to Jan’s
+<code class="docutils literal"><span class="pre">SqrtBeta</span></code> distribution of subvector lengths. They are identical after
+substituting the variable <span class="math">\(x = sin(\pi y_i)\)</span> with <span class="math">\(n=1\)</span> and
+<span class="math">\(m=D-i\)</span>, scaling by <span class="math">\(2\)</span>, and dealing with the reflection
+about <span class="math">\(y_i = \frac{1}{2}\)</span>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython2"><div class="highlight"><pre>
+<span></span><span class="n">plot_3d</span><span class="p">(</span><span class="n">scatter_ball</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;Scattered 3-Ball&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_3d</span><span class="p">(</span><span class="n">uniform_ball</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;Uniform 3-Ball&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_14_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_14_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_14_1.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_14_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#Acknowledgements" title="Permalink to this headline">¶</a></h2>
+<p>Many thanks to Michael Hopkins from the SpiNNaker group in Manchester
+for providing me with all of the relevant background and reading
+material.</p>
+<p>[1] K.-T. Fang and Y. Wang, <em>Number-Theoretic Methods in Statistics</em>.
+Chapman &amp; Hall, 1994.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../notebooks.html">Notebooks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks.examples.html">Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../notebooks.research.html">Research</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../notebooks.html">Notebooks</a><ul>
+  <li><a href="../../notebooks.research.html">Research</a><ul>
+      <li>Previous: <a href="linear_model_reduction.html" title="previous chapter">Linear System Model Reduction</a></li>
+      <li>Next: <a href="../../reference.html" title="next chapter">Reference</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017-2018, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../../_sources/notebooks/research/sampling_high_dimensional_vectors.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

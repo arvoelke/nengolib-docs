@@ -1,0 +1,215 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Success stories &#8212; nengolib 0.4.3-dev documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.3-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="success-stories">
+<h1>Success stories<a class="headerlink" href="#success-stories" title="Permalink to this headline">¶</a></h1>
+<p>Nengolib has been used successfully for several peer-reviewed publications and
+self-published projects. We highlight these applications below:</p>
+<ul>
+<li><p class="first">Aaron R. Voelker and Chris Eliasmith, “Improving spiking dynamical networks:
+Accurate delays, higher-order synapses, and time cells”, Neural Computation,
+30(3):569-609, 03 2018.</p>
+<blockquote>
+<div><p>[<a class="reference external" href="http://compneuro.uwaterloo.ca/files/publications/voelker.2018.pdf">PDF</a>]
+[<a class="reference external" href="https://github.com/arvoelke/delay2017">Code</a>]
+Used <a class="reference internal" href="nengolib.networks.RollingWindow.html#nengolib.networks.RollingWindow" title="nengolib.networks.RollingWindow"><code class="xref py py-class docutils literal"><span class="pre">RollingWindow</span></code></a>, <a class="reference internal" href="nengolib.synapses.PadeDelay.html#nengolib.synapses.PadeDelay" title="nengolib.synapses.PadeDelay"><code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code></a>,
+and <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a> to model time cell activity in rodents and
+improve the accuracy of dynamical systems in spiking neural networks.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Aaron R. Voelker and Chris Eliasmith, “Methods for applying the Neural
+Engineering Framework to neuromorphic hardware”, arXiv preprint
+arXiv:1708.08133, 08 2017.</p>
+<blockquote>
+<div><p>[<a class="reference external" href="https://arxiv.org/abs/1708.08133">Paper</a>]
+Provides a theoretical overview of the math leveraged by <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a>
+and its related extensions.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Travis DeWolf. “Improving neural models by compensating for discrete rather
+than continuous filter dynamics when simulating on digital systems”, 05 2017.</p>
+<blockquote>
+<div><p>[<a class="reference external" href="https://studywolf.wordpress.com/2017/05/21/improving-neural-models-by-compensating-for-discrete-rather-than-continuous-time-filter-dynamics-when-simulating-on-digital-systems/">Blog</a>]
+Used <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a> to improve the accuracy of a point attractor.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Aaron R. Voelker, Ben V. Benjamin, Terrence C. Stewart, Kwabena Boahen, and
+Chris Eliasmith. “Extending the Neural Engineering Framework for nonideal
+silicon synapses”, In IEEE International Symposium on Circuits and Systems
+(ISCAS). Baltimore, MD, 05 2017. IEEE.</p>
+<blockquote>
+<div><p>[<a class="reference external" href="http://compneuro.uwaterloo.ca/files/publications/voelker.2017a.pdf">PDF</a>]
+[<a class="reference external" href="http://compneuro.uwaterloo.ca/files/publications/voelker.2017a.poster.pdf">Poster</a>]
+Used <a class="reference internal" href="nengolib.synapses.HeteroSynapse.html#nengolib.synapses.HeteroSynapse" title="nengolib.synapses.HeteroSynapse"><code class="xref py py-class docutils literal"><span class="pre">HeteroSynapse</span></code></a>, <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.s" title="nengolib.signal.s"><code class="xref py py-attr docutils literal"><span class="pre">s</span></code></a>, <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.z" title="nengolib.signal.z"><code class="xref py py-attr docutils literal"><span class="pre">z</span></code></a>,
+<a class="reference internal" href="nengolib.stats.ScatteredHypersphere.html#nengolib.stats.ball" title="nengolib.stats.ball"><code class="xref py py-attr docutils literal"><span class="pre">ball</span></code></a>, <a class="reference internal" href="nengolib.stats.ScatteredHypersphere.html#nengolib.stats.sphere" title="nengolib.stats.sphere"><code class="xref py py-attr docutils literal"><span class="pre">sphere</span></code></a>, and the theory behind
+<a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a> to improve the accuracy of nonlinear dynamics on
+a mixed-analog-digital neuromorphic architecture.</p>
+</div></blockquote>
+</li>
+<li><p class="first">James Knight, Aaron R. Voelker, Andrew Mundy, Chris Eliasmith, and Steve
+Furber. “Efficient spinnaker simulation of a heteroassociative memory using
+the Neural Engineering Framework”. In The 2016 International Joint
+Conference on Neural Networks (IJCNN). Vancouver, British Columbia, 07 2016.
+IEEE.</p>
+<blockquote>
+<div><p>[<a class="reference external" href="https://www.researchgate.net/publication/305828018_Efficient_SpiNNaker_simulation_of_a_heteroassociative_memory_using_the_Neural_Engineering_Framework">Paper</a>]
+Used <a class="reference internal" href="nengolib.stats.leech_kissing.html#nengolib.stats.leech_kissing" title="nengolib.stats.leech_kissing"><code class="xref py py-func docutils literal"><span class="pre">leech_kissing()</span></code></a> and <a class="reference internal" href="nengolib.stats.ScatteredHypersphere.html#nengolib.stats.sphere" title="nengolib.stats.sphere"><code class="xref py py-attr docutils literal"><span class="pre">sphere</span></code></a> to learn an efficient
+heteroassociative memory on SpiNNaker.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Ken E. Friedl, Aaron R. Voelker, Angelika Peer, and Chris Eliasmith.
+“Human-inspired neurorobotic system for classifying surface textures by
+touch”, Robotics and Automation Letters, 1(1):516-523, 01 2016. URL:
+<a class="reference external" href="http://dx.doi.org/10.1109/LRA.2016.2517213">http://dx.doi.org/10.1109/LRA.2016.2517213</a>, doi:10.1109/LRA.2016.2517213.</p>
+<blockquote>
+<div><p>[<a class="reference external" href="http://compneuro.uwaterloo.ca/files/publications/voelker.2016a.pdf">PDF</a>]
+Used <a class="reference internal" href="nengolib.synapses.HeteroSynapse.html#nengolib.synapses.HeteroSynapse" title="nengolib.synapses.HeteroSynapse"><code class="xref py py-class docutils literal"><span class="pre">HeteroSynapse</span></code></a>, <a class="reference internal" href="nengolib.synapses.Bandpass.html#nengolib.synapses.Bandpass" title="nengolib.synapses.Bandpass"><code class="xref py py-func docutils literal"><span class="pre">Bandpass()</span></code></a>, and <a class="reference internal" href="nengolib.synapses.Highpass.html#nengolib.synapses.Highpass" title="nengolib.synapses.Highpass"><code class="xref py py-func docutils literal"><span class="pre">Highpass()</span></code></a> to
+engineer a biologically inspired approach to online tactile classification
+of surface textures.</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Next: <a href="license.html" title="next chapter">License</a></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017-2018, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/success.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

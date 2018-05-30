@@ -1,0 +1,21 @@
+from nengolib.stats import SphericalCoords
+coords = SphericalCoords(3)
+
+import matplotlib.pyplot as plt
+x = np.linspace(0, 1, 1000)
+plt.figure(figsize=(8, 8))
+plt.subplot(411)
+plt.title(str(coords))
+plt.ylabel("Samples")
+plt.hist(coords.sample(1000), bins=50, normed=True)
+plt.subplot(412)
+plt.ylabel("PDF")
+plt.plot(x, coords.pdf(x))
+plt.subplot(413)
+plt.ylabel("CDF")
+plt.plot(x, coords.cdf(x))
+plt.subplot(414)
+plt.ylabel("PPF")
+plt.plot(x, coords.ppf(x))
+plt.xlabel("x")
+plt.show()
