@@ -99,18 +99,18 @@ div.nblast {
 
 /* input prompt */
 div.nbinput div.prompt pre {
-    color: #303F9F;
+    color: #307FC1;
 }
 
 /* output prompt */
 div.nboutput div.prompt pre {
-    color: #D84315;
+    color: #BF5B3D;
 }
 
 /* all prompts */
 div.nbinput div.prompt,
 div.nboutput div.prompt {
-    min-width: 8ex;
+    min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
@@ -150,9 +150,9 @@ div.nboutput div.output_area {
 
 /* input area */
 div.nbinput div.input_area {
-    border: 1px solid #cfcfcf;
+    border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f7f7f7;
+    background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
@@ -160,7 +160,7 @@ div.nboutput div[class*=MathJax] {
     text-align: left !important;
 }
 
-/* override sphinx.ext.pngmath center alignment in output cells */
+/* override sphinx.ext.imgmath center alignment in output cells */
 div.nboutput div.math p {
     text-align: left;
 }
@@ -209,21 +209,47 @@ div.nboutput div.output_area.stderr {
 
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 </style>
 <div class="section" id="full-FORCE-and-“Classic-FORCE”-learning-with-spikes">
 <h1>full-FORCE and “Classic FORCE” learning with spikes<a class="headerlink" href="#full-FORCE-and-“Classic-FORCE”-learning-with-spikes" title="Permalink to this headline">¶</a></h1>
-<p>This notebook demonstrates how to implement both full-FORCE [1] and
-“Classic FORCE” [2] networks in Nengo. This makes it “trivial” to switch
-between neuron models (rate-based, spiking, adaptive, etc.), and to
-explore the effects of different learning rules and architectural
-assumptions.</p>
-<p>For this demonstration, we use recursive least-squares (RLS) learning,
-with spiking <code class="docutils literal"><span class="pre">LIF</span></code> neurons, and the two basic architectures
-(full-FORCE and classic-FORCE) – to learn a bandpass filter (a.k.a. a
-“decaying oscillator” triggered by unit impulses).</p>
+<p>This notebook demonstrates how to implement both full-FORCE [1] and “Classic FORCE” [2] networks in Nengo. This makes it “trivial” to switch between neuron models (rate-based, spiking, adaptive, etc.), and to explore the effects of different learning rules and architectural assumptions.</p>
+<p>For this demonstration, we use recursive least-squares (RLS) learning, with spiking <code class="docutils literal"><span class="pre">LIF</span></code> neurons, and the two basic architectures (full-FORCE and classic-FORCE) – to learn a bandpass filter (a.k.a. a “decaying oscillator” triggered by unit impulses).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -250,8 +276,7 @@ Populating the interactive namespace from numpy and matplotlib
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -292,8 +317,7 @@ Populating the interactive namespace from numpy and matplotlib
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -318,21 +342,13 @@ Populating the interactive namespace from numpy and matplotlib
 <h2>Classic FORCE<a class="headerlink" href="#Classic-FORCE" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">xC</span></code> are the neurons</li>
-<li><code class="docutils literal"><span class="pre">sC</span></code> are the unfiltered currents into each neuron
-(<code class="docutils literal"><span class="pre">sC</span> <span class="pre">-&gt;</span> <span class="pre">Lowpass(tau)</span> <span class="pre">-&gt;</span> <span class="pre">xC</span></code>)</li>
-<li><code class="docutils literal"><span class="pre">zC</span></code> is the learned output estimate, decoded by the neurons, and
-re-encoded back into <code class="docutils literal"><span class="pre">sC</span></code> alongside some random feedback (<code class="docutils literal"><span class="pre">JD</span></code>)</li>
-<li><code class="docutils literal"><span class="pre">eC</span></code> is a gated error signal for RLS that turns off after
-<code class="docutils literal"><span class="pre">T_train</span></code> seconds. This error signal learns the feedback decoders
-by minmizing the difference between <code class="docutils literal"><span class="pre">z</span></code> (ideal output) and <code class="docutils literal"><span class="pre">zC</span></code>
-(actual output).</li>
+<li><code class="docutils literal"><span class="pre">sC</span></code> are the unfiltered currents into each neuron (<code class="docutils literal"><span class="pre">sC</span> <span class="pre">-&gt;</span> <span class="pre">Lowpass(tau)</span> <span class="pre">-&gt;</span> <span class="pre">xC</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">zC</span></code> is the learned output estimate, decoded by the neurons, and re-encoded back into <code class="docutils literal"><span class="pre">sC</span></code> alongside some random feedback (<code class="docutils literal"><span class="pre">JD</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">eC</span></code> is a gated error signal for RLS that turns off after <code class="docutils literal"><span class="pre">T_train</span></code> seconds. This error signal learns the feedback decoders by minmizing the difference between <code class="docutils literal"><span class="pre">z</span></code> (ideal output) and <code class="docutils literal"><span class="pre">zC</span></code> (actual output).</li>
 </ul>
-<p>The error signal driving RLS has an additional filter applied
-(<code class="docutils literal"><span class="pre">tau_learn</span></code>) to handle the case when this signal consists of spikes
-(not rates).</p>
+<p>The error signal driving RLS has an additional filter applied (<code class="docutils literal"><span class="pre">tau_learn</span></code>) to handle the case when this signal consists of spikes (not rates).</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -365,14 +381,11 @@ by minmizing the difference between <code class="docutils literal"><span class="
 <h3>Target-Generating Network<a class="headerlink" href="#Target-Generating-Network" title="Permalink to this headline">¶</a></h3>
 <p>See Fig 1b.</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">xD</span></code> are the neurons that behave like classic FORCE in the ideal
-case (assuming the ideal output <code class="docutils literal"><span class="pre">z</span></code> is perfectly re-encoded)</li>
-<li><code class="docutils literal"><span class="pre">sD</span></code> are the unfiltered currents into each neuron
-(<code class="docutils literal"><span class="pre">sD</span> <span class="pre">-&gt;</span> <span class="pre">Lowpass(tau)</span> <span class="pre">-&gt;</span> <span class="pre">xD</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">xD</span></code> are the neurons that behave like classic FORCE in the ideal case (assuming the ideal output <code class="docutils literal"><span class="pre">z</span></code> is perfectly re-encoded)</li>
+<li><code class="docutils literal"><span class="pre">sD</span></code> are the unfiltered currents into each neuron (<code class="docutils literal"><span class="pre">sD</span> <span class="pre">-&gt;</span> <span class="pre">Lowpass(tau)</span> <span class="pre">-&gt;</span> <span class="pre">xD</span></code>)</li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [5]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -393,20 +406,12 @@ case (assuming the ideal output <code class="docutils literal"><span class="pre"
 <p>See Fig 1a.</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">xF</span></code> are the neurons</li>
-<li><code class="docutils literal"><span class="pre">sF</span></code> are the unfiltered currents into each neuron
-(<code class="docutils literal"><span class="pre">sF</span> <span class="pre">-&gt;</span> <span class="pre">Lowpass(tau)</span> <span class="pre">-&gt;</span> <span class="pre">xF</span></code>)</li>
-<li><code class="docutils literal"><span class="pre">eF</span></code> is a gated error signal for RLS that turns off after
-<code class="docutils literal"><span class="pre">T_train</span></code> seconds. This error signal learns the full-rank feedback
-weights by minimizing the difference between the unfiltered currents
-<code class="docutils literal"><span class="pre">sD</span></code> and <code class="docutils literal"><span class="pre">sF</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">sF</span></code> are the unfiltered currents into each neuron (<code class="docutils literal"><span class="pre">sF</span> <span class="pre">-&gt;</span> <span class="pre">Lowpass(tau)</span> <span class="pre">-&gt;</span> <span class="pre">xF</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">eF</span></code> is a gated error signal for RLS that turns off after <code class="docutils literal"><span class="pre">T_train</span></code> seconds. This error signal learns the full-rank feedback weights by minimizing the difference between the unfiltered currents <code class="docutils literal"><span class="pre">sD</span></code> and <code class="docutils literal"><span class="pre">sF</span></code>.</li>
 </ul>
-<p>The error signal driving RLS also has the same filter applied
-(<code class="docutils literal"><span class="pre">tau_learn</span></code>) to handle spikes. The output estimate is trained offline
-from the entire training set using batched least-squares, since this
-gives the best performance.</p>
+<p>The error signal driving RLS also has the same filter applied (<code class="docutils literal"><span class="pre">tau_learn</span></code>) to handle spikes. The output estimate is trained offline from the entire training set using batched least-squares, since this gives the best performance.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [6]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -432,8 +437,7 @@ gives the best performance.</p>
 <div class="section" id="Results">
 <h2>Results<a class="headerlink" href="#Results" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -451,21 +455,19 @@ gives the best performance.</p>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="stderr output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/arvoelke/anaconda3/envs/py37/lib/python3.7/site-packages/nengo/utils/numpy.py:79: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+/home/arvoelke/CTN/nengo/nengo/utils/numpy.py:79: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
   v = a[inds]
-/home/arvoelke/nengolib/nengolib/signal/system.py:197: UserWarning: y0 (None!=0) does not properly initialize the system; see Nengo issue #1124.
-  &#34;Nengo issue #1124.&#34; % y0, UserWarning)
-/home/arvoelke/nengolib/nengolib/signal/system.py:197: UserWarning: y0 (None!=0) does not properly initialize the system; see Nengo issue #1124.
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:197: UserWarning: y0 (None!=0) does not properly initialize the system; see Nengo issue #1124.
   &#34;Nengo issue #1124.&#34; % y0, UserWarning)
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="56ca0779-8442-4cfd-bde3-eef10bf94f6d" style="
+<div class="output_area rendered_html docutils container">
+<div id="fb11a283-01cd-4d4e-94d4-71ef842eaa20" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -498,7 +500,7 @@ gives the best performance.</p>
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('56ca0779-8442-4cfd-bde3-eef10bf94f6d');
+                  var root = document.getElementById('fb11a283-01cd-4d4e-94d4-71ef842eaa20');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -521,17 +523,19 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="stderr output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/arvoelke/nengolib/nengolib/signal/system.py:197: UserWarning: y0 (None!=0) does not properly initialize the system; see Nengo issue #1124.
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:197: UserWarning: y0 (None!=0) does not properly initialize the system; see Nengo issue #1124.
+  &#34;Nengo issue #1124.&#34; % y0, UserWarning)
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:197: UserWarning: y0 (None!=0) does not properly initialize the system; see Nengo issue #1124.
   &#34;Nengo issue #1124.&#34; % y0, UserWarning)
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="7df5bc10-3bc9-43dc-abd6-89f68502d65e" style="
+<div class="output_area rendered_html docutils container">
+<div id="4d2cd222-5979-4f75-9022-42c8e2549cc4" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -564,7 +568,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('7df5bc10-3bc9-43dc-abd6-89f68502d65e');
+                  var root = document.getElementById('4d2cd222-5979-4f75-9022-42c8e2549cc4');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -589,8 +593,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [8]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -643,13 +646,17 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 <div class="section" id="References">
 <h2>References<a class="headerlink" href="#References" title="Permalink to this headline">¶</a></h2>
-<p>[1] DePasquale, B., Cueva, C. J., Rajan, K., &amp; Abbott, L. F. (2018).
-full-FORCE: A target-based method for training recurrent networks. PloS
-one, 13(2), e0191527.
-<a class="reference external" href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0191527">http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0191527</a></p>
-<p>[2] Sussillo, D., &amp; Abbott, L. F. (2009). Generating coherent patterns
-of activity from chaotic neural networks. Neuron, 63(4), 544-557.
-<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2756108/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2756108/</a></p>
+<p>[1] DePasquale, B., Cueva, C. J., Rajan, K., &amp; Abbott, L. F. (2018). full-FORCE: A target-based method for training recurrent networks. PloS one, 13(2), e0191527. <a class="reference external" href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0191527">http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0191527</a></p>
+<p>[2] Sussillo, D., &amp; Abbott, L. F. (2009). Generating coherent patterns of activity from chaotic neural networks. Neuron, 63(4), 544-557. <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2756108/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2756108/</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -688,7 +695,7 @@ of activity from chaotic neural networks. Neuron, 63(4), 544-557.
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -702,7 +709,7 @@ of activity from chaotic neural networks. Neuron, 63(4), 544-557.
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -753,7 +760,7 @@ of activity from chaotic neural networks. Neuron, 63(4), 544-557.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../../_sources/notebooks/examples/full_force_learning.ipynb.txt"

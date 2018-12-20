@@ -99,18 +99,18 @@ div.nblast {
 
 /* input prompt */
 div.nbinput div.prompt pre {
-    color: #303F9F;
+    color: #307FC1;
 }
 
 /* output prompt */
 div.nboutput div.prompt pre {
-    color: #D84315;
+    color: #BF5B3D;
 }
 
 /* all prompts */
 div.nbinput div.prompt,
 div.nboutput div.prompt {
-    min-width: 8ex;
+    min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
@@ -150,9 +150,9 @@ div.nboutput div.output_area {
 
 /* input area */
 div.nbinput div.input_area {
-    border: 1px solid #cfcfcf;
+    border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f7f7f7;
+    background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
@@ -160,7 +160,7 @@ div.nboutput div[class*=MathJax] {
     text-align: left !important;
 }
 
-/* override sphinx.ext.pngmath center alignment in output cells */
+/* override sphinx.ext.imgmath center alignment in output cells */
 div.nboutput div.math p {
     text-align: left;
 }
@@ -209,15 +209,46 @@ div.nboutput div.output_area.stderr {
 
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 </style>
 <div class="section" id="Discrete-Principle-3">
 <h1>Discrete Principle 3<a class="headerlink" href="#Discrete-Principle-3" title="Permalink to this headline">¶</a></h1>
-<p>This notebook demonstrates the superior accuracy obtained by using the
-discretized version of Principle 3 that takes into account the
-simulation timestep.</p>
+<p>This notebook demonstrates the superior accuracy obtained by using the discretized version of Principle 3 that takes into account the simulation timestep.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -243,8 +274,7 @@ Populating the interactive namespace from numpy and matplotlib
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -276,8 +306,8 @@ Populating the interactive namespace from numpy and matplotlib
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="0e792c43-3f99-4471-be13-b40e95daa7ee" style="
+<div class="output_area rendered_html docutils container">
+<div id="92dd08e8-f794-4f53-84cb-2928ab81a33e" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -310,7 +340,7 @@ Populating the interactive namespace from numpy and matplotlib
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('0e792c43-3f99-4471-be13-b40e95daa7ee');
+                  var root = document.getElementById('92dd08e8-f794-4f53-84cb-2928ab81a33e');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -333,8 +363,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="af8318b6-10a0-41f0-baea-82a08e6a6ac8" style="
+<div class="output_area rendered_html docutils container">
+<div id="019de601-9212-4ddc-a71c-78eeb8ea0ad2" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -367,7 +397,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('af8318b6-10a0-41f0-baea-82a08e6a6ac8');
+                  var root = document.getElementById('019de601-9212-4ddc-a71c-78eeb8ea0ad2');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -394,8 +424,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="86c7d882-b0c8-4261-91d3-e4d50a982438" style="
+<div class="output_area rendered_html docutils container">
+<div id="01abbd2d-25f6-410c-b44d-6e11ab78a1d3" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -428,7 +458,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('86c7d882-b0c8-4261-91d3-e4d50a982438');
+                  var root = document.getElementById('01abbd2d-25f6-410c-b44d-6e11ab78a1d3');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -451,8 +481,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="f2084089-4b7e-47e6-b9cc-370642a467fa" style="
+<div class="output_area rendered_html docutils container">
+<div id="5aa5c078-ce91-4ad0-b882-92bc7f3b5bcc" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -485,7 +515,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('f2084089-4b7e-47e6-b9cc-370642a467fa');
+                  var root = document.getElementById('5aa5c078-ce91-4ad0-b882-92bc7f3b5bcc');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -512,8 +542,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="723a0bc4-20d3-4331-98af-1e383aa088af" style="
+<div class="output_area rendered_html docutils container">
+<div id="6eb43a10-9770-494d-ac01-64efb5a8ec99" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -546,7 +576,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('723a0bc4-20d3-4331-98af-1e383aa088af');
+                  var root = document.getElementById('6eb43a10-9770-494d-ac01-64efb5a8ec99');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -569,8 +599,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="881e19d1-ac4c-4d76-b7f5-8159c9c9dd05" style="
+<div class="output_area rendered_html docutils container">
+<div id="6585e033-a596-4342-b25b-f5b214b7725a" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -603,7 +633,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('881e19d1-ac4c-4d76-b7f5-8159c9c9dd05');
+                  var root = document.getElementById('6585e033-a596-4342-b25b-f5b214b7725a');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -628,8 +658,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -649,6 +678,15 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 <div class="output_area docutils container">
 <img alt="../../_images/notebooks_research_discrete_comparison_3_0.png" src="../../_images/notebooks_research_discrete_comparison_3_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -688,7 +726,7 @@ var element = document.currentScript.previousSibling.previousSibling;
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -702,7 +740,7 @@ var element = document.currentScript.previousSibling.previousSibling;
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -753,7 +791,7 @@ var element = document.currentScript.previousSibling.previousSibling;
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../../_sources/notebooks/research/discrete_comparison.ipynb.txt"

@@ -99,18 +99,18 @@ div.nblast {
 
 /* input prompt */
 div.nbinput div.prompt pre {
-    color: #303F9F;
+    color: #307FC1;
 }
 
 /* output prompt */
 div.nboutput div.prompt pre {
-    color: #D84315;
+    color: #BF5B3D;
 }
 
 /* all prompts */
 div.nbinput div.prompt,
 div.nboutput div.prompt {
-    min-width: 8ex;
+    min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
@@ -150,9 +150,9 @@ div.nboutput div.output_area {
 
 /* input area */
 div.nbinput div.input_area {
-    border: 1px solid #cfcfcf;
+    border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f7f7f7;
+    background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
@@ -160,7 +160,7 @@ div.nboutput div[class*=MathJax] {
     text-align: left !important;
 }
 
-/* override sphinx.ext.pngmath center alignment in output cells */
+/* override sphinx.ext.imgmath center alignment in output cells */
 div.nboutput div.math p {
     text-align: left;
 }
@@ -209,19 +209,46 @@ div.nboutput div.output_area.stderr {
 
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 </style>
 <div class="section" id="Computing-Functions-Across-a-Rolling-Window-of-Time">
 <h1>Computing Functions Across a Rolling Window of Time<a class="headerlink" href="#Computing-Functions-Across-a-Rolling-Window-of-Time" title="Permalink to this headline">¶</a></h1>
-<p>The following notebook demonstrates use of the <code class="docutils literal"><span class="pre">RollingWindow</span></code>
-network, which is a wrapper around <code class="docutils literal"><span class="pre">LinearNetwork</span></code> that sets
-<code class="docutils literal"><span class="pre">sys=PadeDelay(theta,</span> <span class="pre">order=dimensions)</span></code> and uses a few extra formulas
-/ tricks. This network allows one to compute nonlinear functions over a
-finite rolling window of input history. It is most accurate for
-low-frequency inputs and for low-order nonlinearities. See [1] for
-details.</p>
+<p>The following notebook demonstrates use of the <code class="docutils literal"><span class="pre">RollingWindow</span></code> network, which is a wrapper around <code class="docutils literal"><span class="pre">LinearNetwork</span></code> that sets <code class="docutils literal"><span class="pre">sys=PadeDelay(theta,</span> <span class="pre">order=dimensions)</span></code> and uses a few extra formulas / tricks. This network allows one to compute nonlinear functions over a finite rolling window of input history. It is most accurate for low-frequency inputs and for low-order nonlinearities. See [1] for details.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -249,26 +276,12 @@ Populating the interactive namespace from numpy and matplotlib
 </div>
 <div class="section" id="1.-Setting-up-the-network">
 <h2>1. Setting up the network<a class="headerlink" href="#1.-Setting-up-the-network" title="Permalink to this headline">¶</a></h2>
-<p>We first create a <code class="docutils literal"><span class="pre">RollingWindow</span></code> network with <span class="math">\(\theta=0.1\,s\)</span>
-corresponding to the size of the window in seconds, and pick some number
-of <code class="docutils literal"><span class="pre">LIFRate</span></code> neurons (<code class="docutils literal"><span class="pre">2000</span></code>). The order of the approximation (the
-dimension of the network’s state ensemble) defaults to 6, since this was
-found to give the best fit to neural “time cell” data in rodents.</p>
-<p>We also need to create an input stimulus. Here, we use a band-limited
-white noise <code class="docutils literal"><span class="pre">process</span></code> since these methods are optimal for
-low-frequency inputs. Next, connect this to the <code class="docutils literal"><span class="pre">input</span></code> node within
-the rolling window network.</p>
-<p>Additionally, we provide this <code class="docutils literal"><span class="pre">process</span></code> to the network’s constructor
-to optimize its evaluation points and encoders (during the build phase)
-for this particular process. Note that we do <em>not</em> fix the seed of the
-process in order to prevent overfitting, but we do make the process long
-enough (<code class="docutils literal"><span class="pre">10</span></code> seconds) for it to generalize. This step is optional, but
-can dramatically improve the performance. If <code class="docutils literal"><span class="pre">process=None</span></code> the input
-should ideally be modelled, or the <code class="docutils literal"><span class="pre">eval_points</span></code>, (orthogonal)
+<p>We first create a <code class="docutils literal"><span class="pre">RollingWindow</span></code> network with <span class="math">\(\theta=0.1\,s\)</span> corresponding to the size of the window in seconds, and pick some number of <code class="docutils literal"><span class="pre">LIFRate</span></code> neurons (<code class="docutils literal"><span class="pre">2000</span></code>). The order of the approximation (the dimension of the network’s state ensemble) defaults to 6, since this was found to give the best fit to neural “time cell” data in rodents.</p>
+<p>We also need to create an input stimulus. Here, we use a band-limited white noise <code class="docutils literal"><span class="pre">process</span></code> since these methods are optimal for low-frequency inputs. Next, connect this to the <code class="docutils literal"><span class="pre">input</span></code> node within the rolling window network.</p>
+<p>Additionally, we provide this <code class="docutils literal"><span class="pre">process</span></code> to the network’s constructor to optimize its evaluation points and encoders (during the build phase) for this particular process. Note that we do <em>not</em> fix the seed of the process in order to prevent overfitting, but we do make the process long enough (<code class="docutils literal"><span class="pre">10</span></code> seconds) for it to generalize. This step is optional, but can dramatically improve the performance. If <code class="docutils literal"><span class="pre">process=None</span></code> the input should ideally be modelled, or the <code class="docutils literal"><span class="pre">eval_points</span></code>, (orthogonal)
 <code class="docutils literal"><span class="pre">encoders</span></code>, and <code class="docutils literal"><span class="pre">radii</span></code> should be manually specified.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -288,59 +301,35 @@ should ideally be modelled, or the <code class="docutils literal"><span class="p
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="stderr output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/arvoelke/anaconda3/envs/py37/lib/python3.7/site-packages/scipy/signal/filter_design.py:1551: BadCoefficients: Badly conditioned filter coefficients (numerator): the results may be meaningless
+/home/arvoelke/anaconda3/envs/py36/lib/python3.6/site-packages/scipy/signal/filter_design.py:1551: BadCoefficients: Badly conditioned filter coefficients (numerator): the results may be meaningless
   &#34;results may be meaningless&#34;, BadCoefficients)
 </pre></div></div>
 </div>
 </div>
 <div class="section" id="2.-Decoding-functions-from-the-window">
 <h2>2. Decoding functions from the window<a class="headerlink" href="#2.-Decoding-functions-from-the-window" title="Permalink to this headline">¶</a></h2>
-<p>Next we use the <code class="docutils literal"><span class="pre">add_output(...)</span></code> method to decode functions from the
-state ensemble. This method takes a <code class="docutils literal"><span class="pre">t</span></code> argument specifying the
-relative time-points of interest, and a <code class="docutils literal"><span class="pre">function</span></code> argument that
-specifies the ideal function to be computed along this window of points.
-The method returns a node which approximates this function from the
-window of input history.</p>
-<p>The <code class="docutils literal"><span class="pre">t</span></code> parameter can either be a single float, or an array of floats
-in the range <span class="math">\([0, 1]\)</span>. The size of <code class="docutils literal"><span class="pre">t</span></code> corresponds to the length
-of the window array <span class="math">\({\bf w}\)</span> passed to your function, and each
-element of the <code class="docutils literal"><span class="pre">t</span></code> array corresponds to the normalized delay in time
-for its respective point from the window. The <code class="docutils literal"><span class="pre">function</span></code> parameter
-must then accept a parameter <code class="docutils literal"><span class="pre">w</span></code> that is sized according to <code class="docutils literal"><span class="pre">t</span></code>, and
-should output the desired function from the given window <code class="docutils literal"><span class="pre">w</span></code>. Decoders
-will be optimized to approximate this function from the state of the
-rolling window network.</p>
+<p>Next we use the <code class="docutils literal"><span class="pre">add_output(...)</span></code> method to decode functions from the state ensemble. This method takes a <code class="docutils literal"><span class="pre">t</span></code> argument specifying the relative time-points of interest, and a <code class="docutils literal"><span class="pre">function</span></code> argument that specifies the ideal function to be computed along this window of points. The method returns a node which approximates this function from the window of input history.</p>
+<p>The <code class="docutils literal"><span class="pre">t</span></code> parameter can either be a single float, or an array of floats in the range <span class="math">\([0, 1]\)</span>. The size of <code class="docutils literal"><span class="pre">t</span></code> corresponds to the length of the window array <span class="math">\({\bf w}\)</span> passed to your function, and each element of the <code class="docutils literal"><span class="pre">t</span></code> array corresponds to the normalized delay in time for its respective point from the window. The <code class="docutils literal"><span class="pre">function</span></code> parameter must then accept a parameter <code class="docutils literal"><span class="pre">w</span></code> that is sized according to <code class="docutils literal"><span class="pre">t</span></code>, and should output the desired function from the given window <code class="docutils literal"><span class="pre">w</span></code>. Decoders
+will be optimized to approximate this function from the state of the rolling window network.</p>
 <p>For example:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">add_output(t=0,</span> <span class="pre">function=lambda</span> <span class="pre">w:</span> <span class="pre">w)</span></code> approximates a
-communication channel <span class="math">\(f(x(t)) = x(t)\)</span> (<em>Note</em>: this
-effectively undoes the filtering from the synapse!).</li>
-<li><code class="docutils literal"><span class="pre">add_output(t=1,</span> <span class="pre">function=lambda</span> <span class="pre">w:</span> <span class="pre">w**2)</span></code> approximates the
-function <span class="math">\(f(x(t)) = x(t-\theta)^2\)</span>.</li>
-<li><code class="docutils literal"><span class="pre">add_output(t=[.5,</span> <span class="pre">1],</span> <span class="pre">function=lambda</span> <span class="pre">w:</span> <span class="pre">w[1]</span> <span class="pre">-</span> <span class="pre">w[0])</span></code>
-approximates the function
-<span class="math">\(f(x(t)) = x(t-\theta) - x(t-\theta/2)\)</span>.</li>
+<li><code class="docutils literal"><span class="pre">add_output(t=0,</span> <span class="pre">function=lambda</span> <span class="pre">w:</span> <span class="pre">w)</span></code> approximates a communication channel <span class="math">\(f(x(t)) = x(t)\)</span> (<em>Note</em>: this effectively undoes the filtering from the synapse!).</li>
+<li><code class="docutils literal"><span class="pre">add_output(t=1,</span> <span class="pre">function=lambda</span> <span class="pre">w:</span> <span class="pre">w**2)</span></code> approximates the function <span class="math">\(f(x(t)) = x(t-\theta)^2\)</span>.</li>
+<li><code class="docutils literal"><span class="pre">add_output(t=[.5,</span> <span class="pre">1],</span> <span class="pre">function=lambda</span> <span class="pre">w:</span> <span class="pre">w[1]</span> <span class="pre">-</span> <span class="pre">w[0])</span></code> approximates the function <span class="math">\(f(x(t)) = x(t-\theta) - x(t-\theta/2)\)</span>.</li>
 </ul>
-<p>By default, <code class="docutils literal"><span class="pre">t</span></code> will be <code class="docutils literal"><span class="pre">1000</span></code> points spaced evenly between <code class="docutils literal"><span class="pre">0</span></code>
-and <code class="docutils literal"><span class="pre">1</span></code>. For example:</p>
+<p>By default, <code class="docutils literal"><span class="pre">t</span></code> will be <code class="docutils literal"><span class="pre">1000</span></code> points spaced evenly between <code class="docutils literal"><span class="pre">0</span></code> and <code class="docutils literal"><span class="pre">1</span></code>. For example:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">add_output(function=np.mean)</span></code> approximates the mean of this
-sampled window.</li>
-<li><code class="docutils literal"><span class="pre">add_output(function=np.median)</span></code> approximates a <a class="reference external" href="https://en.wikipedia.org/wiki/Median_filter">median
-filter</a>.</li>
-<li><code class="docutils literal"><span class="pre">add_output(function=np.max)</span></code> approximates the size of the largest
-peak.</li>
-<li><code class="docutils literal"><span class="pre">add_output(function=lambda</span> <span class="pre">w:</span> <span class="pre">np.argmax(w)/float(len(w)))</span></code>
-approximates how long ago the largest peak occured.</li>
+<li><code class="docutils literal"><span class="pre">add_output(function=np.mean)</span></code> approximates the mean of this sampled window.</li>
+<li><code class="docutils literal"><span class="pre">add_output(function=np.median)</span></code> approximates a <a class="reference external" href="https://en.wikipedia.org/wiki/Median_filter">median filter</a>.</li>
+<li><code class="docutils literal"><span class="pre">add_output(function=np.max)</span></code> approximates the size of the largest peak.</li>
+<li><code class="docutils literal"><span class="pre">add_output(function=lambda</span> <span class="pre">w:</span> <span class="pre">np.argmax(w)/float(len(w)))</span></code> approximates how long ago the largest peak occured.</li>
 </ul>
 <p>The function can also return multiple dimensions.</p>
-<p>Here we compute two functions from the same state: (1) a delay of
-<span class="math">\(\theta\)</span> seconds, and (2) the first four <em>moments</em> of the window.</p>
+<p>Here we compute two functions from the same state: (1) a delay of <span class="math">\(\theta\)</span> seconds, and (2) the first four <em>moments</em> of the window.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -359,8 +348,7 @@ approximates how long ago the largest peak occured.</li>
 <div class="section" id="3.-Set-up-probes">
 <h2>3. Set up probes<a class="headerlink" href="#3.-Set-up-probes" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -383,8 +371,7 @@ approximates how long ago the largest peak occured.</li>
 <div class="section" id="4.-Simulate-the-network">
 <h2>4. Simulate the network<a class="headerlink" href="#4.-Simulate-the-network" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [5]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -396,19 +383,19 @@ approximates how long ago the largest peak occured.</li>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="stderr output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/arvoelke/nengolib/nengolib/signal/system.py:717: UserWarning: Filtering with non-SISO systems is an experimental feature that may not behave as expected.
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:717: UserWarning: Filtering with non-SISO systems is an experimental feature that may not behave as expected.
   &#34;expected.&#34;, UserWarning)
-/home/arvoelke/nengolib/nengolib/signal/system.py:717: UserWarning: Filtering with non-SISO systems is an experimental feature that may not behave as expected.
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:717: UserWarning: Filtering with non-SISO systems is an experimental feature that may not behave as expected.
   &#34;expected.&#34;, UserWarning)
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="a8881af8-0007-48b9-a040-466c31b3d6dc" style="
+<div class="output_area rendered_html docutils container">
+<div id="c32080b1-a822-4f1d-94a9-f69f2f9acf5e" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -441,11 +428,11 @@ approximates how long ago the largest peak occured.</li>
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('a8881af8-0007-48b9-a040-466c31b3d6dc');
+                  var root = document.getElementById('c32080b1-a822-4f1d-94a9-f69f2f9acf5e');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
-                  text.innerHTML = 'Build finished in 0:00:02.';
+                  text.innerHTML = 'Build finished in 0:00:04.';
 
             fill.style.width = '100%';
             fill.style.animation = 'pb-fill-anim 2s linear infinite';
@@ -464,8 +451,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="af9b68e8-a621-4c5e-a2f7-eec10f0b423d" style="
+<div class="output_area rendered_html docutils container">
+<div id="1ba01e5c-f724-4e79-b249-bb4fe6d3b483" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -498,7 +485,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('af9b68e8-a621-4c5e-a2f7-eec10f0b423d');
+                  var root = document.getElementById('1ba01e5c-f724-4e79-b249-bb4fe6d3b483');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -526,8 +513,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="section" id="5.-Plot-results">
 <h2>5. Plot results<a class="headerlink" href="#5.-Plot-results" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [6]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -543,8 +529,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -583,8 +568,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [8]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -607,13 +591,9 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 <div class="section" id="Understanding-the-network">
 <h2>Understanding the network<a class="headerlink" href="#Understanding-the-network" title="Permalink to this headline">¶</a></h2>
-<p>This network essentially uses the <code class="docutils literal"><span class="pre">PadeDelay</span></code> system of order
-<span class="math">\(d\)</span> to compress the input into a <span class="math">\(d\)</span>-dimensional state
-<span class="math">\({\bf x}\)</span>. This state vector represents a rolling window of input
-history by a linear combination of <span class="math">\(d\)</span> basis functions:</p>
+<p>This network essentially uses the <code class="docutils literal"><span class="pre">PadeDelay</span></code> system of order <span class="math">\(d\)</span> to compress the input into a <span class="math">\(d\)</span>-dimensional state <span class="math">\({\bf x}\)</span>. This state vector represents a rolling window of input history by a linear combination of <span class="math">\(d\)</span> basis functions:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [9]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -634,12 +614,9 @@ history by a linear combination of <span class="math">\(d\)</span> basis functio
 <img alt="../../_images/notebooks_examples_rolling_window_15_0.png" src="../../_images/notebooks_examples_rolling_window_15_0.png" />
 </div>
 </div>
-<p>But since the state-space is transformed (by default it is a “balanced
-realization”), we have the following change of basis (by the linearly
-independent transformation <code class="docutils literal"><span class="pre">rw.realizer_result.T</span></code>):</p>
+<p>But since the state-space is transformed (by default it is a “balanced realization”), we have the following change of basis (by the linearly independent transformation <code class="docutils literal"><span class="pre">rw.realizer_result.T</span></code>):</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [10]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -661,35 +638,17 @@ independent transformation <code class="docutils literal"><span class="pre">rw.r
 <img alt="../../_images/notebooks_examples_rolling_window_17_0.png" src="../../_images/notebooks_examples_rolling_window_17_0.png" />
 </div>
 </div>
-<p>Since the encoders of the network are axis-aligned (to improve accuracy
-of the linear system), this means that the function is able to
-accurately decode functions of the form:</p>
+<p>Since the encoders of the network are axis-aligned (to improve accuracy of the linear system), this means that the function is able to accurately decode functions of the form:</p>
 <div class="math">
 \[f \left( \sum_{i=1}^d x_i {\bf u}_i \right) = \sum_{i=1}^{d} f_i ( x_i )\]</div>
-<p>where <span class="math">\({\bf u}_i\)</span> is the <span class="math">\(i^\texttt{th}\)</span> basis function,
-<span class="math">\(x_i\)</span> is the corresponding weight given by the state vector
-<span class="math">\({\bf x}\)</span>, and each <span class="math">\(f_i\)</span> is some nonlinear function
-supported by the neural tuning curves (typically a low-order
-polynomial).</p>
-<p>We now write <span class="math">\({\bf w} = B {\bf x} = \sum_{i=1}^d x_i {\bf u}_i\)</span>
-where <span class="math">\(B = \left[ {\bf u}_1 \ldots {\bf u}_d \right]\)</span> is our basis
-matrix, and <span class="math">\({\bf w}\)</span> is the window of history. Then the
-Moore-Penrose pseudoinverse <span class="math">\(B^+ = (B^T B)^{-1} B^T\)</span> gives us the
-relationship <span class="math">\({\bf x} = B^+ {\bf w}\)</span>, where
-<span class="math">\(B^+ = \left[ {\bf v}_1 \ldots {\bf v}_d \right]^T\)</span> and ${</p>
-<div class="math">
-\bf v</div><p>}_i $ can be called the <span class="math">\(i^\texttt{th}\)</span> “inverse basis function”.
-Finally, we can rewrite the computed function <span class="math">\(f\)</span> with respect to
-the window <span class="math">\({\bf w}\)</span> as:</p>
+<p>where <span class="math">\({\bf u}_i\)</span> is the <span class="math">\(i^\texttt{th}\)</span> basis function, <span class="math">\(x_i\)</span> is the corresponding weight given by the state vector <span class="math">\({\bf x}\)</span>, and each <span class="math">\(f_i\)</span> is some nonlinear function supported by the neural tuning curves (typically a low-order polynomial).</p>
+<p>We now write <span class="math">\({\bf w} = B {\bf x} = \sum_{i=1}^d x_i {\bf u}_i\)</span> where <span class="math">\(B = \left[ {\bf u}_1 \ldots {\bf u}_d \right]\)</span> is our basis matrix, and <span class="math">\({\bf w}\)</span> is the window of history. Then the Moore-Penrose pseudoinverse <span class="math">\(B^+ = (B^T B)^{-1} B^T\)</span> gives us the relationship <span class="math">\({\bf x} = B^+ {\bf w}\)</span>, where <span class="math">\(B^+ = \left[ {\bf v}_1 \ldots {\bf v}_d \right]^T\)</span> and ${<span class="math">\bf v</span>}_i $ can be called the <span class="math">\(i^\texttt{th}\)</span> “inverse basis function”. Finally, we
+can rewrite the computed function <span class="math">\(f\)</span> with respect to the window <span class="math">\({\bf w}\)</span> as:</p>
 <div class="math">
 \[f ( {\bf w} ) = \sum_{i=1}^{d} f_i ( {\bf v}_i  \cdot {\bf w} )\]</div>
-<p>In other words, the functions that we can compute most accurately will
-be some linear combination of low-order nonlinearities applied to each
-<span class="math">\({\bf v}_i \cdot {\bf w}\)</span>. Below we visualize each of these
-inverse basis function:</p>
+<p>In other words, the functions that we can compute most accurately will be some linear combination of low-order nonlinearities applied to each <span class="math">\({\bf v}_i \cdot {\bf w}\)</span>. Below we visualize each of these inverse basis function:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [11]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -708,78 +667,45 @@ inverse basis function:</p>
 <img alt="../../_images/notebooks_examples_rolling_window_19_0.png" src="../../_images/notebooks_examples_rolling_window_19_0.png" />
 </div>
 </div>
-<p>Since the basis functions for the balanced realization are nearly
-orthogonal, the inverse basis functions are approximately a rescaled
-version of the former.</p>
+<p>Since the basis functions for the balanced realization are nearly orthogonal, the inverse basis functions are approximately a rescaled version of the former.</p>
 </div>
 <div class="section" id="Debugging-issues-in-performance">
 <h2>Debugging issues in performance<a class="headerlink" href="#Debugging-issues-in-performance" title="Permalink to this headline">¶</a></h2>
-<p>If the desired function is not accurate, then first look at the
-state-space to see if it is being represented correctly. If not (you
-might see erratic oscillations or saturation at large values), then
-there are a few specific things to try:</p>
+<p>If the desired function is not accurate, then first look at the state-space to see if it is being represented correctly. If not (you might see erratic oscillations or saturation at large values), then there are a few specific things to try:</p>
 <ol class="arabic simple">
 <li>Pass a more representative training <code class="docutils literal"><span class="pre">process</span></code>:</li>
 </ol>
 <ul class="simple">
 <li>Make sure it corresponds to a typical input stimuli</li>
 <li>Make it aperiodic over a longer time interval (at least 10 seconds)</li>
-<li>Make the process contain higher frequencies (to “activate” all of the
-dimensions), or decrease the <code class="docutils literal"><span class="pre">dimensions</span></code>, or increase <code class="docutils literal"><span class="pre">theta</span></code></li>
-<li>Make the process contain lower frequencies (to put it within the
-range of the Padé approximants), or increase the <code class="docutils literal"><span class="pre">dimensions</span></code>, or
-decrease <code class="docutils literal"><span class="pre">theta</span></code></li>
+<li>Make the process contain higher frequencies (to “activate” all of the dimensions), or decrease the <code class="docutils literal"><span class="pre">dimensions</span></code>, or increase <code class="docutils literal"><span class="pre">theta</span></code></li>
+<li>Make the process contain lower frequencies (to put it within the range of the Padé approximants), or increase the <code class="docutils literal"><span class="pre">dimensions</span></code>, or decrease <code class="docutils literal"><span class="pre">theta</span></code></li>
 </ul>
 <ol class="arabic simple" start="2">
 <li>Pass <code class="docutils literal"><span class="pre">process=None</span></code>, and then:</li>
 </ol>
 <ul class="simple">
-<li>Set <code class="docutils literal"><span class="pre">encoders</span></code> to be axis-aligned
-(<code class="docutils literal"><span class="pre">nengo.dists.Choice(np.vstack([I,</span> <span class="pre">-I]))</span></code>)</li>
-<li>Set <code class="docutils literal"><span class="pre">radii</span></code> to the absolute maximum values of each dimension
-(<code class="docutils literal"><span class="pre">np.max(np.abs(x),</span> <span class="pre">axis=0)</span></code>, after realization)</li>
-<li>Set <code class="docutils literal"><span class="pre">eval_points=nengolib.stats.cube</span></code> or to some representative
-points in state-space (after radii+realization)</li>
+<li>Set <code class="docutils literal"><span class="pre">encoders</span></code> to be axis-aligned (<code class="docutils literal"><span class="pre">nengo.dists.Choice(np.vstack([I,</span> <span class="pre">-I]))</span></code>)</li>
+<li>Set <code class="docutils literal"><span class="pre">radii</span></code> to the absolute maximum values of each dimension (<code class="docutils literal"><span class="pre">np.max(np.abs(x),</span> <span class="pre">axis=0)</span></code>, after realization)</li>
+<li>Set <code class="docutils literal"><span class="pre">eval_points=nengolib.stats.cube</span></code> or to some representative points in state-space (after radii+realization)</li>
 </ul>
 <ol class="arabic simple" start="3">
 <li>Change the solver and/or regularization:</li>
 </ol>
 <ul class="simple">
-<li>Pass <code class="docutils literal"><span class="pre">solver=nengo.solvers.LstsqL2(reg=1e-X)</span></code> with different X
-ranging between <code class="docutils literal"><span class="pre">1</span></code> and <code class="docutils literal"><span class="pre">4</span></code></li>
-<li>Pass this to either <code class="docutils literal"><span class="pre">add_output</span></code> (to apply only to the decoded
-function), or to the constructor (to apply to both the recurrent
-function and the decoded function)</li>
+<li>Pass <code class="docutils literal"><span class="pre">solver=nengo.solvers.LstsqL2(reg=1e-X)</span></code> with different X ranging between <code class="docutils literal"><span class="pre">1</span></code> and <code class="docutils literal"><span class="pre">4</span></code></li>
+<li>Pass this to either <code class="docutils literal"><span class="pre">add_output</span></code> (to apply only to the decoded function), or to the constructor (to apply to both the recurrent function and the decoded function)</li>
 </ul>
-<p>Otherwise, if your function is not expressable as
-<span class="math">\(\sum_{i=1}^{d} f_i ( {\bf v}_i \cdot {\bf w} )\)</span> for the above
-<span class="math">\({\bf v}_i\)</span> and for low-order <span class="math">\(f_i\)</span>, try:</p>
+<p>Otherwise, if your function is not expressable as <span class="math">\(\sum_{i=1}^{d} f_i ( {\bf v}_i \cdot {\bf w} )\)</span> for the above <span class="math">\({\bf v}_i\)</span> and for low-order <span class="math">\(f_i\)</span>, try:</p>
 <ol class="arabic simple">
-<li>Pass a different state-space realization by providing a different
-<code class="docutils literal"><span class="pre">realizer</span></code> object to the <code class="docutils literal"><span class="pre">RollingWindow</span></code>. See <code class="docutils literal"><span class="pre">LinearNetwork</span></code>
-for details on realizers. This might rotate the state-space into the
-form of the above (analogous to how the nonlinear <code class="docutils literal"><span class="pre">Product</span></code> network
-is just a diagonal rotation of the linear <code class="docutils literal"><span class="pre">EnsembleArray</span></code>).</li>
-<li>Create a second ensemble with uniformly distributed encoders (or some
-other non-orthogonal distribution) and communicate the state variable
-to that ensemble. Then decode the desired function from that second
-ensemble using the above basis matrix to define the function with
-respect to <code class="docutils literal"><span class="pre">x</span></code>.</li>
-<li>For expert users, the <code class="docutils literal"><span class="pre">RollingWindow</span></code> is designed to be very
-“hackable”, in that you can specify many of the <code class="docutils literal"><span class="pre">Ensemble</span></code> and
-<code class="docutils literal"><span class="pre">Connection</span></code> parameters needed to tweak performance, or customize
-how the <code class="docutils literal"><span class="pre">process</span></code> is used to solve for the <code class="docutils literal"><span class="pre">eval_points</span></code> and
-<code class="docutils literal"><span class="pre">encoders</span></code>, or even subclass what happens in <code class="docutils literal"><span class="pre">_make_core</span></code>.</li>
+<li>Pass a different state-space realization by providing a different <code class="docutils literal"><span class="pre">realizer</span></code> object to the <code class="docutils literal"><span class="pre">RollingWindow</span></code>. See <code class="docutils literal"><span class="pre">LinearNetwork</span></code> for details on realizers. This might rotate the state-space into the form of the above (analogous to how the nonlinear <code class="docutils literal"><span class="pre">Product</span></code> network is just a diagonal rotation of the linear <code class="docutils literal"><span class="pre">EnsembleArray</span></code>).</li>
+<li>Create a second ensemble with uniformly distributed encoders (or some other non-orthogonal distribution) and communicate the state variable to that ensemble. Then decode the desired function from that second ensemble using the above basis matrix to define the function with respect to <code class="docutils literal"><span class="pre">x</span></code>.</li>
+<li>For expert users, the <code class="docutils literal"><span class="pre">RollingWindow</span></code> is designed to be very “hackable”, in that you can specify many of the <code class="docutils literal"><span class="pre">Ensemble</span></code> and <code class="docutils literal"><span class="pre">Connection</span></code> parameters needed to tweak performance, or customize how the <code class="docutils literal"><span class="pre">process</span></code> is used to solve for the <code class="docutils literal"><span class="pre">eval_points</span></code> and <code class="docutils literal"><span class="pre">encoders</span></code>, or even subclass what happens in <code class="docutils literal"><span class="pre">_make_core</span></code>.</li>
 </ol>
 </div>
 <div class="section" id="References">
 <h2>References<a class="headerlink" href="#References" title="Permalink to this headline">¶</a></h2>
-<p>[1] Aaron R. Voelker and Chris Eliasmith. Improving spiking dynamical
-networks: accurate delays, higher-order synapses, and time cells. Neural
-Computation, 30(3):569-609, 03 2018.
-<a class="reference external" href="https://www.mitpressjournals.org/doi/abs/10.1162/neco_a_01046">https://www.mitpressjournals.org/doi/abs/10.1162/neco_a_01046</a>,
-doi:10.1162/neco_a_01046.
-[<a class="reference external" href="https://github.com/arvoelke/delay2017">GitHub</a>]</p>
+<p>[1] Aaron R. Voelker and Chris Eliasmith. Improving spiking dynamical networks: accurate delays, higher-order synapses, and time cells. Neural Computation, 30(3):569-609, 03 2018. <a class="reference external" href="https://www.mitpressjournals.org/doi/abs/10.1162/neco_a_01046">https://www.mitpressjournals.org/doi/abs/10.1162/neco_a_01046</a>, doi:10.1162/neco_a_01046. [<a class="reference external" href="https://github.com/arvoelke/delay2017">GitHub</a>]</p>
 </div>
 </div>
 
@@ -818,7 +744,7 @@ doi:10.1162/neco_a_01046.
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -832,7 +758,7 @@ doi:10.1162/neco_a_01046.
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -883,7 +809,7 @@ doi:10.1162/neco_a_01046.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../../_sources/notebooks/examples/rolling_window.ipynb.txt"

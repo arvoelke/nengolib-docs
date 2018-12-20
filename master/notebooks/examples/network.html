@@ -99,18 +99,18 @@ div.nblast {
 
 /* input prompt */
 div.nbinput div.prompt pre {
-    color: #303F9F;
+    color: #307FC1;
 }
 
 /* output prompt */
 div.nboutput div.prompt pre {
-    color: #D84315;
+    color: #BF5B3D;
 }
 
 /* all prompts */
 div.nbinput div.prompt,
 div.nboutput div.prompt {
-    min-width: 8ex;
+    min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
@@ -150,9 +150,9 @@ div.nboutput div.output_area {
 
 /* input area */
 div.nbinput div.input_area {
-    border: 1px solid #cfcfcf;
+    border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f7f7f7;
+    background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
@@ -160,7 +160,7 @@ div.nboutput div[class*=MathJax] {
     text-align: left !important;
 }
 
-/* override sphinx.ext.pngmath center alignment in output cells */
+/* override sphinx.ext.imgmath center alignment in output cells */
 div.nboutput div.math p {
     text-align: left;
 }
@@ -209,27 +209,52 @@ div.nboutput div.output_area.stderr {
 
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 </style>
 <div class="section" id="Network-Improvements">
 <h1>Network Improvements<a class="headerlink" href="#Network-Improvements" title="Permalink to this headline">¶</a></h1>
-<p>The class <strong>``nengolib.Network()``</strong> is intended to serve as a drop-in
-replacement for <strong>``nengo.Network()``</strong>. This new class:</p>
+<p>The class <strong>``nengolib.Network()``</strong> is intended to serve as a drop-in replacement for <strong>``nengo.Network()``</strong>. This new class:</p>
 <ul class="simple">
 <li>samples <code class="docutils literal"><span class="pre">encoders</span></code> more uniformly;</li>
 <li>samples <code class="docutils literal"><span class="pre">eval_points</span></code> more uniformly; and</li>
-<li>uses neurons which spike at the ideal rate regardless of <code class="docutils literal"><span class="pre">dt</span></code> (see
-<a class="reference external" href="https://github.com/nengo/nengo/pull/975">Nengo #975</a>; default in
-<code class="docutils literal"><span class="pre">nengo&gt;=2.1.1</span></code>).</li>
+<li>uses neurons which spike at the ideal rate regardless of <code class="docutils literal"><span class="pre">dt</span></code> (see <a class="reference external" href="https://github.com/nengo/nengo/pull/975">Nengo #975</a>; default in <code class="docutils literal"><span class="pre">nengo&gt;=2.1.1</span></code>).</li>
 </ul>
-<p>As a result, the performance of ensembles should increase, both in terms
-of their representational quality (the encoders become better
-“representatives”) and the generalization error from the decoders (their
-approximation error on unseen test points). A current limitation is that
-the improvement only occurs for up to 40-dimensional ensembles (beyond
-this the original implementation is used).</p>
+<p>As a result, the performance of ensembles should increase, both in terms of their representational quality (the encoders become better “representatives”) and the generalization error from the decoders (their approximation error on unseen test points). A current limitation is that the improvement only occurs for up to 40-dimensional ensembles (beyond this the original implementation is used).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -273,8 +298,8 @@ Populating the interactive namespace from numpy and matplotlib
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="26df7870-6558-4573-8e73-98737d24a392" style="
+<div class="output_area rendered_html docutils container">
+<div id="adf27a36-7d60-470b-a270-40e88e4a3d8b" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -307,7 +332,7 @@ Populating the interactive namespace from numpy and matplotlib
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('26df7870-6558-4573-8e73-98737d24a392');
+                  var root = document.getElementById('adf27a36-7d60-470b-a270-40e88e4a3d8b');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -337,8 +362,8 @@ var element = document.currentScript.previousSibling.previousSibling;
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div id="ec36feea-b789-49c9-8952-80838acd76b2" style="
+<div class="output_area rendered_html docutils container">
+<div id="7a512388-08d8-4e30-b56f-0130581be717" style="
     width: 100%;
     border: 1px solid #cfcfcf;
     border-radius: 4px;
@@ -371,7 +396,7 @@ var element = document.currentScript.previousSibling.previousSibling;
 var element = document.currentScript.previousSibling.previousSibling;
 
               (function () {
-                  var root = document.getElementById('ec36feea-b789-49c9-8952-80838acd76b2');
+                  var root = document.getElementById('7a512388-08d8-4e30-b56f-0130581be717');
                   var text = root.getElementsByClassName('pb-text')[0];
                   var fill = root.getElementsByClassName('pb-fill')[0];
 
@@ -396,6 +421,15 @@ var element = document.currentScript.previousSibling.previousSibling;
 </div>
 <div class="output_area docutils container">
 <img alt="../../_images/notebooks_examples_network_1_6.png" src="../../_images/notebooks_examples_network_1_6.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -435,7 +469,7 @@ var element = document.currentScript.previousSibling.previousSibling;
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -449,7 +483,7 @@ var element = document.currentScript.previousSibling.previousSibling;
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -500,7 +534,7 @@ var element = document.currentScript.previousSibling.previousSibling;
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../../_sources/notebooks/examples/network.ipynb.txt"

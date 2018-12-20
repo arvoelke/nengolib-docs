@@ -99,18 +99,18 @@ div.nblast {
 
 /* input prompt */
 div.nbinput div.prompt pre {
-    color: #303F9F;
+    color: #307FC1;
 }
 
 /* output prompt */
 div.nboutput div.prompt pre {
-    color: #D84315;
+    color: #BF5B3D;
 }
 
 /* all prompts */
 div.nbinput div.prompt,
 div.nboutput div.prompt {
-    min-width: 8ex;
+    min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
@@ -150,9 +150,9 @@ div.nboutput div.output_area {
 
 /* input area */
 div.nbinput div.input_area {
-    border: 1px solid #cfcfcf;
+    border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f7f7f7;
+    background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
@@ -160,7 +160,7 @@ div.nboutput div[class*=MathJax] {
     text-align: left !important;
 }
 
-/* override sphinx.ext.pngmath center alignment in output cells */
+/* override sphinx.ext.imgmath center alignment in output cells */
 div.nboutput div.math p {
     text-align: left;
 }
@@ -209,13 +209,46 @@ div.nboutput div.output_area.stderr {
 
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
 </style>
 <div class="section" id="Sampling-High-Dimensional-Vectors">
 <h1>Sampling High-Dimensional Vectors<a class="headerlink" href="#Sampling-High-Dimensional-Vectors" title="Permalink to this headline">¶</a></h1>
 <p>Aaron R. Voelker (January 15, 2016)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -250,11 +283,9 @@ Populating the interactive namespace from numpy and matplotlib
 </div>
 <div class="section" id="Abstract">
 <h2>Abstract<a class="headerlink" href="#Abstract" title="Permalink to this headline">¶</a></h2>
-<p>The <strong>Monte Carlo (MC)</strong> method of sampling is notoriously bad at
-reproducing the same statistics as the distribution being sampled.</p>
+<p>The <strong>Monte Carlo (MC)</strong> method of sampling is notoriously bad at reproducing the same statistics as the distribution being sampled.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -277,12 +308,9 @@ reproducing the same statistics as the distribution being sampled.</p>
 <img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_3_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_3_0.png" />
 </div>
 </div>
-<p>Intuitively, MC sampling gives lots of “gaps” and “clumps”, while
-instead what we want is more of a “<strong>scattering</strong>” of points uniformly
-about the sphere.</p>
+<p>Intuitively, MC sampling gives lots of “gaps” and “clumps”, while instead what we want is more of a “<strong>scattering</strong>” of points uniformly about the sphere.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -297,31 +325,12 @@ about the sphere.</p>
 <img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_5_0.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_5_0.png" />
 </div>
 </div>
-<p>We currently have three reasons to sample vectors in Nengo: 1. Choosing
-the <strong>encoders</strong> for a population 2. Choosing the <strong>evaluation points</strong>
-to solve for decoders 3. Choosing the <strong>semantic pointers</strong> in a
-vocabulary</p>
-<p>MC is bad for problem 1, because the neurons should be uniformly
-representing all parts of the vector space. MC sampling is <em>also</em> bad
-for problem 2, because the “<strong>empirical distribution</strong>” does not match
-the actual distribution unless there are a large number of samples, and
-so the decoders are biased to minimize the approximation error of
-certain vectors over others. A scattered distribution overcomes this
-problem by giving a closer match to the uniform distribution with fewer
-samples.</p>
-<p>In fact, problems 1 and 2 are basically equivalent. When sampling
-encoders, we are effectively choosing which vectors should have the
-least error (by principle (1) they fire the most, and then by principle
-(2) they contribute the most to the estimate). The only ‘real’
-difference is that encoders are on the <span class="math">\(D\)</span>-sphere, while
-evaluation points are on the <span class="math">\(D\)</span>-ball. These two problems can be
-solved efficiently by the <strong>number-theoretic method (NTM)</strong>, also known
-as the <strong>quasi Monte Carlo method</strong>, to generate scattered points. These
-solutions can then be used to sample encoders and evaluation points, to
-improve the representation of a population and its decoders.</p>
+<p>We currently have three reasons to sample vectors in Nengo: 1. Choosing the <strong>encoders</strong> for a population 2. Choosing the <strong>evaluation points</strong> to solve for decoders 3. Choosing the <strong>semantic pointers</strong> in a vocabulary</p>
+<p>MC is bad for problem 1, because the neurons should be uniformly representing all parts of the vector space. MC sampling is <em>also</em> bad for problem 2, because the “<strong>empirical distribution</strong>” does not match the actual distribution unless there are a large number of samples, and so the decoders are biased to minimize the approximation error of certain vectors over others. A scattered distribution overcomes this problem by giving a closer match to the uniform distribution with fewer samples.</p>
+<p>In fact, problems 1 and 2 are basically equivalent. When sampling encoders, we are effectively choosing which vectors should have the least error (by principle (1) they fire the most, and then by principle (2) they contribute the most to the estimate). The only ‘real’ difference is that encoders are on the <span class="math">\(D\)</span>-sphere, while evaluation points are on the <span class="math">\(D\)</span>-ball. These two problems can be solved efficiently by the <strong>number-theoretic method (NTM)</strong>, also known as the <strong>quasi Monte
+Carlo method</strong>, to generate scattered points. These solutions can then be used to sample encoders and evaluation points, to improve the representation of a population and its decoders.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -389,9 +398,9 @@ improve the representation of a population and its decoders.</p>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="stderr output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/arvoelke/anaconda3/envs/py37/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+/home/arvoelke/anaconda3/envs/py36/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
   return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
 </pre></div></div>
 </div>
@@ -402,114 +411,52 @@ improve the representation of a population and its decoders.</p>
 <img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_7_1.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_7_1.png" />
 </div>
 </div>
-<p>However, problem 3 is <em>strictly</em> harder (and in fact almost completely
-different), and so we will save that talk for a later day.</p>
+<p>However, problem 3 is <em>strictly</em> harder (and in fact almost completely different), and so we will save that talk for a later day.</p>
 </div>
 <div class="section" id="The-Number-Theoretic-Method-(NTM)">
 <h2>The Number-Theoretic Method (NTM)<a class="headerlink" href="#The-Number-Theoretic-Method-(NTM)" title="Permalink to this headline">¶</a></h2>
-<p>This exact same problem showed up as early as 1961 and was studied
-extensively in the 1980s [1] for applications in <strong>experimental design</strong>
-and <strong>statistical finance</strong>, in which the task boils down to evaluating
-a high-dimensional integral:</p>
+<p>This exact same problem showed up as early as 1961 and was studied extensively in the 1980s [1] for applications in <strong>experimental design</strong> and <strong>statistical finance</strong>, in which the task boils down to evaluating a high-dimensional integral:</p>
 <div class="math">
 \[\int_{S} f({\bf u})\,{\rm d}{\bf u}\]</div>
-<p>where <span class="math">\(S\)</span> is some <span class="math">\(D\)</span>-dimensional space. Due to the <strong>curse
-of dimensionality</strong>, even modestly sized <span class="math">\(D\)</span> requires too many
-points to evaluate using standard numerical integration techniques like
-the trapezoidal rule. Instead, the standard approach is to choose a
-sub-sampling of <strong>representative points</strong>
-<span class="math">\(\{{\bf x_1}, \ldots, {\bf x_N}\}\)</span> over the domain of <span class="math">\(S\)</span>,
-and compute:</p>
+<p>where <span class="math">\(S\)</span> is some <span class="math">\(D\)</span>-dimensional space. Due to the <strong>curse of dimensionality</strong>, even modestly sized <span class="math">\(D\)</span> requires too many points to evaluate using standard numerical integration techniques like the trapezoidal rule. Instead, the standard approach is to choose a sub-sampling of <strong>representative points</strong> <span class="math">\(\{{\bf x_1}, \ldots, {\bf x_N}\}\)</span> over the domain of <span class="math">\(S\)</span>, and compute:</p>
 <div class="math">
 \[\approx \frac{1}{N}\,\sum_{i=1}^N f({\bf x_i})\]</div>
-<p>This works well as long as we can sample these points uniformly. It has
-been theoretically proven that the approximation error from using the
-NTM is superior to that of MC sampling.</p>
+<p>This works well as long as we can sample these points uniformly. It has been theoretically proven that the approximation error from using the NTM is superior to that of MC sampling.</p>
 <hr class="docutils" />
-<p>To make the connection back to our original problem explicit, when
-solving for the decoders we are minimizing the mean squared error given
-by:</p>
+<p>To make the connection back to our original problem explicit, when solving for the decoders we are minimizing the mean squared error given by:</p>
 <div class="math">
 \[\int_{S} ({\bf x} - {\bf \hat{x}})^2 \,{\rm d}{\bf x}\]</div>
-<p>where <span class="math">\(S\)</span> is the <span class="math">\(D\)</span>-ball. Thus,
-<span class="math">\(f({\bf u}) = ({\bf u} - {\bf \hat{u}})^2\)</span> is the function we need
-to integrate. And the points <span class="math">\(\{{\bf x_1}, \ldots, {\bf x_N}\}\)</span>
-are precisely the set of <span class="math">\(N\)</span> evaluation points that we are, in
-effect, choosing to approximate this integral. This explains more
-formally why this new approach out-performs the old approach.</p>
+<p>where <span class="math">\(S\)</span> is the <span class="math">\(D\)</span>-ball. Thus, <span class="math">\(f({\bf u}) = ({\bf u} - {\bf \hat{u}})^2\)</span> is the function we need to integrate. And the points <span class="math">\(\{{\bf x_1}, \ldots, {\bf x_N}\}\)</span> are precisely the set of <span class="math">\(N\)</span> evaluation points that we are, in effect, choosing to approximate this integral. This explains more formally why this new approach out-performs the old approach.</p>
 <hr class="docutils" />
-<p>Now the NTM goes by a number of roughly equivalent names: - uniform
-design - NT-net - quasi Monte Carlo - quasi-random - low-discrepancy
-sequence - representative points - uniformly scattered points</p>
-<p>We will refer to the collective theory as the NTM, and to a specific
-sampling as a uniform scattering.</p>
-<p>There are many algorithms to generate scattered points in the
-literature: - Faure - Good Points - Good Lattice Points -
-[STRIKEOUT:Latin Square] - Haber - Halton (van der Corput) - Hammersley
-- Hua and Wang (cyclotomic field) - Niederreiter - [STRIKEOUT:Poisson
-Disk] - Sobol</p>
-<p>Since <strong>Sobol</strong> had the most readily-available Python library (and the
-largest Wikipedia page), I used it for all my experiments. The default
-method has been updated to
-<a class="reference external" href="http://extremelearning.com.au/unreasonable-effectiveness-of-quasirandom-sequences/">Rd</a>
-since the writing of this notebook.</p>
-<p>All of these approaches (except the Latin Square and Poisson Disk
-sampling) attempt to minimize the <strong>discrepancy</strong> of the samples.
-Informally, the discrepancy measure tells us how much the sample
-distribution differs from the underlying distribution. Formally, we
-define the empirical distribution as the cumulative distribution
-function (CDF) <span class="math">\(F_N({\bf x}) = P({\bf X} \le {\bf x})\)</span>, where:</p>
+<p>Now the NTM goes by a number of roughly equivalent names: - uniform design - NT-net - quasi Monte Carlo - quasi-random - low-discrepancy sequence - representative points - uniformly scattered points</p>
+<p>We will refer to the collective theory as the NTM, and to a specific sampling as a uniform scattering.</p>
+<p>There are many algorithms to generate scattered points in the literature: - Faure - Good Points - Good Lattice Points - [STRIKEOUT:Latin Square] - Haber - Halton (van der Corput) - Hammersley - Hua and Wang (cyclotomic field) - Niederreiter - [STRIKEOUT:Poisson Disk] - Sobol</p>
+<p>Since <strong>Sobol</strong> had the most readily-available Python library (and the largest Wikipedia page), I used it for all my experiments. The default method has been updated to <a class="reference external" href="http://extremelearning.com.au/unreasonable-effectiveness-of-quasirandom-sequences/">Rd</a> since the writing of this notebook.</p>
+<p>All of these approaches (except the Latin Square and Poisson Disk sampling) attempt to minimize the <strong>discrepancy</strong> of the samples. Informally, the discrepancy measure tells us how much the sample distribution differs from the underlying distribution. Formally, we define the empirical distribution as the cumulative distribution function (CDF) <span class="math">\(F_N({\bf x}) = P({\bf X} \le {\bf x})\)</span>, where:</p>
 <div class="math">
 \[P({\bf X} = {\bf x_i}) = \frac{1}{N}, \quad i = 1 \ldots N\]</div>
 <p>Then the discrepancy of this set is defined as:</p>
 <div class="math">
 \[D(N) = sup_{x \in \mathbb{R}^D} |F_N({\bf x}) - F({\bf x})|\]</div>
-<p>where <span class="math">\(F\)</span> is the true CDF. This gives an upper-bound on how well
-the empirical CDF approximates the true CDF. The lower this is, the
-better our sample set represents the true distribution at all points
-(not just the points that were sampled). And all of these approaches
-(again, except for Latin/Poisson) have worst-case (guaranteed) bounds
-that are asymptotically dominated by MC in theory (and for lower
-<span class="math">\(N\)</span> as well in practice).</p>
+<p>where <span class="math">\(F\)</span> is the true CDF. This gives an upper-bound on how well the empirical CDF approximates the true CDF. The lower this is, the better our sample set represents the true distribution at all points (not just the points that were sampled). And all of these approaches (again, except for Latin/Poisson) have worst-case (guaranteed) bounds that are asymptotically dominated by MC in theory (and for lower <span class="math">\(N\)</span> as well in practice).</p>
 <div class="math">
 \[\begin{split}D(N) = \begin{cases}
       O(\frac{1}{\sqrt{N}}) &amp; \text{MC Sampling} \\
       O(\frac{(log N)^D}{N}) &amp; \text{NTM Sampling}
    \end{cases}\end{split}\]</div>
-<p>The <span class="math">\(\sqrt{N} = o(N)\)</span> is the important part. The numerator is a
-worst-case that is reported to be a small constant in practice.</p>
-<p>The nice fact that comes out of all of this, is that: the discrepancy is
-related to the error when computing the above integral by a constant
-factor (fixed for a given <span class="math">\(f\)</span>), and thus reflects the error in
-approximating the decoders’ true RMSE (its generalizability).</p>
+<p>The <span class="math">\(\sqrt{N} = o(N)\)</span> is the important part. The numerator is a worst-case that is reported to be a small constant in practice.</p>
+<p>The nice fact that comes out of all of this, is that: the discrepancy is related to the error when computing the above integral by a constant factor (fixed for a given <span class="math">\(f\)</span>), and thus reflects the error in approximating the decoders’ true RMSE (its generalizability).</p>
 <div class="math">
 \[\left|\underbrace{\int_{S} ({\bf x} - {\bf \hat{x}})^2 \,{\rm d}{\bf x}}_{\text{Testing Error}} - \underbrace{\frac{1}{N}\,\sum_{i=1}^N ({\bf x_i} - {\bf \hat{x_i}})^2}_{\text{Training Error}} \right| \le \underbrace{C(f) \, D(N)}_{\text{Generalization Error}}\]</div>
-<p>where <span class="math">\(C(f)\)</span> is a constant that depends on the ensemble and the
-function being optimized, and <span class="math">\(D(N)\)</span> is the discrepancy of the
-<span class="math">\(N\)</span> evaluation points. When choosing evaluation points, we are
-fixing <span class="math">\(C(f)\)</span> and trying to minimize <span class="math">\(D(N)\)</span>. Therefore, when
-using NTMs over MC sampling, we only need on the order of
-<span class="math">\(\sqrt{N}\)</span> as many evaluation points to get the same level of
-performance; NTM squares the effective number of evaluation points!</p>
-<p>Now, everything is fine and dandy. It’s a simple one-line call in Python
-to generate a sequence that does exactly what we need. However… all of
-these methods generate points on the <span class="math">\(D\)</span>-cube, but not the
-<span class="math">\(D\)</span>-sphere or <span class="math">\(D\)</span>-ball as required. Fortunately, [1]
-describes an <strong>inverse transform method</strong> which allows us to generate
-scattered points on any distribution provided we can represent
-<span class="math">\({\bf x}\)</span> as a set of independent random variables with some known
-inverse CDF. Furthermore, the authors have already done this for the
-<span class="math">\(D\)</span>-sphere and <span class="math">\(D\)</span>-ball using the <strong>spherical coordinate
-transformation</strong>!</p>
+<p>where <span class="math">\(C(f)\)</span> is a constant that depends on the ensemble and the function being optimized, and <span class="math">\(D(N)\)</span> is the discrepancy of the <span class="math">\(N\)</span> evaluation points. When choosing evaluation points, we are fixing <span class="math">\(C(f)\)</span> and trying to minimize <span class="math">\(D(N)\)</span>. Therefore, when using NTMs over MC sampling, we only need on the order of <span class="math">\(\sqrt{N}\)</span> as many evaluation points to get the same level of performance; NTM squares the effective number of evaluation points!</p>
+<p>Now, everything is fine and dandy. It’s a simple one-line call in Python to generate a sequence that does exactly what we need. However… all of these methods generate points on the <span class="math">\(D\)</span>-cube, but not the <span class="math">\(D\)</span>-sphere or <span class="math">\(D\)</span>-ball as required. Fortunately, [1] describes an <strong>inverse transform method</strong> which allows us to generate scattered points on any distribution provided we can represent <span class="math">\({\bf x}\)</span> as a set of independent random variables with some known inverse CDF.
+Furthermore, the authors have already done this for the <span class="math">\(D\)</span>-sphere and <span class="math">\(D\)</span>-ball using the <strong>spherical coordinate transformation</strong>!</p>
 </div>
 <div class="section" id="The-Inverse-Transform-Method">
 <h2>The Inverse Transform Method<a class="headerlink" href="#The-Inverse-Transform-Method" title="Permalink to this headline">¶</a></h2>
-<p>It is not at all clear how to map scattered points from the
-<span class="math">\(D\)</span>-cube to the <span class="math">\(D\)</span>-sphere or <span class="math">\(D\)</span>-ball. If we just try
-to normalize the vectors to the sphere, then the results are poor.</p>
+<p>It is not at all clear how to map scattered points from the <span class="math">\(D\)</span>-cube to the <span class="math">\(D\)</span>-sphere or <span class="math">\(D\)</span>-ball. If we just try to normalize the vectors to the sphere, then the results are poor.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [5]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -545,9 +492,9 @@ to normalize the vectors to the sphere, then the results are poor.</p>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="stderr output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/arvoelke/anaconda3/envs/py37/lib/python3.7/site-packages/ipykernel_launcher.py:14: RuntimeWarning: invalid value encountered in true_divide
+/home/arvoelke/anaconda3/envs/py36/lib/python3.6/site-packages/ipykernel_launcher.py:14: RuntimeWarning: invalid value encountered in true_divide
 
 </pre></div></div>
 </div>
@@ -558,23 +505,11 @@ to normalize the vectors to the sphere, then the results are poor.</p>
 <img alt="../../_images/notebooks_research_sampling_high_dimensional_vectors_10_2.png" src="../../_images/notebooks_research_sampling_high_dimensional_vectors_10_2.png" />
 </div>
 </div>
-<p>And it actually gets worse as the dimensionality goes up, because the
-volume of a <span class="math">\(D\)</span>-cube is concentrated outside the region of the
-<span class="math">\(D\)</span>-ball (and so vectors tend to get normalized to the corners)!</p>
-<p>The following procedure (referred to as the “inverse transform method”)
-is a general way to sample an arbitrary multivariate random variable
-<span class="math">\({\bf X}\)</span>, using only the hyper-cube: 1. Pick a transformation
-<span class="math">\(T\)</span> that maps each <span class="math">\({\bf x}\)</span> to a vector
-<span class="math">\({\bf y} = T({\bf x})\)</span> such that its components are mutually
-independent (might be identity). 2. Given the CDF of <span class="math">\({\bf X}\)</span> and
-the chosen transformation, determine the CDF <span class="math">\(F\)</span> of
-<span class="math">\({\bf Y}\)</span> by a substitution of variables (hard part). 3. Then
-<span class="math">\({\bf x} = T^{-1}(F^{-1}({\bf z}))\)</span> samples <span class="math">\({\bf X}\)</span>
-uniformly, when <span class="math">\({\bf z}\)</span> is sampled from a hyper-cube with the
-same dimensionality as <span class="math">\({\bf Y}\)</span> (numerical part).</p>
+<p>And it actually gets worse as the dimensionality goes up, because the volume of a <span class="math">\(D\)</span>-cube is concentrated outside the region of the <span class="math">\(D\)</span>-ball (and so vectors tend to get normalized to the corners)!</p>
+<p>The following procedure (referred to as the “inverse transform method”) is a general way to sample an arbitrary multivariate random variable <span class="math">\({\bf X}\)</span>, using only the hyper-cube: 1. Pick a transformation <span class="math">\(T\)</span> that maps each <span class="math">\({\bf x}\)</span> to a vector <span class="math">\({\bf y} = T({\bf x})\)</span> such that its components are mutually independent (might be identity). 2. Given the CDF of <span class="math">\({\bf X}\)</span> and the chosen transformation, determine the CDF <span class="math">\(F\)</span> of <span class="math">\({\bf Y}\)</span> by a substitution of
+variables (hard part). 3. Then <span class="math">\({\bf x} = T^{-1}(F^{-1}({\bf z}))\)</span> samples <span class="math">\({\bf X}\)</span> uniformly, when <span class="math">\({\bf z}\)</span> is sampled from a hyper-cube with the same dimensionality as <span class="math">\({\bf Y}\)</span> (numerical part).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [6]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -592,33 +527,17 @@ same dimensionality as <span class="math">\({\bf Y}\)</span> (numerical part).</
 </div>
 <div class="section" id="Spherical-Coordinate-Transformation">
 <h2>Spherical Coordinate Transformation<a class="headerlink" href="#Spherical-Coordinate-Transformation" title="Permalink to this headline">¶</a></h2>
-<p>There’s a 10 page derivation in [1] for both the <span class="math">\(D\)</span>-ball and
-<span class="math">\(D\)</span>-sphere. The sphere case proceeds as follows: 1. The
-transformation <span class="math">\(T\)</span> is the spherical coordinate transformation,
-such that <span class="math">\({\bf y}\)</span> is a <span class="math">\((D-1)\)</span>-dimensional vector of
-angles. 2. The distribution of the <span class="math">\(i^{th}\)</span> element of
-<span class="math">\({\bf y}\)</span> is:</p>
+<p>There’s a 10 page derivation in [1] for both the <span class="math">\(D\)</span>-ball and <span class="math">\(D\)</span>-sphere. The sphere case proceeds as follows: 1. The transformation <span class="math">\(T\)</span> is the spherical coordinate transformation, such that <span class="math">\({\bf y}\)</span> is a <span class="math">\((D-1)\)</span>-dimensional vector of angles. 2. The distribution of the <span class="math">\(i^{th}\)</span> element of <span class="math">\({\bf y}\)</span> is:</p>
 <div class="math">
 \[\begin{split}F_i(y_i) = \begin{cases}
       \frac{1}{2} B(sin(\pi y_i)^2; \frac{D-i}{2}, \frac{1}{2}) &amp; y_i &lt; \frac{1}{2} \\
       1 - \frac{1}{2} B(sin(\pi y_i)^2; \frac{D-i}{2}, \frac{1}{2}) &amp; otherwise
    \end{cases}, \quad i=1 \ldots D-1\end{split}\]</div>
-<p>where <span class="math">\(B\)</span> is the regularized incomplete beta function. 3. This
-distribution can be inverted using scipy’s <code class="docutils literal"><span class="pre">betaincinv</span></code> function.
-Also, <span class="math">\(T\)</span> is easy to invert. Then take a scattered sample from the
-<span class="math">\((D-1)\)</span>-cube and apply the inverse functions.</p>
-<p>To modify this to work for the <span class="math">\(D\)</span>-ball, we instead sample from
-the <span class="math">\(D\)</span>-cube and take the last component to be a normalization
-coefficient for the resulting vector (by raising it to the power of
-<span class="math">\(\frac{1}{D}\)</span>). See code for details.</p>
-<p>Note: The distribution given by <span class="math">\(F\)</span> is closely related to Jan’s
-<code class="docutils literal"><span class="pre">SqrtBeta</span></code> distribution of subvector lengths. They are identical after
-substituting the variable <span class="math">\(x = sin(\pi y_i)\)</span> with <span class="math">\(n=1\)</span> and
-<span class="math">\(m=D-i\)</span>, scaling by <span class="math">\(2\)</span>, and dealing with the reflection
-about <span class="math">\(y_i = \frac{1}{2}\)</span>.</p>
+<p>where <span class="math">\(B\)</span> is the regularized incomplete beta function. 3. This distribution can be inverted using scipy’s <code class="docutils literal"><span class="pre">betaincinv</span></code> function. Also, <span class="math">\(T\)</span> is easy to invert. Then take a scattered sample from the <span class="math">\((D-1)\)</span>-cube and apply the inverse functions.</p>
+<p>To modify this to work for the <span class="math">\(D\)</span>-ball, we instead sample from the <span class="math">\(D\)</span>-cube and take the last component to be a normalization coefficient for the resulting vector (by raising it to the power of <span class="math">\(\frac{1}{D}\)</span>). See code for details.</p>
+<p>Note: The distribution given by <span class="math">\(F\)</span> is closely related to Jan’s <code class="docutils literal"><span class="pre">SqrtBeta</span></code> distribution of subvector lengths. They are identical after substituting the variable <span class="math">\(x = sin(\pi y_i)\)</span> with <span class="math">\(n=1\)</span> and <span class="math">\(m=D-i\)</span>, scaling by <span class="math">\(2\)</span>, and dealing with the reflection about <span class="math">\(y_i = \frac{1}{2}\)</span>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
@@ -644,11 +563,17 @@ about <span class="math">\(y_i = \frac{1}{2}\)</span>.</p>
 </div>
 <div class="section" id="Acknowledgements">
 <h2>Acknowledgements<a class="headerlink" href="#Acknowledgements" title="Permalink to this headline">¶</a></h2>
-<p>Many thanks to Michael Hopkins from the SpiNNaker group in Manchester
-for providing me with all of the relevant background and reading
-material.</p>
-<p>[1] K.-T. Fang and Y. Wang, <em>Number-Theoretic Methods in Statistics</em>.
-Chapman &amp; Hall, 1994.</p>
+<p>Many thanks to Michael Hopkins from the SpiNNaker group in Manchester for providing me with all of the relevant background and reading material.</p>
+<p>[1] K.-T. Fang and Y. Wang, <em>Number-Theoretic Methods in Statistics</em>. Chapman &amp; Hall, 1994.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -687,7 +612,7 @@ Chapman &amp; Hall, 1994.</p>
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -701,7 +626,7 @@ Chapman &amp; Hall, 1994.</p>
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -752,7 +677,7 @@ Chapman &amp; Hall, 1994.</p>
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../../_sources/notebooks/research/sampling_high_dimensional_vectors.ipynb.txt"
