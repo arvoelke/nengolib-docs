@@ -1,4 +1,4 @@
-# See :doc:`notebooks.examples.rolling_window` for a notebook example.
+# See :doc:`notebooks/examples/rolling_window` for a notebook example.
 
 from nengolib.networks import RollingWindow, t_default
 
@@ -13,8 +13,7 @@ with Network() as model:
     process = nengo.processes.WhiteSignal(100., high=25, y0=0)
     stim = nengo.Node(output=process)
     rw = RollingWindow(theta=.05, n_neurons=2500, process=process,
-                       neuron_type=nengo.LIFRate(),
-                       realizer=Hankel())
+                       neuron_type=nengo.LIFRate(), legendre=True)
     nengo.Connection(stim, rw.input, synapse=None)
     p_stim = nengo.Probe(stim)
     p_delay = nengo.Probe(rw.output)
@@ -36,8 +35,8 @@ plt.xlabel("Time (s)")
 plt.show()
 
 # Visualizing the canonical basis functions. The state of the
-# :func:`PadeDelay` system takes a linear combination of these to
-# represent the current window of history:
+# :func:`LegendreDelay` system takes a linear combination of these
+# shifted Legendre polynomials to represent the current window of history:
 
 plt.title("canonical_basis()")
 plt.plot(t_default, rw.canonical_basis())

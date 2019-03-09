@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.signal.Encoders &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.signal.Encoders &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
 <h1>nengolib.signal.Encoders<a class="headerlink" href="#nengolib-signal-encoders" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.signal.Encoders">
-<em class="property">class </em><code class="descclassname">nengolib.signal.</code><code class="descname">Encoders</code><span class="sig-paren">(</span><em>sys</em>, <em>process</em>, <em>n_steps=10000</em>, <em>dt=None</em>, <em>**run_steps_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/signal/dists.py#L101-L147"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.Encoders" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.signal.</code><code class="descname">Encoders</code><span class="sig-paren">(</span><em>sys</em>, <em>process</em>, <em>n_steps=10000</em>, <em>dt=None</em>, <em>**run_steps_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/signal/dists.py#L101-L147"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.Encoders" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples axis-aligned encoders from the maximum radii of a LinearSystem.</p>
 <p>Given some input process. This is useful when setting <code class="docutils literal"><span class="pre">encoders</span></code> in
 conjunction with <code class="docutils literal"><span class="pre">normalize_encoders=False</span></code>, in order to set the
@@ -62,7 +62,7 @@ Used by <a class="reference internal" href="nengolib.networks.RollingWindow.html
 <dt><strong>sys</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></span></dt>
 <dd><p class="first last">Linear system representation.</p>
 </dd>
-<dt><strong>process</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Process" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Process</span></code></a></span></dt>
+<dt><strong>process</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Process" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Process</span></code></a></span></dt>
 <dd><p class="first last">Nengo process to simulate.</p>
 </dd>
 <dt><strong>n_steps</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">integer</span></code>, optional</span></dt>
@@ -82,7 +82,7 @@ Defaults to <code class="docutils literal"><span class="pre">process.default_dt<
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="nengolib.signal.EvalPoints.html#nengolib.signal.EvalPoints" title="nengolib.signal.EvalPoints"><code class="xref py py-class docutils literal"><span class="pre">EvalPoints</span></code></a>, <a class="reference internal" href="nengolib.processes.Callable.html#nengolib.processes.Callable" title="nengolib.processes.Callable"><code class="xref py py-class docutils literal"><span class="pre">Callable</span></code></a>, <a class="reference internal" href="nengolib.networks.RollingWindow.html#nengolib.networks.RollingWindow" title="nengolib.networks.RollingWindow"><code class="xref py py-class docutils literal"><span class="pre">RollingWindow</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.dists.Distribution" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.dists.Distribution</span></code></a></p>
+<p class="last"><a class="reference internal" href="nengolib.signal.EvalPoints.html#nengolib.signal.EvalPoints" title="nengolib.signal.EvalPoints"><code class="xref py py-class docutils literal"><span class="pre">EvalPoints</span></code></a>, <a class="reference internal" href="nengolib.processes.Callable.html#nengolib.processes.Callable" title="nengolib.processes.Callable"><code class="xref py py-class docutils literal"><span class="pre">Callable</span></code></a>, <a class="reference internal" href="nengolib.networks.RollingWindow.html#nengolib.networks.RollingWindow" title="nengolib.networks.RollingWindow"><code class="xref py py-class docutils literal"><span class="pre">RollingWindow</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.dists.Distribution" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.dists.Distribution</span></code></a></p>
 </div>
 <p class="rubric">Notes</p>
 <p>The option <code class="docutils literal"><span class="pre">normalize_encoders=False</span></code>, required to make this useful,

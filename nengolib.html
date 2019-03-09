@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Main (nengolib) &#8212; nengolib 0.4.2 documentation</title>
-    
+    <title>Main (nengolib) &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.2',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -43,6 +40,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <span class="target" id="module-nengolib"></span><div class="section" id="main-nengolib">
@@ -56,10 +55,38 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="nengolib.Network.html#nengolib.Network" title="nengolib.Network"><code class="xref py py-obj docutils literal"><span class="pre">Network</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td>Drop-in replacement for <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Network" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Network</span></code></a>.</td>
+<td>Drop-in replacement for <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Network" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Network</span></code></a>.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="nengolib.Connection.html#nengolib.Connection" title="nengolib.Connection"><code class="xref py py-obj docutils literal"><span class="pre">Connection</span></code></a>(pre,&nbsp;post[,&nbsp;solver,&nbsp;solver,&nbsp;weights])</td>
-<td>Drop-in replacement for <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.</td>
+<td>Drop-in replacement for <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="learning">
+<h2>Learning<a class="headerlink" href="#learning" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.learning.RLS.html#nengolib.learning.RLS" title="nengolib.learning.RLS"><code class="xref py py-obj docutils literal"><span class="pre">learning.RLS</span></code></a>([learning_rate,&nbsp;pre_synapse])</td>
+<td>Recursive least-squares rule for online decoder optimization.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="neurons">
+<h2>Neurons<a class="headerlink" href="#neurons" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.neurons.init_lif.html#nengolib.neurons.init_lif" title="nengolib.neurons.init_lif"><code class="xref py py-obj docutils literal"><span class="pre">neurons.init_lif</span></code></a>(sim,&nbsp;ens[,&nbsp;x0,&nbsp;rng])</td>
+<td>Initialize an ensemble of LIF Neurons to represent <code class="docutils literal"><span class="pre">x0</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -73,7 +100,7 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="nengolib.processes.Callable.html#nengolib.processes.Callable" title="nengolib.processes.Callable"><code class="xref py py-obj docutils literal"><span class="pre">processes.Callable</span></code></a>(func[,&nbsp;default_dt,&nbsp;seed])</td>
-<td>Adapter to convert any callable into a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Process" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Process</span></code></a>.</td>
+<td>Adapter to convert any callable into a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Process" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Process</span></code></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -86,7 +113,7 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="nengolib.solvers.Temporal.html#nengolib.solvers.Temporal" title="nengolib.solvers.Temporal"><code class="xref py py-obj docutils literal"><span class="pre">solvers.Temporal</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="nengolib.solvers.Temporal.html#nengolib.solvers.Temporal" title="nengolib.solvers.Temporal"><code class="xref py py-obj docutils literal"><span class="pre">solvers.Temporal</span></code></a>([synapse,&nbsp;solver])</td>
 <td>Solves for connection weights by accounting for the neural dynamics.</td>
 </tr>
 </tbody>
@@ -96,6 +123,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -128,7 +156,7 @@
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -142,7 +170,7 @@
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -193,8 +221,8 @@
       &copy;2017-2018, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/nengolib.rst.txt"

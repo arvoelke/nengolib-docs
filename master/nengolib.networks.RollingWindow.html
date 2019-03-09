@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.networks.RollingWindow &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.networks.RollingWindow &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
 <h1>nengolib.networks.RollingWindow<a class="headerlink" href="#nengolib-networks-rollingwindow" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.networks.RollingWindow">
-<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">RollingWindow</code><span class="sig-paren">(</span><em>theta</em>, <em>n_neurons</em>, <em>process</em>, <em>dimensions=6</em>, <em>synapse=0.1</em>, <em>input_synapse=0.1</em>, <em>dt=0.001</em>, <em>realizer=Balanced()</em>, <em>solver=LstsqL2(reg=0.001</em>, <em>solver=Cholesky(transpose=None)</em>, <em>weights=False)</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/networks/rolling_window.py#L38-L347"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">RollingWindow</code><span class="sig-paren">(</span><em>theta</em>, <em>n_neurons</em>, <em>process</em>, <em>dimensions=6</em>, <em>synapse=0.1</em>, <em>input_synapse=0.1</em>, <em>dt=0.001</em>, <em>realizer=Balanced()</em>, <em>solver=LstsqL2(reg=0.001</em>, <em>solver=Cholesky(transpose=None)</em>, <em>weights=False)</em>, <em>legendre=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/networks/rolling_window.py#L48-L371"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Approximate nonlinear functions across a rolling window of input.</p>
 <p>Compresses the input history of finite length into a low-dimensional state
 to support the approximation of nonlinear functions across a rolling
@@ -61,9 +61,9 @@ FIR filters and window functions in continuous time.</p>
 <dd><p class="first last">Width of rolling window (time-delay) in seconds.</p>
 </dd>
 <dt><strong>n_neurons</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">integer</span></code></span></dt>
-<dd><p class="first last">Total number of neurons to use in <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a>.</p>
+<dd><p class="first last">Total number of neurons to use in <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a>.</p>
 </dd>
-<dt><strong>process</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Process" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Process</span></code></a></span></dt>
+<dt><strong>process</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Process" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Process</span></code></a></span></dt>
 <dd><p class="first last">Process modelling a typical input to the network.
 Used to optimize the lengths of axis-aligned <code class="docutils literal"><span class="pre">encoders</span></code> and
 the distribution of <code class="docutils literal"><span class="pre">eval_points</span></code>.
@@ -82,11 +82,11 @@ one percent for input frequencies less than <code class="docutils literal"><span
 Defaults to <code class="docutils literal"><span class="pre">0.001</span></code>, but should be manually specified if the
 simulation time-step is ever changed.</p>
 </dd>
-<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
 <dd><p class="first last">Recurrent synapse. Bigger is typically better.
 Defaults to <code class="docutils literal"><span class="pre">0.1</span></code>.</p>
 </dd>
-<dt><strong>input_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dt><strong>input_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
 <dd><p class="first last">Input synapse. Typically should match the value of
 <code class="docutils literal"><span class="pre">synapse</span></code>, unless the input has already been filtered by the
 same synapse. Defaults to <code class="docutils literal"><span class="pre">0.1</span></code>.</p>
@@ -94,14 +94,20 @@ same synapse. Defaults to <code class="docutils literal"><span class="pre">0.1</
 <dt><strong>realizer</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal"><span class="pre">AbstractRealizer</span></code>, optional</span></dt>
 <dd><p class="first last">Method of realizing the linear system. Defaults to <a class="reference internal" href="nengolib.signal.Balanced.html#nengolib.signal.Balanced" title="nengolib.signal.Balanced"><code class="xref py py-class docutils literal"><span class="pre">Balanced</span></code></a>.</p>
 </dd>
-<dt><strong>solver</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</span></dt>
+<dt><strong>solver</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</span></dt>
 <dd><p class="first last">Solver to use for connections from the state ensemble.
-Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a> (with <code class="docutils literal"><span class="pre">reg=1e-3</span></code>).</p>
+Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a> (with <code class="docutils literal"><span class="pre">reg=1e-3</span></code>).</p>
+</dd>
+<dt><strong>legendre</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">boolean</span></code>, optional</span></dt>
+<dd><p class="first last">Changes the canonical realization to that of <a class="reference internal" href="nengolib.synapses.LegendreDelay.html#nengolib.synapses.LegendreDelay" title="nengolib.synapses.LegendreDelay"><code class="xref py py-func docutils literal"><span class="pre">LegendreDelay()</span></code></a>,
+the shifted Legendre polynomials,
+<span class="math">\(P_i(2 \theta' \theta^{-1} - 1)\)</span>.
+Defaults to <code class="docutils literal"><span class="pre">False</span></code>.</p>
 </dd>
 <dt><strong>**kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">dictionary</span></code>, optional</span></dt>
 <dd><p class="first last">Additional keyword arguments passed to <a class="reference internal" href="nengolib.networks.LinearNetwork.html#nengolib.networks.LinearNetwork" title="nengolib.networks.LinearNetwork"><code class="xref py py-class docutils literal"><span class="pre">LinearNetwork</span></code></a>.
 Those that fall under the heading of <code class="docutils literal"><span class="pre">**ens_kwargs</span></code> will be
-passed to the <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a> that represents the
+passed to the <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a> that represents the
 <code class="xref py py-attr docutils literal"><span class="pre">state</span></code>.</p>
 </dd>
 </dl>
@@ -147,8 +153,7 @@ than the default of <a class="reference internal" href="nengolib.signal.Balanced
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">process</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">processes</span><span class="o">.</span><span class="n">WhiteSignal</span><span class="p">(</span><span class="mf">100.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">y0</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">stim</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="n">process</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">rw</span> <span class="o">=</span> <span class="n">RollingWindow</span><span class="p">(</span><span class="n">theta</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">n_neurons</span><span class="o">=</span><span class="mi">2500</span><span class="p">,</span> <span class="n">process</span><span class="o">=</span><span class="n">process</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                       <span class="n">neuron_type</span><span class="o">=</span><span class="n">nengo</span><span class="o">.</span><span class="n">LIFRate</span><span class="p">(),</span>
-<span class="gp">&gt;&gt;&gt; </span>                       <span class="n">realizer</span><span class="o">=</span><span class="n">Hankel</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span>                       <span class="n">neuron_type</span><span class="o">=</span><span class="n">nengo</span><span class="o">.</span><span class="n">LIFRate</span><span class="p">(),</span> <span class="n">legendre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">stim</span><span class="p">,</span> <span class="n">rw</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">p_stim</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">stim</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">p_delay</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">rw</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
@@ -176,8 +181,8 @@ than the default of <a class="reference internal" href="nengolib.signal.Balanced
 <img alt="_images/nengolib-networks-RollingWindow-1_00_00.png" src="_images/nengolib-networks-RollingWindow-1_00_00.png" />
 </div>
 <p>Visualizing the canonical basis functions. The state of the
-<code class="xref py py-func docutils literal"><span class="pre">PadeDelay()</span></code> system takes a linear combination of these to
-represent the current window of history:</p>
+<code class="xref py py-func docutils literal"><span class="pre">LegendreDelay()</span></code> system takes a linear combination of these
+shifted Legendre polynomials to represent the current window of history:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;canonical_basis()&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_default</span><span class="p">,</span> <span class="n">rw</span><span class="o">.</span><span class="n">canonical_basis</span><span class="p">())</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Normalized Time (Unitless)&quot;</span><span class="p">)</span>
@@ -340,7 +345,7 @@ with these functions (see <code class="xref py py-func docutils literal"><span c
 </table>
 <dl class="method">
 <dt id="nengolib.networks.RollingWindow.add_output">
-<code class="descname">add_output</code><span class="sig-paren">(</span><em>t=None</em>, <em>function=&lt;function RollingWindow.&lt;lambda&gt;&gt;</em>, <em>label='output'</em>, <em>synapse=None</em>, <em>**conn_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/networks/rolling_window.py#L261-L347"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow.add_output" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_output</code><span class="sig-paren">(</span><em>t=None</em>, <em>function=&lt;function RollingWindow.&lt;lambda&gt;&gt;</em>, <em>label='output'</em>, <em>synapse=None</em>, <em>**conn_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/networks/rolling_window.py#L285-L371"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow.add_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decodes a function of the window at time points <code class="docutils literal"><span class="pre">-t*theta</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -360,15 +365,15 @@ functions. Defaults to the value of <code class="xref py py-data docutils litera
 Defaults to returning the end of the window: <code class="docutils literal"><span class="pre">w[-1]</span></code>.</p>
 </dd>
 <dt><strong>label</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">string</span></code>, optional</span></dt>
-<dd><p class="first last">Label for the created <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Node" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Node</span></code></a>.
+<dd><p class="first last">Label for the created <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Node" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Node</span></code></a>.
 Defaults to <code class="docutils literal"><span class="pre">'output'</span></code>.</p>
 </dd>
-<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
-<dd><p class="first last">Synapse passed to created <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.
+<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dd><p class="first last">Synapse passed to created <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.
 Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</p>
 </dd>
 <dt><strong>**conn_kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">dictionary</span></code>, optional</span></dt>
-<dd><p class="first last">Additional keyword arguments passed to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.</p>
+<dd><p class="first last">Additional keyword arguments passed to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.</p>
 </dd>
 </dl>
 </td>

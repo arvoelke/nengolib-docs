@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.synapses.DiscreteDelay &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.synapses.DiscreteDelay &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="nengolib.synapses.BoxFilter" href="nengolib.synapses.BoxFilter.html" />
-    <link rel="prev" title="nengolib.synapses.PadeDelay" href="nengolib.synapses.PadeDelay.html" />
+    <link rel="prev" title="nengolib.synapses.LegendreDelay" href="nengolib.synapses.LegendreDelay.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -48,7 +48,7 @@
 <h1>nengolib.synapses.DiscreteDelay<a class="headerlink" href="#nengolib-synapses-discretedelay" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.synapses.DiscreteDelay">
-<code class="descclassname">nengolib.synapses.</code><code class="descname">DiscreteDelay</code><span class="sig-paren">(</span><em>steps</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/synapses/digital.py#L8-L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.DiscreteDelay" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.synapses.</code><code class="descname">DiscreteDelay</code><span class="sig-paren">(</span><em>steps</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/synapses/digital.py#L8-L58"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.DiscreteDelay" title="Permalink to this definition">¶</a></dt>
 <dd><p>A discrete (pure) time-delay: <code class="docutils literal"><span class="pre">z**-steps</span></code>.</p>
 <p>Also equivalent to <code class="docutils literal"><span class="pre">(~z)**steps</span></code> or <code class="docutils literal"><span class="pre">1/z**steps</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -78,7 +78,7 @@
 <p class="rubric">Notes</p>
 <p>A single step of the delay will be removed if using the <code class="docutils literal"><span class="pre">filt</span></code> method.
 This is done for subtle reasons of consistency with Nengo.
-The correct delay will appear when passed to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.</p>
+The correct delay will appear when passed to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.</p>
 <p class="rubric">Examples</p>
 <p>Simulate a Nengo network using a discrete delay of half a second for a
 synapse:</p>
@@ -195,7 +195,7 @@ synapse:</p>
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="reference.html">Reference</a><ul>
   <li><a href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a><ul>
-      <li>Previous: <a href="nengolib.synapses.PadeDelay.html" title="previous chapter">nengolib.synapses.PadeDelay</a></li>
+      <li>Previous: <a href="nengolib.synapses.LegendreDelay.html" title="previous chapter">nengolib.synapses.LegendreDelay</a></li>
       <li>Next: <a href="nengolib.synapses.BoxFilter.html" title="next chapter">nengolib.synapses.BoxFilter</a></li>
   </ul></li>
   </ul></li>

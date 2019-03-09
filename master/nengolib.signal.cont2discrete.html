@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.signal.cont2discrete &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.signal.cont2discrete &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,9 +47,9 @@
 <h1>nengolib.signal.cont2discrete<a class="headerlink" href="#nengolib-signal-cont2discrete" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.signal.cont2discrete">
-<code class="descclassname">nengolib.signal.</code><code class="descname">cont2discrete</code><span class="sig-paren">(</span><em>sys</em>, <em>dt</em>, <em>method='zoh'</em>, <em>alpha=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/signal/discrete.py#L10-L74"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.cont2discrete" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.signal.</code><code class="descname">cont2discrete</code><span class="sig-paren">(</span><em>sys</em>, <em>dt</em>, <em>method='zoh'</em>, <em>alpha=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/signal/discrete.py#L10-L74"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.cont2discrete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert linear system from continuous to discrete time-domain.</p>
-<p>This is a wrapper around <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cont2discrete.html#scipy.signal.cont2discrete" title="(in SciPy v1.2.0)"><code class="xref py py-func docutils literal"><span class="pre">scipy.signal.cont2discrete()</span></code></a>, with the
+<p>This is a wrapper around <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cont2discrete.html#scipy.signal.cont2discrete" title="(in SciPy v1.2.1)"><code class="xref py py-func docutils literal"><span class="pre">scipy.signal.cont2discrete()</span></code></a>, with the
 same interface (apart from the type of the first parameter).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -84,7 +84,7 @@ each discrete time-step. <a class="footnote-reference" href="#id2" id="id1">[1]<
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="nengolib.signal.discrete2cont.html#nengolib.signal.discrete2cont" title="nengolib.signal.discrete2cont"><code class="xref py py-func docutils literal"><span class="pre">discrete2cont()</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cont2discrete.html#scipy.signal.cont2discrete" title="(in SciPy v1.2.0)"><code class="xref py py-func docutils literal"><span class="pre">scipy.signal.cont2discrete()</span></code></a></p>
+<p class="last"><a class="reference internal" href="nengolib.signal.discrete2cont.html#nengolib.signal.discrete2cont" title="nengolib.signal.discrete2cont"><code class="xref py py-func docutils literal"><span class="pre">discrete2cont()</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cont2discrete.html#scipy.signal.cont2discrete" title="(in SciPy v1.2.1)"><code class="xref py py-func docutils literal"><span class="pre">scipy.signal.cont2discrete()</span></code></a></p>
 </div>
 <p class="rubric">Notes</p>
 <p>Discretization is often performed automatically whenever needed;

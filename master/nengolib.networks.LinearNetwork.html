@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.networks.LinearNetwork &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.networks.LinearNetwork &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,7 +47,7 @@
 <h1>nengolib.networks.LinearNetwork<a class="headerlink" href="#nengolib-networks-linearnetwork" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.networks.LinearNetwork">
-<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">LinearNetwork</code><span class="sig-paren">(</span><em>sys</em>, <em>n_neurons_per_ensemble</em>, <em>synapse</em>, <em>dt</em>, <em>radii=1.0</em>, <em>input_synapse=None</em>, <em>output_synapse=None</em>, <em>realizer=Hankel()</em>, <em>solver=Default</em>, <em>label=None</em>, <em>seed=None</em>, <em>add_to_container=None</em>, <em>**ens_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/networks/linear_network.py#L19-L278"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.LinearNetwork" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">LinearNetwork</code><span class="sig-paren">(</span><em>sys</em>, <em>n_neurons_per_ensemble</em>, <em>synapse</em>, <em>dt</em>, <em>radii=1.0</em>, <em>input_synapse=None</em>, <em>output_synapse=None</em>, <em>realizer=Hankel()</em>, <em>solver=Default</em>, <em>label=None</em>, <em>seed=None</em>, <em>add_to_container=None</em>, <em>**ens_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/networks/linear_network.py#L19-L278"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.LinearNetwork" title="Permalink to this definition">¶</a></dt>
 <dd><p>Network implementing a linear time-invariant (LTI) system.</p>
 <p>This network implements the following linear state-space model:</p>
 <div class="math">
@@ -70,7 +70,7 @@ resulting Nengo network.</p>
 <dt><strong>n_neurons_per_ensemble</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">integer</span></code></span></dt>
 <dd><p class="first last">Number of neurons to use per ensemble (i.e., per dimension).</p>
 </dd>
-<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a></span></dt>
+<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a></span></dt>
 <dd><p class="first last">Recurrent synapse used to implement the dynamics, passed to
 <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a>.</p>
 </dd>
@@ -88,12 +88,12 @@ If a single <code class="docutils literal"><span class="pre">float</span></code>
 If <code class="docutils literal"><span class="pre">array_like</span></code>, then its length must match <code class="xref py py-attr docutils literal"><span class="pre">size_state</span></code>.
 Defaults to <code class="docutils literal"><span class="pre">1</span></code>.</p>
 </dd>
-<dt><strong>input_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dt><strong>input_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
 <dd><p class="first last">Input synapse connecting from <code class="xref py py-attr docutils literal"><span class="pre">input</span></code> node. Defaults to <code class="docutils literal"><span class="pre">None</span></code>
 to discourage double filtering, but should typically match the
 <code class="docutils literal"><span class="pre">synapse</span></code> parameter.</p>
 </dd>
-<dt><strong>output_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dt><strong>output_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
 <dd><p class="first last">Output synapse connecting to <code class="xref py py-attr docutils literal"><span class="pre">output</span></code> node.
 Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</p>
 </dd>
@@ -101,9 +101,9 @@ Defaults to <code class="docutils literal"><span class="pre">None</span></code>.
 <dd><p class="first last">Method of obtaining a state-space realization of <code class="docutils literal"><span class="pre">sys</span></code>.
 Defaults to <a class="reference internal" href="nengolib.signal.Hankel.html#nengolib.signal.Hankel" title="nengolib.signal.Hankel"><code class="xref py py-class docutils literal"><span class="pre">Hankel</span></code></a>.</p>
 </dd>
-<dt><strong>solver</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</span></dt>
+<dt><strong>solver</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</span></dt>
 <dd><p class="first last">Solver used to decode the state.
-Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a> (with <code class="docutils literal"><span class="pre">reg=.1</span></code>).</p>
+Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a> (with <code class="docutils literal"><span class="pre">reg=.1</span></code>).</p>
 </dd>
 <dt><strong>label</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str, optional (Default: None)</span></dt>
 <dd><p class="first last">Name of the network.</p>
@@ -119,7 +119,7 @@ If None, this network will be added to the network at the top of the
 </dd>
 <dt><strong>**ens_kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">dictionary</span></code>, optional</span></dt>
 <dd><p class="first last">Additional keyword arguments are passed to the
-<a class="reference external" href="https://www.nengo.ai/nengo/networks.html#nengo.networks.EnsembleArray" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.networks.EnsembleArray</span></code></a> that represents the
+<a class="reference external" href="https://www.nengo.ai/nengo/networks.html#nengo.networks.EnsembleArray" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.networks.EnsembleArray</span></code></a> that represents the
 <code class="xref py py-attr docutils literal"><span class="pre">state</span></code>.</p>
 </dd>
 </dl>

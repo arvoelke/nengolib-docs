@@ -1,4 +1,4 @@
-# See :doc:`notebooks.research.discrete_comparison` for a notebook example.
+# See :doc:`notebooks/research/discrete_comparison` for a notebook example.
 
 from nengolib.synapses import ss2sim, PadeDelay
 

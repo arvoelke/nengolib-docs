@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.solvers.Temporal &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.solvers.Temporal &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
 <h1>nengolib.solvers.Temporal<a class="headerlink" href="#nengolib-solvers-temporal" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.solvers.Temporal">
-<em class="property">class </em><code class="descclassname">nengolib.solvers.</code><code class="descname">Temporal</code><span class="sig-paren">(</span><em>synapse=Default</em>, <em>solver=Default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/temporal.py#L18-L123"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.solvers.Temporal" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.solvers.</code><code class="descname">Temporal</code><span class="sig-paren">(</span><em>synapse=Default</em>, <em>solver=Default</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/temporal.py#L18-L127"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.solvers.Temporal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solves for connection weights by accounting for the neural dynamics.</p>
 <p>This allows the optimization procedure to potentially harness any
 correlations in spike-timing between neurons, and/or the adaptative
@@ -55,27 +55,27 @@ of the desired function with respect to the evaluation points.
 This works by explicitly simulating the neurons given the stimulus, and
 then learning to decode the desired function in the time-domain.</p>
 <p>To use this method, pass it to the <code class="docutils literal"><span class="pre">solver</span></code> parameter for a
-<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>. The <code class="docutils literal"><span class="pre">pre</span></code> object on this connection should be
-a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a> that uses some dynamic neuron model.</p>
+<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>. The <code class="docutils literal"><span class="pre">pre</span></code> object on this connection should be
+a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Ensemble" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Ensemble</span></code></a> that uses some dynamic neuron model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
-<dd><p class="first last">The <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a> model used to filter the
+<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dd><p class="first last">The <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a> model used to filter the
 pre-synaptic activities of the neurons before being passed to the
 underlying solver. A value of <code class="docutils literal"><span class="pre">None</span></code> will bypass any filtering.
-Defaults to a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Lowpass" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Lowpass</span></code></a> filter with a time-constant of
+Defaults to a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Lowpass" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Lowpass</span></code></a> filter with a time-constant of
 5 ms.</p>
 </dd>
-<dt><strong>solver</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</span></dt>
-<dd><p class="first last">The underlying <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a> used to solve the problem
+<dt><strong>solver</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</span></dt>
+<dd><p class="first last">The underlying <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a> used to solve the problem
 <code class="docutils literal"><span class="pre">AD</span> <span class="pre">=</span> <span class="pre">Y</span></code>, where <code class="docutils literal"><span class="pre">A</span></code> are the (potentially filtered) neural
 activities (in response to the evaluation points, over time), <code class="docutils literal"><span class="pre">D</span></code>
 are the Nengo decoders, and <code class="docutils literal"><span class="pre">Y</span></code> are the corresponding targets given
 by the <code class="docutils literal"><span class="pre">function</span></code> supplied to the connection.
-Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a>.</p>
+Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a>.</p>
 </dd>
 </dl>
 </td>
@@ -84,7 +84,7 @@ Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/front
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="nengolib.learning.RLS.html#nengolib.learning.RLS" title="nengolib.learning.RLS"><code class="xref py py-class docutils literal"><span class="pre">RLS</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, <a class="reference internal" href="nengolib.synapses.html#module-nengolib.synapses" title="nengolib.synapses"><code class="xref py py-mod docutils literal"><span class="pre">synapses</span></code></a></p>
+<p class="last"><a class="reference internal" href="nengolib.learning.RLS.html#nengolib.learning.RLS" title="nengolib.learning.RLS"><code class="xref py py-class docutils literal"><span class="pre">RLS</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>, <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, <a class="reference internal" href="nengolib.synapses.html#module-nengolib.synapses" title="nengolib.synapses"><code class="xref py py-mod docutils literal"><span class="pre">synapses</span></code></a></p>
 </div>
 <p class="rubric">Notes</p>
 <p>Requires <code class="docutils literal"><span class="pre">nengo&gt;=2.5.0</span></code>
@@ -162,7 +162,7 @@ same band-limited white-noise process.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(A,&nbsp;Y[,&nbsp;rng,&nbsp;E])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(A,&nbsp;Y[,&nbsp;__hack__])</td>
 <td>Call the solver.</td>
 </tr>
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">mul_encoders</span></code>(Y,&nbsp;E[,&nbsp;copy])</td>

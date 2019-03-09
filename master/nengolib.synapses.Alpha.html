@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.Alpha &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.Alpha &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <h1>nengolib.Alpha<a class="headerlink" href="#nengolib-alpha" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.synapses.Alpha">
-<code class="descclassname">nengolib.synapses.</code><code class="descname">Alpha</code><span class="sig-paren">(</span><em>tau</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/synapses/analog.py#L50-L85"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.Alpha" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.synapses.</code><code class="descname">Alpha</code><span class="sig-paren">(</span><em>tau</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/synapses/analog.py#L50-L85"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.Alpha" title="Permalink to this definition">¶</a></dt>
 <dd><p>A second-order lowpass: <code class="docutils literal"><span class="pre">1/(tau*s</span> <span class="pre">+</span> <span class="pre">1)**2</span></code>.</p>
 <p>Equivalent to convolving two identical lowpass synapses together.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -73,7 +73,7 @@
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Alpha" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Alpha</span></code></a>, <a class="reference internal" href="nengolib.synapses.Lowpass.html#nengolib.synapses.Lowpass" title="nengolib.synapses.Lowpass"><code class="xref py py-func docutils literal"><span class="pre">Lowpass()</span></code></a>, <a class="reference internal" href="nengolib.synapses.DoubleExp.html#nengolib.synapses.DoubleExp" title="nengolib.synapses.DoubleExp"><code class="xref py py-func docutils literal"><span class="pre">DoubleExp()</span></code></a></p>
+<p class="last"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Alpha" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Alpha</span></code></a>, <a class="reference internal" href="nengolib.synapses.Lowpass.html#nengolib.synapses.Lowpass" title="nengolib.synapses.Lowpass"><code class="xref py py-func docutils literal"><span class="pre">Lowpass()</span></code></a>, <a class="reference internal" href="nengolib.synapses.DoubleExp.html#nengolib.synapses.DoubleExp" title="nengolib.synapses.DoubleExp"><code class="xref py py-func docutils literal"><span class="pre">DoubleExp()</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengolib</span> <span class="k">import</span> <span class="n">Alpha</span>

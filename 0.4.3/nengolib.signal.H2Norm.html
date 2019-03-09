@@ -1,0 +1,183 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nengolib.signal.H2Norm &#8212; nengolib 0.4.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="nengolib-signal-h2norm">
+<h1>nengolib.signal.H2Norm<a class="headerlink" href="#nengolib-signal-h2norm" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="nengolib.signal.H2Norm">
+<em class="property">class </em><code class="descclassname">nengolib.signal.</code><code class="descname">H2Norm</code><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.2/nengolib/signal\realizers.py#L185-L199"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.H2Norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scaled realization given by the H2-norm of the system’s state.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="nengolib.signal.state_norm.html#nengolib.signal.state_norm" title="nengolib.signal.state_norm"><code class="xref py py-func docutils literal"><span class="pre">state_norm()</span></code></a>, <a class="reference internal" href="nengolib.signal.L1Norm.html#nengolib.signal.L1Norm" title="nengolib.signal.L1Norm"><code class="xref py py-class docutils literal"><span class="pre">L1Norm</span></code></a>, <a class="reference internal" href="nengolib.networks.LinearNetwork.html#nengolib.networks.LinearNetwork" title="nengolib.networks.LinearNetwork"><code class="xref py py-class docutils literal"><span class="pre">LinearNetwork</span></code></a></p>
+</div>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(sys[,&nbsp;radii])</td>
+<td>Produces a <a class="reference internal" href="nengolib.signal.realizers.RealizerResult.html#nengolib.signal.realizers.RealizerResult" title="nengolib.signal.realizers.RealizerResult"><code class="xref py py-class docutils literal"><span class="pre">RealizerResult</span></code></a> scaled by the <code class="docutils literal"><span class="pre">radii</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nengolib.html">Main (<code class="docutils literal"><span class="pre">nengolib</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.networks.html">Networks (<code class="docutils literal"><span class="pre">nengolib.networks</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="nengolib.signal.html">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.stats.html">Stats (<code class="docutils literal"><span class="pre">nengolib.stats</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+  <li><a href="nengolib.signal.html">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a><ul>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017-2018, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/nengolib.signal.H2Norm.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

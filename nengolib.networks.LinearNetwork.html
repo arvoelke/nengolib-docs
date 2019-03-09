@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nengolib.networks.LinearNetwork &#8212; nengolib 0.4.2 documentation</title>
-    
+    <title>nengolib.networks.LinearNetwork &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.2',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -42,13 +39,15 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="nengolib-networks-linearnetwork">
 <h1>nengolib.networks.LinearNetwork<a class="headerlink" href="#nengolib-networks-linearnetwork" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.networks.LinearNetwork">
-<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">LinearNetwork</code><span class="sig-paren">(</span><em>sys</em>, <em>n_neurons_per_ensemble</em>, <em>synapse</em>, <em>dt</em>, <em>radii=1.0</em>, <em>input_synapse=None</em>, <em>output_synapse=None</em>, <em>realizer=Hankel()</em>, <em>solver=Default</em>, <em>label=None</em>, <em>seed=None</em>, <em>add_to_container=None</em>, <em>**ens_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.2/nengolib/networks\linear_network.py#L19-L278"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.LinearNetwork" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">LinearNetwork</code><span class="sig-paren">(</span><em>sys</em>, <em>n_neurons_per_ensemble</em>, <em>synapse</em>, <em>dt</em>, <em>radii=1.0</em>, <em>input_synapse=None</em>, <em>output_synapse=None</em>, <em>realizer=Hankel()</em>, <em>solver=Default</em>, <em>label=None</em>, <em>seed=None</em>, <em>add_to_container=None</em>, <em>**ens_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/networks/linear_network.py#L19-L278"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.LinearNetwork" title="Permalink to this definition">¶</a></dt>
 <dd><p>Network implementing a linear time-invariant (LTI) system.</p>
 <p>This network implements the following linear state-space model:</p>
 <div class="math">
@@ -64,77 +63,66 @@ resulting Nengo network.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sys</strong> : <a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></p>
-<blockquote>
-<div><p>Linear system representation.</p>
-</div></blockquote>
-<p><strong>n_neurons_per_ensemble</strong> : <code class="docutils literal"><span class="pre">integer</span></code></p>
-<blockquote>
-<div><p>Number of neurons to use per ensemble (i.e., per dimension).</p>
-</div></blockquote>
-<p><strong>synapse</strong> : <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a></p>
-<blockquote>
-<div><p>Recurrent synapse used to implement the dynamics, passed to
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>sys</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></span></dt>
+<dd><p class="first last">Linear system representation.</p>
+</dd>
+<dt><strong>n_neurons_per_ensemble</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">integer</span></code></span></dt>
+<dd><p class="first last">Number of neurons to use per ensemble (i.e., per dimension).</p>
+</dd>
+<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a></span></dt>
+<dd><p class="first last">Recurrent synapse used to implement the dynamics, passed to
 <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a>.</p>
-</div></blockquote>
-<p><strong>dt</strong> : <code class="docutils literal"><span class="pre">float</span></code> or <code class="docutils literal"><span class="pre">None</span></code></p>
-<blockquote>
-<div><p>Simulation time-step (in seconds), passed to <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a>.
+</dd>
+<dt><strong>dt</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">float</span></code> or <code class="docutils literal"><span class="pre">None</span></code></span></dt>
+<dd><p class="first last">Simulation time-step (in seconds), passed to <a class="reference internal" href="nengolib.synapses.ss2sim.html#nengolib.synapses.ss2sim" title="nengolib.synapses.ss2sim"><code class="xref py py-func docutils literal"><span class="pre">ss2sim()</span></code></a>.
 If <code class="docutils literal"><span class="pre">None</span></code>, then this uses the continuous form of Principle 3
 (i.e., assuming a continuous-time synapse with negligible time-step).
 If provided, then <code class="docutils literal"><span class="pre">sys</span></code> will be discretized and the discrete
 form of Principle 3 will be applied. This should always be given
 for digital simulations.</p>
-</div></blockquote>
-<p><strong>radii</strong> : <code class="docutils literal"><span class="pre">float</span></code> or <code class="docutils literal"><span class="pre">array_like</span></code>, optional</p>
-<blockquote>
-<div><p>Radius of each dimension of the realized state-space.
+</dd>
+<dt><strong>radii</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">float</span></code> or <code class="docutils literal"><span class="pre">array_like</span></code>, optional</span></dt>
+<dd><p class="first last">Radius of each dimension of the realized state-space.
 If a single <code class="docutils literal"><span class="pre">float</span></code>, then it will be applied to each dimension.
 If <code class="docutils literal"><span class="pre">array_like</span></code>, then its length must match <code class="xref py py-attr docutils literal"><span class="pre">size_state</span></code>.
 Defaults to <code class="docutils literal"><span class="pre">1</span></code>.</p>
-</div></blockquote>
-<p><strong>input_synapse</strong> : <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</p>
-<blockquote>
-<div><p>Input synapse connecting from <code class="xref py py-attr docutils literal"><span class="pre">input</span></code> node. Defaults to <code class="docutils literal"><span class="pre">None</span></code>
+</dd>
+<dt><strong>input_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dd><p class="first last">Input synapse connecting from <code class="xref py py-attr docutils literal"><span class="pre">input</span></code> node. Defaults to <code class="docutils literal"><span class="pre">None</span></code>
 to discourage double filtering, but should typically match the
 <code class="docutils literal"><span class="pre">synapse</span></code> parameter.</p>
-</div></blockquote>
-<p><strong>output_synapse</strong> : <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</p>
-<blockquote>
-<div><p>Output synapse connecting to <code class="xref py py-attr docutils literal"><span class="pre">output</span></code> node.
+</dd>
+<dt><strong>output_synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a>, optional</span></dt>
+<dd><p class="first last">Output synapse connecting to <code class="xref py py-attr docutils literal"><span class="pre">output</span></code> node.
 Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</p>
-</div></blockquote>
-<p><strong>realizer</strong> : <code class="xref py py-class docutils literal"><span class="pre">AbstractRealizer</span></code>, optional</p>
-<blockquote>
-<div><p>Method of obtaining a state-space realization of <code class="docutils literal"><span class="pre">sys</span></code>.
+</dd>
+<dt><strong>realizer</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal"><span class="pre">AbstractRealizer</span></code>, optional</span></dt>
+<dd><p class="first last">Method of obtaining a state-space realization of <code class="docutils literal"><span class="pre">sys</span></code>.
 Defaults to <a class="reference internal" href="nengolib.signal.Hankel.html#nengolib.signal.Hankel" title="nengolib.signal.Hankel"><code class="xref py py-class docutils literal"><span class="pre">Hankel</span></code></a>.</p>
-</div></blockquote>
-<p><strong>solver</strong> : <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</p>
-<blockquote>
-<div><p>Solver used to decode the state.
-Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a> (with <code class="docutils literal"><span class="pre">reg=.1</span></code>).</p>
-</div></blockquote>
-<p><strong>label</strong> : str, optional (Default: None)</p>
-<blockquote>
-<div><p>Name of the network.</p>
-</div></blockquote>
-<p><strong>seed</strong> : int, optional (Default: None)</p>
-<blockquote>
-<div><p>Random number seed that will be fed to the random number generator.
+</dd>
+<dt><strong>solver</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.Solver" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.Solver</span></code></a>, optional</span></dt>
+<dd><p class="first last">Solver used to decode the state.
+Defaults to <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.solvers.LstsqL2" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.solvers.LstsqL2</span></code></a> (with <code class="docutils literal"><span class="pre">reg=.1</span></code>).</p>
+</dd>
+<dt><strong>label</strong> <span class="classifier-delimiter">:</span> <span class="classifier">str, optional (Default: None)</span></dt>
+<dd><p class="first last">Name of the network.</p>
+</dd>
+<dt><strong>seed</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int, optional (Default: None)</span></dt>
+<dd><p class="first last">Random number seed that will be fed to the random number generator.
 Setting the seed makes the network’s build process deterministic.</p>
-</div></blockquote>
-<p><strong>add_to_container</strong> : bool, optional (Default: None)</p>
-<blockquote>
-<div><p>Determines if this network will be added to the current container.
+</dd>
+<dt><strong>add_to_container</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional (Default: None)</span></dt>
+<dd><p class="first last">Determines if this network will be added to the current container.
 If None, this network will be added to the network at the top of the
 <code class="docutils literal"><span class="pre">Network.context</span></code> stack unless the stack is empty.</p>
-</div></blockquote>
-<p><strong>**ens_kwargs</strong> : <code class="docutils literal"><span class="pre">dictionary</span></code>, optional</p>
-<blockquote class="last">
-<div><p>Additional keyword arguments are passed to the
-<a class="reference external" href="https://www.nengo.ai/nengo/networks.html#nengo.networks.EnsembleArray" title="(in Nengo v2.6)"><code class="xref py py-class docutils literal"><span class="pre">nengo.networks.EnsembleArray</span></code></a> that represents the
+</dd>
+<dt><strong>**ens_kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">dictionary</span></code>, optional</span></dt>
+<dd><p class="first last">Additional keyword arguments are passed to the
+<a class="reference external" href="https://www.nengo.ai/nengo/networks.html#nengo.networks.EnsembleArray" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.networks.EnsembleArray</span></code></a> that represents the
 <code class="xref py py-attr docutils literal"><span class="pre">state</span></code>.</p>
-</div></blockquote>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -185,75 +173,91 @@ saturating impulse:</p>
 <div class="figure">
 <img alt="_images/nengolib-networks-LinearNetwork-1.png" src="_images/nengolib-networks-LinearNetwork-1.png" />
 </div>
-<p class="rubric">Attributes</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
 <tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">A</span></code></td>
-<td><code class="docutils literal"><span class="pre">A</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">B</span></code></td>
-<td><code class="docutils literal"><span class="pre">B</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">C</span></code></td>
-<td><code class="docutils literal"><span class="pre">C</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">D</span></code></td>
-<td><code class="docutils literal"><span class="pre">D</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">all_connections</span></code></td>
-<td>(list) All connections in this network and its subnetworks.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">all_ensembles</span></code></td>
-<td>(list) All ensembles in this network and its subnetworks.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">all_networks</span></code></td>
-<td>(list) All networks in this network and its subnetworks.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">all_nodes</span></code></td>
-<td>(list) All nodes in this network and its subnetworks.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">all_objects</span></code></td>
-<td>(list) All objects in this network and its subnetworks.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">all_probes</span></code></td>
-<td>(list) All probes in this network and its subnetworks.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">config</span></code></td>
-<td>(<cite>.Config</cite>) Configuration for this network.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">input</span></code></td>
-<td>Nengo object representing the input <code class="docutils literal"><span class="pre">u(t)</span></code> to the system.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">mapped</span></code></td>
-<td>Mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">n_neurons</span></code></td>
-<td>(int) Number of neurons in this network, including subnetworks.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">output</span></code></td>
-<td>Nengo object representing the output <code class="docutils literal"><span class="pre">y(t)</span></code> of the system.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">realization</span></code></td>
-<td>Realized <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">realizer_result</span></code></td>
-<td>The <a class="reference internal" href="nengolib.signal.realizers.RealizerResult.html#nengolib.signal.realizers.RealizerResult" title="nengolib.signal.realizers.RealizerResult"><code class="xref py py-class docutils literal"><span class="pre">RealizerResult</span></code></a> produced by <code class="docutils literal"><span class="pre">realizer</span></code>.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">size_in</span></code></td>
-<td>Input dimensionality.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">size_out</span></code></td>
-<td>Output dimensionality.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">size_state</span></code></td>
-<td>State dimensionality.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">state</span></code></td>
-<td>Nengo object representing the state <code class="docutils literal"><span class="pre">x(t)</span></code> of the system.</td>
+<tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt><code class="xref py py-obj docutils literal"><span class="pre">A</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">A</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">B</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">B</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">C</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">C</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">D</span></code></dt>
+<dd><p class="first last"><code class="docutils literal"><span class="pre">D</span></code> state-space matrix of mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">all_connections</span></code></dt>
+<dd><p class="first last">(list) All connections in this network and its subnetworks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">all_ensembles</span></code></dt>
+<dd><p class="first last">(list) All ensembles in this network and its subnetworks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">all_networks</span></code></dt>
+<dd><p class="first last">(list) All networks in this network and its subnetworks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">all_nodes</span></code></dt>
+<dd><p class="first last">(list) All nodes in this network and its subnetworks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">all_objects</span></code></dt>
+<dd><p class="first last">(list) All objects in this network and its subnetworks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">all_probes</span></code></dt>
+<dd><p class="first last">(list) All probes in this network and its subnetworks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">config</span></code></dt>
+<dd><p class="first last">(<cite>.Config</cite>) Configuration for this network.</p>
+</dd>
+<dt><strong>dt</strong></dt>
+<dd><p class="first last">A parameter where the value is a number.</p>
+</dd>
+<dt><a class="reference external" href="https://docs.python.org/3/library/functions.html#input" title="(in Python v3.7)"><code class="xref py py-obj docutils literal"><span class="pre">input</span></code></a></dt>
+<dd><p class="first last">Nengo object representing the input <code class="docutils literal"><span class="pre">u(t)</span></code> to the system.</p>
+</dd>
+<dt><strong>input_synapse</strong></dt>
+<dd></dd>
+<dt><strong>label</strong></dt>
+<dd><p class="first last">A parameter where the value is a string.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">mapped</span></code></dt>
+<dd><p class="first last">Mapped <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">n_neurons</span></code></dt>
+<dd><p class="first last">(int) Number of neurons in this network, including subnetworks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">output</span></code></dt>
+<dd><p class="first last">Nengo object representing the output <code class="docutils literal"><span class="pre">y(t)</span></code> of the system.</p>
+</dd>
+<dt><strong>output_synapse</strong></dt>
+<dd></dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">realization</span></code></dt>
+<dd><p class="first last">Realized <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a>.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">realizer_result</span></code></dt>
+<dd><p class="first last">The <a class="reference internal" href="nengolib.signal.realizers.RealizerResult.html#nengolib.signal.realizers.RealizerResult" title="nengolib.signal.realizers.RealizerResult"><code class="xref py py-class docutils literal"><span class="pre">RealizerResult</span></code></a> produced by <code class="docutils literal"><span class="pre">realizer</span></code>.</p>
+</dd>
+<dt><strong>seed</strong></dt>
+<dd><p class="first last">A parameter where the value is an integer.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">size_in</span></code></dt>
+<dd><p class="first last">Input dimensionality.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">size_out</span></code></dt>
+<dd><p class="first last">Output dimensionality.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">size_state</span></code></dt>
+<dd><p class="first last">State dimensionality.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal"><span class="pre">state</span></code></dt>
+<dd><p class="first last">Nengo object representing the state <code class="docutils literal"><span class="pre">x(t)</span></code> of the system.</p>
+</dd>
+<dt><strong>synapse</strong></dt>
+<dd></dd>
+</dl>
+</td>
 </tr>
 </tbody>
 </table>
@@ -267,11 +271,19 @@ saturating impulse:</p>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">add</span></code>(obj)</td>
 <td>Add the passed object to <code class="docutils literal"><span class="pre">Network.context</span></code>.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code>([add_to_container])</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">default_config</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">default_config</span></code>()</td>
 <td>Constructs a <cite>~.Config</cite> object for setting defaults.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>copy</strong></td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -281,6 +293,7 @@ saturating impulse:</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -313,7 +326,7 @@ saturating impulse:</p>
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -327,7 +340,7 @@ saturating impulse:</p>
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -379,8 +392,8 @@ saturating impulse:</p>
       &copy;2017-2018, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/nengolib.networks.LinearNetwork.rst.txt"

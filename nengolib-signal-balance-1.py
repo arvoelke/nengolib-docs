@@ -1,4 +1,4 @@
-# See :doc:`notebooks.research.linear_model_reduction` for a notebook
+# See :doc:`notebooks/research/linear_model_reduction` for a notebook
 # example.
 
 from nengolib.signal import balance, s

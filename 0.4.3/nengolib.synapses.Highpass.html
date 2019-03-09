@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nengolib.synapses.Highpass &#8212; nengolib 0.4.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/logo.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nengolib.synapses.PadeDelay" href="nengolib.synapses.PadeDelay.html" />
+    <link rel="prev" title="nengolib.synapses.Bandpass" href="nengolib.synapses.Bandpass.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="nengolib-synapses-highpass">
+<h1>nengolib.synapses.Highpass<a class="headerlink" href="#nengolib-synapses-highpass" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="nengolib.synapses.Highpass">
+<code class="descclassname">nengolib.synapses.</code><code class="descname">Highpass</code><span class="sig-paren">(</span><em>tau</em>, <em>order=1</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.2/nengolib/synapses\analog.py#L204-L253"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.Highpass" title="Permalink to this definition">¶</a></dt>
+<dd><p>A differentiated lowpass of given order: <code class="docutils literal"><span class="pre">(tau*s/(tau*s</span> <span class="pre">+</span> <span class="pre">1))**order</span></code>.</p>
+<p>Equivalent to differentiating the input, scaling by <code class="docutils literal"><span class="pre">tau</span></code>,
+lowpass filtering with time-constant <code class="docutils literal"><span class="pre">tau</span></code>, and finally repeating
+this <code class="docutils literal"><span class="pre">order</span></code> times. The lowpass filter is required to make this causal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tau</strong> : <code class="docutils literal"><span class="pre">float</span></code></p>
+<blockquote>
+<div><p>Time-constant of the lowpass filter, and highpass gain.</p>
+</div></blockquote>
+<p><strong>order</strong> : <code class="docutils literal"><span class="pre">integer</span></code>, optional</p>
+<blockquote>
+<div><p>Dimension of the resulting linear system. Defaults to <code class="docutils literal"><span class="pre">1</span></code>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a></p>
+<blockquote class="last">
+<div><p>Highpass filter with time-constant <code class="docutils literal"><span class="pre">tau</span></code> and dimension <code class="docutils literal"><span class="pre">order</span></code>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="nengolib.synapses.Lowpass.html#nengolib.synapses.Lowpass" title="nengolib.synapses.Lowpass"><code class="xref py py-func docutils literal"><span class="pre">Lowpass()</span></code></a>, <a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.s" title="nengolib.signal.s"><code class="xref py py-attr docutils literal"><span class="pre">s</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengolib.synapses</span> <span class="k">import</span> <span class="n">Highpass</span>
+</pre></div>
+</div>
+<p>Evaluate the highpass in the frequency domain with a time-constant of 10 ms
+and with a variety of orders:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tau</span> <span class="o">=</span> <span class="mf">1e-2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">orders</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># to evaluate</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\tau=</span><span class="si">%s</span><span class="s2">$&quot;</span> <span class="o">%</span> <span class="n">tau</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">sys</span> <span class="o">=</span> <span class="n">Highpass</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span> <span class="o">==</span> <span class="n">order</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">freqs</span><span class="p">)),</span>
+<span class="gp">&gt;&gt;&gt; </span>             <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;order=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">order</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Frequency (Hz)&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href=".//nengolib-synapses-Highpass-1.py">Source code</a>)</p>
+<div class="figure">
+<img alt="_images/nengolib-synapses-Highpass-1.png" src="_images/nengolib-synapses-Highpass-1.png" />
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Notebooks</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="nengolib.html">Main (<code class="docutils literal"><span class="pre">nengolib</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.networks.html">Networks (<code class="docutils literal"><span class="pre">nengolib.networks</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.signal.html">Signal (<code class="docutils literal"><span class="pre">nengolib.signal</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nengolib.stats.html">Stats (<code class="docutils literal"><span class="pre">nengolib.stats</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="reference.html">Reference</a><ul>
+  <li><a href="nengolib.synapses.html">Synapses (<code class="docutils literal"><span class="pre">nengolib.synapses</span></code>)</a><ul>
+      <li>Previous: <a href="nengolib.synapses.Bandpass.html" title="previous chapter">nengolib.synapses.Bandpass</a></li>
+      <li>Next: <a href="nengolib.synapses.PadeDelay.html" title="next chapter">nengolib.synapses.PadeDelay</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017-2018, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/nengolib.synapses.Highpass.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

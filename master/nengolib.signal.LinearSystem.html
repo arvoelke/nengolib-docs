@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.signal.LinearSystem &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.signal.LinearSystem &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -57,17 +57,17 @@
 
 <dl class="class">
 <dt id="nengolib.signal.LinearSystem">
-<em class="property">class </em><code class="descclassname">nengolib.signal.</code><code class="descname">LinearSystem</code><span class="sig-paren">(</span><em>sys</em>, <em>analog=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/signal/system.py#L242-L749"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.LinearSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.signal.</code><code class="descname">LinearSystem</code><span class="sig-paren">(</span><em>sys</em>, <em>analog=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/signal/system.py#L243-L750"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.LinearSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generic linear system representation.</p>
-<p>This extends <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a> to unify a variety of
+<p>This extends <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a> to unify a variety of
 representations (<cite>transfer function</cite>, <cite>state-space</cite>, <cite>zero-pole gain</cite>)
 in continuous (i.e., analog) and discrete (i.e., digital) time-domains.
 Instances provide access to a number of common attributes and methods
 that are core to a variety of routines and networks throughout nengolib.</p>
-<p>This can be used anywhere a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a> (or
-<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>) object is expected within Nengo. For
+<p>This can be used anywhere a <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.synapses.Synapse" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.synapses.Synapse</span></code></a> (or
+<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>) object is expected within Nengo. For
 instance, this can be passed as a <code class="docutils literal"><span class="pre">synapse</span></code> parameter to
-<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.
+<a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.Connection" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.Connection</span></code></a>.
 If the system is analog, then it will be automatically discretized using
 the simulation time-step (see <a class="reference internal" href="nengolib.signal.cont2discrete.html#nengolib.signal.cont2discrete" title="nengolib.signal.cont2discrete"><code class="xref py py-func docutils literal"><span class="pre">cont2discrete()</span></code></a>). We advocate for
 using this class to represent and manipulate linear systems whenever
@@ -88,7 +88,7 @@ and <code class="docutils literal"><span class="pre">z</span></code>–domains r
 </dd>
 <dt><strong>analog</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">boolean</span></code>, optional</span></dt>
 <dd><p class="first last">Continuous or discrete time-domain. Defaults to <code class="docutils literal"><span class="pre">sys.analog</span></code> if
-<code class="docutils literal"><span class="pre">isinstance(sys,</span></code> <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v2.8)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>), otherwise <code class="docutils literal"><span class="pre">True</span></code>.
+<code class="docutils literal"><span class="pre">isinstance(sys,</span></code> <a class="reference external" href="https://www.nengo.ai/nengo/frontend_api.html#nengo.LinearFilter" title="(in Nengo v3.0)"><code class="xref py py-class docutils literal"><span class="pre">nengo.LinearFilter</span></code></a>), otherwise <code class="docutils literal"><span class="pre">True</span></code>.
 If specified, it must not contradict <code class="docutils literal"><span class="pre">sys.analog</span></code>.</p>
 </dd>
 </dl>

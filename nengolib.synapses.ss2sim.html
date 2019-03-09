@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nengolib.synapses.ss2sim &#8212; nengolib 0.4.2 documentation</title>
-    
+    <title>nengolib.synapses.ss2sim &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.2',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -42,13 +39,15 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="nengolib-synapses-ss2sim">
 <h1>nengolib.synapses.ss2sim<a class="headerlink" href="#nengolib-synapses-ss2sim" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.synapses.ss2sim">
-<code class="descclassname">nengolib.synapses.</code><code class="descname">ss2sim</code><span class="sig-paren">(</span><em>sys</em>, <em>synapse</em>, <em>dt</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.2/nengolib/synapses\mapping.py#L10-L152"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.ss2sim" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.synapses.</code><code class="descname">ss2sim</code><span class="sig-paren">(</span><em>sys</em>, <em>synapse</em>, <em>dt</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/synapses/mapping.py#L10-L152"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.ss2sim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maps a linear system onto a synapse in state-space form.</p>
 <p>This implements a generalization of Principle 3 from the Neural Engineering
 Framework (NEF). <a class="footnote-reference" href="#id2" id="id1">[1]</a>
@@ -62,31 +61,31 @@ perfect integrator; instead the synapse model becomes the
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sys</strong> : <a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></p>
-<blockquote>
-<div><p>Linear system representation of desired dynamical system.
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>sys</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></span></dt>
+<dd><p class="first last">Linear system representation of desired dynamical system.
 Requires <code class="docutils literal"><span class="pre">sys.analog</span> <span class="pre">==</span> <span class="pre">synapse.analog</span></code>.</p>
-</div></blockquote>
-<p><strong>synapse</strong> : <a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></p>
-<blockquote>
-<div><p>Linear system representation of the synapse providing the dynamics.
+</dd>
+<dt><strong>synapse</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></span></dt>
+<dd><p class="first last">Linear system representation of the synapse providing the dynamics.
 Requires <code class="docutils literal"><span class="pre">sys.analog</span> <span class="pre">==</span> <span class="pre">synapse.analog</span></code>.</p>
-</div></blockquote>
-<p><strong>dt</strong> : <code class="docutils literal"><span class="pre">float</span></code> or <code class="docutils literal"><span class="pre">None</span></code></p>
-<blockquote>
-<div><p>Time-step of simulation. If not <code class="docutils literal"><span class="pre">None</span></code>, then both <code class="docutils literal"><span class="pre">sys</span></code> and
+</dd>
+<dt><strong>dt</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">float</span></code> or <code class="docutils literal"><span class="pre">None</span></code></span></dt>
+<dd><p class="first last">Time-step of simulation. If not <code class="docutils literal"><span class="pre">None</span></code>, then both <code class="docutils literal"><span class="pre">sys</span></code> and
 <code class="docutils literal"><span class="pre">synapse</span></code> are discretized using the <code class="docutils literal"><span class="pre">'zoh'</span></code> method.
 In either case, if <code class="docutils literal"><span class="pre">sys</span></code> is now digital, then the digital
 generalization of Principle 3 will be applied — otherwise the analog
 version will be applied.</p>
-</div></blockquote>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a></p>
-<blockquote class="last">
-<div><p>Linear system whose state-space matrices yield the desired
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>:class:`.LinearSystem`</strong></dt>
+<dd><p class="first last">Linear system whose state-space matrices yield the desired
 dynamics when using the synapse model instead of an integrator.</p>
-</div></blockquote>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -115,7 +114,7 @@ networks: Accurate delays, higher-order synapses, and time cells”,
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<p>See <a class="reference internal" href="notebooks.research.discrete_comparison.html"><span class="doc">notebooks/research/discrete_comparison.ipynb</span></a> for a notebook example.</p>
+<p>See <a class="reference internal" href="notebooks/research/discrete_comparison.html"><span class="doc">Discrete Principle 3</span></a> for a notebook example.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengolib.synapses</span> <span class="k">import</span> <span class="n">ss2sim</span><span class="p">,</span> <span class="n">PadeDelay</span>
 </pre></div>
 </div>
@@ -163,6 +162,7 @@ networks: Accurate delays, higher-order synapses, and time cells”,
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -195,7 +195,7 @@ networks: Accurate delays, higher-order synapses, and time cells”,
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -209,7 +209,7 @@ networks: Accurate delays, higher-order synapses, and time cells”,
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -261,8 +261,8 @@ networks: Accurate delays, higher-order synapses, and time cells”,
       &copy;2017-2018, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/nengolib.synapses.ss2sim.rst.txt"

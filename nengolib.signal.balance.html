@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>nengolib.signal.balance &#8212; nengolib 0.4.2 documentation</title>
-    
+    <title>nengolib.signal.balance &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.2',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,7 +21,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/logo.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -43,28 +40,32 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="nengolib-signal-balance">
 <h1>nengolib.signal.balance<a class="headerlink" href="#nengolib-signal-balance" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.signal.balance">
-<code class="descclassname">nengolib.signal.</code><code class="descname">balance</code><span class="sig-paren">(</span><em>sys</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.2/nengolib/signal\reduction.py#L139-L187"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.balance" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.signal.</code><code class="descname">balance</code><span class="sig-paren">(</span><em>sys</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/signal/reduction.py#L139-L187"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.balance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms a linear system to its balanced realization.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sys</strong> : <a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></p>
-<blockquote>
-<div><p>Linear system representation.</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>sys</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="types.html#linear_system_like" title="linear_system_like"><code class="xref py py-data docutils literal"><span class="pre">linear_system_like</span></code></a></span></dt>
+<dd><p class="first last">Linear system representation.</p>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a></p>
-<blockquote class="last">
-<div><p>Balanced linear system in state-space form.</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>:class:`.LinearSystem`</strong></dt>
+<dd><p class="first last">Balanced linear system in state-space form.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -81,7 +82,7 @@
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<p>See <a class="reference internal" href="notebooks.research.linear_model_reduction.html"><span class="doc">notebooks/research/linear_model_reduction.ipynb</span></a> for a notebook
+<p>See <a class="reference internal" href="notebooks/research/linear_model_reduction.html"><span class="doc">Linear System Model Reduction</span></a> for a notebook
 example.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nengolib.signal</span> <span class="k">import</span> <span class="n">balance</span><span class="p">,</span> <span class="n">s</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">before</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="p">((</span><span class="n">s</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">30</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">40</span><span class="p">))</span>
@@ -111,6 +112,7 @@ example.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -143,7 +145,7 @@ example.</p>
     
 
 <p>
-<a href="https://travis-ci.org/arvoelke/nengolib">
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
     <img
         alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
         src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
@@ -157,7 +159,7 @@ example.</p>
     
 
 <p>
-<a href="https://codecov.io/github/arvoelke/nengolib">
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
     <img
     alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
     src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
@@ -210,8 +212,8 @@ example.</p>
       &copy;2017-2018, Aaron Voelker.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/nengolib.signal.balance.rst.txt"

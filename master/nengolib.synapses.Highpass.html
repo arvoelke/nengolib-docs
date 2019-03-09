@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.synapses.Highpass &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.synapses.Highpass &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <h1>nengolib.synapses.Highpass<a class="headerlink" href="#nengolib-synapses-highpass" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.synapses.Highpass">
-<code class="descclassname">nengolib.synapses.</code><code class="descname">Highpass</code><span class="sig-paren">(</span><em>tau</em>, <em>order=1</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/synapses/analog.py#L204-L253"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.Highpass" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.synapses.</code><code class="descname">Highpass</code><span class="sig-paren">(</span><em>tau</em>, <em>order=1</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/synapses/analog.py#L204-L253"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.Highpass" title="Permalink to this definition">¶</a></dt>
 <dd><p>A differentiated lowpass of given order: <code class="docutils literal"><span class="pre">(tau*s/(tau*s</span> <span class="pre">+</span> <span class="pre">1))**order</span></code>.</p>
 <p>Equivalent to differentiating the input, scaling by <code class="docutils literal"><span class="pre">tau</span></code>,
 lowpass filtering with time-constant <code class="docutils literal"><span class="pre">tau</span></code>, and finally repeating

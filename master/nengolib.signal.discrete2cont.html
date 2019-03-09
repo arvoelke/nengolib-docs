@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.signal.discrete2cont &#8212; nengolib 0.4.3-dev documentation</title>
+    <title>nengolib.signal.discrete2cont &#8212; nengolib 0.5.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.4.3-dev',
+        VERSION:     '0.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <h1>nengolib.signal.discrete2cont<a class="headerlink" href="#nengolib-signal-discrete2cont" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.signal.discrete2cont">
-<code class="descclassname">nengolib.signal.</code><code class="descname">discrete2cont</code><span class="sig-paren">(</span><em>sys</em>, <em>dt</em>, <em>method='zoh'</em>, <em>alpha=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.4.3-dev/nengolib/signal/discrete.py#L77-L164"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.discrete2cont" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.signal.</code><code class="descname">discrete2cont</code><span class="sig-paren">(</span><em>sys</em>, <em>dt</em>, <em>method='zoh'</em>, <em>alpha=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/signal/discrete.py#L77-L164"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.discrete2cont" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert linear system from discrete to continuous time-domain.</p>
 <p>This is the inverse of <a class="reference internal" href="nengolib.signal.cont2discrete.html#nengolib.signal.cont2discrete" title="nengolib.signal.cont2discrete"><code class="xref py py-func docutils literal"><span class="pre">cont2discrete()</span></code></a>. This will not work in
 general, for instance with the ZOH method when the system has discrete
@@ -86,7 +86,7 @@ each discrete time-step.</p>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="nengolib.signal.cont2discrete.html#nengolib.signal.cont2discrete" title="nengolib.signal.cont2discrete"><code class="xref py py-func docutils literal"><span class="pre">cont2discrete()</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cont2discrete.html#scipy.signal.cont2discrete" title="(in SciPy v1.2.0)"><code class="xref py py-func docutils literal"><span class="pre">scipy.signal.cont2discrete()</span></code></a></p>
+<p class="last"><a class="reference internal" href="nengolib.signal.cont2discrete.html#nengolib.signal.cont2discrete" title="nengolib.signal.cont2discrete"><code class="xref py py-func docutils literal"><span class="pre">cont2discrete()</span></code></a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.cont2discrete.html#scipy.signal.cont2discrete" title="(in SciPy v1.2.1)"><code class="xref py py-func docutils literal"><span class="pre">scipy.signal.cont2discrete()</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
 <p>Converting a double-exponential synapse back and forth between domains:</p>
