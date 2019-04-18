@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.networks.RollingWindow &#8212; nengolib 0.5.0 documentation</title>
+    <title>nengolib.networks.RollingWindow &#8212; nengolib 0.5.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
 <h1>nengolib.networks.RollingWindow<a class="headerlink" href="#nengolib-networks-rollingwindow" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="nengolib.networks.RollingWindow">
-<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">RollingWindow</code><span class="sig-paren">(</span><em>theta</em>, <em>n_neurons</em>, <em>process</em>, <em>dimensions=6</em>, <em>synapse=0.1</em>, <em>input_synapse=0.1</em>, <em>dt=0.001</em>, <em>realizer=Balanced()</em>, <em>solver=LstsqL2(reg=0.001</em>, <em>solver=Cholesky(transpose=None)</em>, <em>weights=False)</em>, <em>legendre=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/networks/rolling_window.py#L48-L371"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">nengolib.networks.</code><code class="descname">RollingWindow</code><span class="sig-paren">(</span><em>theta</em>, <em>n_neurons</em>, <em>process</em>, <em>dimensions=6</em>, <em>synapse=0.1</em>, <em>input_synapse=0.1</em>, <em>dt=0.001</em>, <em>realizer=Balanced()</em>, <em>solver=LstsqL2(reg=0.001</em>, <em>solver=Cholesky(transpose=None)</em>, <em>weights=False)</em>, <em>legendre=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.1/nengolib/networks/rolling_window.py#L50-L392"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Approximate nonlinear functions across a rolling window of input.</p>
 <p>Compresses the input history of finite length into a low-dimensional state
 to support the approximation of nonlinear functions across a rolling
@@ -345,7 +345,7 @@ with these functions (see <code class="xref py py-func docutils literal"><span c
 </table>
 <dl class="method">
 <dt id="nengolib.networks.RollingWindow.add_output">
-<code class="descname">add_output</code><span class="sig-paren">(</span><em>t=None</em>, <em>function=&lt;function RollingWindow.&lt;lambda&gt;&gt;</em>, <em>label='output'</em>, <em>synapse=None</em>, <em>**conn_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/networks/rolling_window.py#L285-L371"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow.add_output" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_output</code><span class="sig-paren">(</span><em>t=None</em>, <em>function=&lt;function RollingWindow.&lt;lambda&gt;&gt;</em>, <em>label='output'</em>, <em>synapse=None</em>, <em>**conn_kwargs</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.1/nengolib/networks/rolling_window.py#L287-L392"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.networks.RollingWindow.add_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decodes a function of the window at time points <code class="docutils literal"><span class="pre">-t*theta</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -394,14 +394,23 @@ dimensionality of the provided function.</p>
 given by the rows of <code class="xref py py-func docutils literal"><span class="pre">basis()</span></code>, and then supply the resulting
 window representation to the given <code class="docutils literal"><span class="pre">function</span></code>. Then we solve for
 the decoders with respect to the state-vector as usual in Nengo.</p>
-<p>Disregarding the linear change of basis from the <code class="docutils literal"><span class="pre">realizer</span></code>, the
-<code class="xref py py-func docutils literal"><span class="pre">canonical_basis()</span></code> functions are polynomials of increasing
-order (from <code class="docutils literal"><span class="pre">0</span></code> up to <code class="docutils literal"><span class="pre">q-1</span></code>, where <code class="docutils literal"><span class="pre">q=dimensions</span></code>):</p>
+<p>The <code class="xref py py-func docutils literal"><span class="pre">canonical_basis()</span></code> functions are polynomials of increasing
+order (from <code class="docutils literal"><span class="pre">0</span></code> up to <code class="docutils literal"><span class="pre">q-1</span></code>, where <code class="docutils literal"><span class="pre">q=dimensions</span></code>).
+If <code class="docutils literal"><span class="pre">legendre</span> <span class="pre">==</span> <span class="pre">False</span></code>, then:</p>
 <div class="math">
 \[\begin{split}P_i(t) = \begin{pmatrix}q \\ i\end{pmatrix}^{-1}
     \sum_{j=0}^i \begin{pmatrix}q \\ j\end{pmatrix}
     \begin{pmatrix}2q - 1 - j \\ i - j\end{pmatrix}
     \left( -t \right)^{i - j}
+    \text{,} \quad 0 \le t \le 1
+    \text{,} \quad i = 0 \ldots q - 1 \text{.}\end{split}\]</div>
+<p>If <code class="docutils literal"><span class="pre">legendre</span> <span class="pre">==</span> <span class="pre">True</span></code>, then these are the shifted Legendre
+polynomials: <a class="footnote-reference" href="#id4" id="id3">[2]</a></p>
+<div class="math">
+\[\begin{split}P_i(t) = (-1)^i
+    \sum_{j=0}^i \begin{pmatrix}i \\ j\end{pmatrix}
+    \begin{pmatrix}i + j \\ j\end{pmatrix}
+    \left( -t \right)^{j}
     \text{,} \quad 0 \le t \le 1
     \text{,} \quad i = 0 \ldots q - 1 \text{.}\end{split}\]</div>
 <p>Since the encoders are axis-aligned (when a <code class="docutils literal"><span class="pre">process</span></code> is given),
@@ -412,6 +421,16 @@ the form:</p>
 <p>where <span class="math">\({\bf w}\)</span> is some history, <span class="math">\({\bf v}_i\)</span> are the
 columns of <code class="xref py py-func docutils literal"><span class="pre">inverse_basis()</span></code>, and each <span class="math">\(f_i\)</span> is some
 unknown low-degree nonlinearity.</p>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>Rodrigues, Olinde. De l’attraction des sphéroïdes,
+Correspondence sur l’É-cole Impériale Polytechnique.
+Diss. Thesis for the Faculty of Science of the University of Paris)
+3 (3): 361–385, 1816.</td></tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -515,7 +534,7 @@ unknown low-degree nonlinearity.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017-2018, Aaron Voelker.
+      &copy;2017-2019, Aaron Voelker.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>

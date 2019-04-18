@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.stats.spherical_transform &#8212; nengolib 0.5.0 documentation</title>
+    <title>nengolib.stats.spherical_transform &#8212; nengolib 0.5.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <h1>nengolib.stats.spherical_transform<a class="headerlink" href="#nengolib-stats-spherical-transform" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.stats.spherical_transform">
-<code class="descclassname">nengolib.stats.</code><code class="descname">spherical_transform</code><span class="sig-paren">(</span><em>samples</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/stats/ntmdists.py#L17-L106"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.stats.spherical_transform" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.stats.</code><code class="descname">spherical_transform</code><span class="sig-paren">(</span><em>samples</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.1/nengolib/stats/ntmdists.py#L17-L106"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.stats.spherical_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Map samples from the <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">1]</span></code>–cube onto the hypersphere.</p>
 <p>Applies the <cite>inverse transform method</cite> to the distribution
 <a class="reference internal" href="nengolib.stats.SphericalCoords.html#nengolib.stats.SphericalCoords" title="nengolib.stats.SphericalCoords"><code class="xref py py-class docutils literal"><span class="pre">SphericalCoords</span></code></a> to map uniform samples from the <code class="docutils literal"><span class="pre">[0,</span> <span class="pre">1]</span></code>–cube
@@ -65,7 +65,7 @@ onto the surface of the hypersphere. <a class="footnote-reference" href="#id2" i
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>``(n, d+1) np.array``</strong></dt>
+<dt><strong>mapped_samples</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">(n,</span> <span class="pre">d+1)</span> <span class="pre">np.array</span></code></span></dt>
 <dd><p class="first last"><code class="docutils literal"><span class="pre">n</span></code> uniform samples from the <code class="docutils literal"><span class="pre">d</span></code>–dimensional sphere
 (Euclidean dimension of <code class="docutils literal"><span class="pre">d+1</span></code>).</p>
 </dd>
@@ -239,7 +239,7 @@ mapping a square onto a sphere:</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017-2018, Aaron Voelker.
+      &copy;2017-2019, Aaron Voelker.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>

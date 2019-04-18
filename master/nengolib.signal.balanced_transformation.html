@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.signal.balanced_transformation &#8212; nengolib 0.5.0 documentation</title>
+    <title>nengolib.signal.balanced_transformation &#8212; nengolib 0.5.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <h1>nengolib.signal.balanced_transformation<a class="headerlink" href="#nengolib-signal-balanced-transformation" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.signal.balanced_transformation">
-<code class="descclassname">nengolib.signal.</code><code class="descname">balanced_transformation</code><span class="sig-paren">(</span><em>sys</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/signal/lyapunov.py#L141-L190"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.balanced_transformation" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.signal.</code><code class="descname">balanced_transformation</code><span class="sig-paren">(</span><em>sys</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.1/nengolib/signal/lyapunov.py#L141-L190"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.balanced_transformation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the balancing transformation, its inverse, and eigenvalues.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -62,13 +62,13 @@
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>``(len(sys), len(sys)) np.array``</strong></dt>
+<dt><strong>T</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">(len(sys),</span> <span class="pre">len(sys))</span> <span class="pre">np.array</span></code></span></dt>
 <dd><p class="first last">Similarity transformation matrix.</p>
 </dd>
-<dt><strong>``(len(sys), len(sys)) np.array``</strong></dt>
+<dt><strong>Tinv</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">(len(sys),</span> <span class="pre">len(sys))</span> <span class="pre">np.array</span></code></span></dt>
 <dd><p class="first last">Inverse of similarity transformation matrix.</p>
 </dd>
-<dt><strong>``(len(sys),) np.array``</strong></dt>
+<dt><strong>s</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">(len(sys),)</span> <span class="pre">np.array</span></code></span></dt>
 <dd><p class="first last">Hankel singular values (see <a class="reference internal" href="nengolib.signal.hsvd.html#nengolib.signal.hsvd" title="nengolib.signal.hsvd"><code class="xref py py-func docutils literal"><span class="pre">hsvd()</span></code></a>).</p>
 </dd>
 </dl>
@@ -199,7 +199,7 @@ Control</em>, AC-32 (1987), pp. 115-122.</td></tr>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017-2018, Aaron Voelker.
+      &copy;2017-2019, Aaron Voelker.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>

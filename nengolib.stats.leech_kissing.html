@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.stats.leech_kissing &#8212; nengolib 0.5.0 documentation</title>
+    <title>nengolib.stats.leech_kissing &#8212; nengolib 0.5.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,7 +47,7 @@
 <h1>nengolib.stats.leech_kissing<a class="headerlink" href="#nengolib-stats-leech-kissing" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.stats.leech_kissing">
-<code class="descclassname">nengolib.stats.</code><code class="descname">leech_kissing</code><span class="sig-paren">(</span><em>cache_file=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/stats/leech.py#L13-L128"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.stats.leech_kissing" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.stats.</code><code class="descname">leech_kissing</code><span class="sig-paren">(</span><em>cache_file=None</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.1/nengolib/stats/leech.py#L13-L128"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.stats.leech_kissing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates the 196,560 “kissing points” in 24 dimensions.</p>
 <p>These are the points that are unit distance from the origin in the
 24–dimensional Leech lattice. <a class="footnote-reference" href="#id3" id="id1">[1]</a> Such points give the optimal
@@ -65,7 +65,7 @@ Defaults to Nengo’s cache directory + <code class="docutils literal"><span cla
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>``(196560, 24) np.array``</strong></dt>
+<dt><strong>points</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">(196560,</span> <span class="pre">24)</span> <span class="pre">np.array</span></code></span></dt>
 <dd><p class="first last">The kissing points in 24 dimensions.</p>
 </dd>
 </dl>
@@ -209,7 +209,7 @@ two coordinates are chosen.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017-2018, Aaron Voelker.
+      &copy;2017-2019, Aaron Voelker.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>

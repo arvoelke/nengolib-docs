@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.Alpha &#8212; nengolib 0.5.0 documentation</title>
+    <title>nengolib.Alpha &#8212; nengolib 0.5.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <h1>nengolib.Alpha<a class="headerlink" href="#nengolib-alpha" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.synapses.Alpha">
-<code class="descclassname">nengolib.synapses.</code><code class="descname">Alpha</code><span class="sig-paren">(</span><em>tau</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/synapses/analog.py#L50-L85"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.Alpha" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.synapses.</code><code class="descname">Alpha</code><span class="sig-paren">(</span><em>tau</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.1/nengolib/synapses/analog.py#L50-L85"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.synapses.Alpha" title="Permalink to this definition">¶</a></dt>
 <dd><p>A second-order lowpass: <code class="docutils literal"><span class="pre">1/(tau*s</span> <span class="pre">+</span> <span class="pre">1)**2</span></code>.</p>
 <p>Equivalent to convolving two identical lowpass synapses together.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -63,7 +63,7 @@
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>:class:`.LinearSystem`</strong></dt>
+<dt><strong>sys</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="nengolib.signal.LinearSystem.html#nengolib.signal.LinearSystem" title="nengolib.signal.LinearSystem"><code class="xref py py-class docutils literal"><span class="pre">LinearSystem</span></code></a></span></dt>
 <dd><p class="first last">Second-order lowpass with identical time-constants.</p>
 </dd>
 </dl>
@@ -195,7 +195,7 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017-2018, Aaron Voelker.
+      &copy;2017-2019, Aaron Voelker.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>

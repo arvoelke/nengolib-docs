@@ -1,0 +1,675 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Linear System Model Reduction &#8212; nengolib 0.5.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../_static/logo.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Sampling High-Dimensional Vectors" href="sampling_high_dimensional_vectors.html" />
+    <link rel="prev" title="Geometric Decoder Optimization" href="geometric_decoders.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Linear-System-Model-Reduction">
+<h1>Linear System Model Reduction<a class="headerlink" href="#Linear-System-Model-Reduction" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">pylab</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pylab</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>  <span class="c1"># optional; prettier graphs</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="k">import</span> <span class="n">cholesky</span><span class="p">,</span> <span class="n">svd</span>
+<span class="kn">from</span> <span class="nn">nengo.utils.numpy</span> <span class="k">import</span> <span class="n">rmse</span>
+
+<span class="kn">import</span> <span class="nn">nengolib</span>
+<span class="kn">from</span> <span class="nn">nengolib</span> <span class="k">import</span> <span class="n">Lowpass</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Populating the interactive namespace from numpy and matplotlib
+</pre></div></div>
+</div>
+<div class="section" id="Problem-Statement">
+<h2>Problem Statement<a class="headerlink" href="#Problem-Statement" title="Permalink to this headline">¶</a></h2>
+<p>Suppose we have some linear system. We’d like to reduce its order while maintaining similar characteristics. Take, for example, a lowpass filter that has a small amount of 3rd-order dynamics mixed in, resulting in a 4th-order system that consists mostly of 1st-order dynamics.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">isys</span> <span class="o">=</span> <span class="n">Lowpass</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">Lowpass</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">Lowpass</span><span class="p">(</span><span class="mf">0.007</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">Lowpass</span><span class="p">(</span><span class="mf">0.003</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">sys</span> <span class="o">=</span> <span class="n">p</span><span class="o">*</span><span class="n">isys</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">noise</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exact-Minimal-Realizations">
+<h2>Exact Minimal Realizations<a class="headerlink" href="#Exact-Minimal-Realizations" title="Permalink to this headline">¶</a></h2>
+<p>By cancelling repeated zeros and poles from a system, we can obtain an exact version of that same system with potentially reduced order. However, for the above system, there are no poles to be cancelled, and so this does not help to reduce the order.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">assert</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">pole_zero_cancel</span><span class="p">(</span><span class="n">isys</span><span class="o">/</span><span class="n">isys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># demonstration</span>
+
+<span class="n">minsys</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">pole_zero_cancel</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">minsys</span> <span class="o">==</span> <span class="n">sys</span>
+</pre></div>
+</div>
+</div>
+<p>As a crude way of getting around this problem, we can raise the tolerance for detecting similar poles/zeros until repeats are found. By setting the tolerance appropriately for this example, we can reduce the model to a first-order filter, with a surprisingly similar response. However, as we will soon see further down, we can do <em>much</em> better.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">minsys_crude</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">pole_zero_cancel</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">minsys_crude</span><span class="o">.</span><span class="n">order_den</span> <span class="o">==</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">test_sys</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">redsys</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">filt</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">red</span> <span class="o">=</span> <span class="n">redsys</span><span class="o">.</span><span class="n">filt</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+    <span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;(RMSE: </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">rmse</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">red</span><span class="p">))</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Original&quot;</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reduced&quot;</span><span class="p">)</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">white</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">test_sys</span><span class="p">(</span><span class="n">white</span><span class="p">,</span> <span class="n">minsys_crude</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_linear_model_reduction_7_0.png" src="../../_images/notebooks_research_linear_model_reduction_7_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Balanced-Realizations">
+<h2>Balanced Realizations<a class="headerlink" href="#Balanced-Realizations" title="Permalink to this headline">¶</a></h2>
+<p>First we need to compute some special matrices from Lyapunov theory.</p>
+<p>The “controllability gramian” (a.k.a. “reachability gramian” for linear systems) <span class="math">\(W_r\)</span> satisfies:</p>
+<div class="math">
+\[AW_r + W_rA' = -BB'\]</div>
+<p>The “observability gramian” <span class="math">\(W_o\)</span> satisfies:</p>
+<div class="math">
+\[A'W_o + W_oA = -C'C\]</div>
+<p>See [2] for more background information.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">ss</span>
+
+<span class="n">R</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">control_gram</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+
+<span class="n">O</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">observe_gram</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">O</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">A</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>The algorithm from [3] computes the lower cholesky factorizations of <span class="math">\(W_r \, ( = L_rL_r')\)</span> and <span class="math">\(W_o \, ( = L_oL_o')\)</span>, and the singular value decomposition of <span class="math">\(L_o'L_r\)</span>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">LR</span> <span class="o">=</span> <span class="n">cholesky</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LR</span><span class="p">,</span> <span class="n">LR</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+
+<span class="n">LO</span> <span class="o">=</span> <span class="n">cholesky</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">O</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LO</span><span class="p">,</span> <span class="n">LO</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LO</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">LR</span><span class="p">)</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">U</span> <span class="o">*</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span><span class="p">))</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">LR</span><span class="p">,</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">S</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">Tinv</span> <span class="o">=</span> <span class="p">(</span><span class="n">S</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">LO</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">Tinv</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<p>This gives the similarity transform [4] that maps the state to the “balanced realization” of the same order. This system is equivalent up to a change of basis <span class="math">\(T\)</span> in the state-space.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">TA</span><span class="p">,</span> <span class="n">TB</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">TD</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">Tinv</span><span class="o">=</span><span class="n">Tinv</span><span class="p">)</span><span class="o">.</span><span class="n">ss</span>
+<span class="k">assert</span> <span class="n">sys</span> <span class="o">==</span> <span class="p">(</span><span class="n">TA</span><span class="p">,</span> <span class="n">TB</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">TD</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>And the reason we do this is because the singular values reflect a measure of importance for each of the states in the new realization. The order should then be reduced by removing the least important states.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_linear_model_reduction_15_0.png" src="../../_images/notebooks_research_linear_model_reduction_15_0.png" />
+</div>
+</div>
+<p>The short-cut to do the above procedure in <code class="docutils literal"><span class="pre">nengolib</span></code> is the function <code class="docutils literal"><span class="pre">balanced_transformation</span></code> followed by <code class="docutils literal"><span class="pre">sys.transform</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">T</span><span class="p">,</span> <span class="n">Tinv</span><span class="p">,</span> <span class="n">S_check</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">balanced_transformation</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">sys_check</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">Tinv</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">TA</span><span class="p">,</span> <span class="n">sys_check</span><span class="o">.</span><span class="n">A</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">TB</span><span class="p">,</span> <span class="n">sys_check</span><span class="o">.</span><span class="n">B</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">TC</span><span class="p">,</span> <span class="n">sys_check</span><span class="o">.</span><span class="n">C</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">TD</span><span class="p">,</span> <span class="n">sys_check</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">S_check</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Lastly, note that this diagonalizes the two gramiam matrices:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">P</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">control_gram</span><span class="p">((</span><span class="n">TA</span><span class="p">,</span> <span class="n">TB</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">TD</span><span class="p">))</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">observe_gram</span><span class="p">((</span><span class="n">TA</span><span class="p">,</span> <span class="n">TB</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">TD</span><span class="p">))</span>
+
+<span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag_indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">P</span><span class="p">))</span>
+<span class="n">offdiag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">offdiag</span><span class="p">[</span><span class="n">diag</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">offdiag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">offdiag</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">diag</span><span class="p">],</span> <span class="n">S</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">offdiag</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">diag</span><span class="p">],</span> <span class="n">S</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">offdiag</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Approximate-Model-Order-Reduction">
+<h2>Approximate Model Order Reduction<a class="headerlink" href="#Approximate-Model-Order-Reduction" title="Permalink to this headline">¶</a></h2>
+<p>Low singular values indicate states are less important. The method in [5] can be used to remove these states while matching the DC gain for continuous or discrete systems.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">redsys</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">modred</span><span class="p">((</span><span class="n">TA</span><span class="p">,</span> <span class="n">TB</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">TD</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;dc&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">redsys</span><span class="o">.</span><span class="n">order_den</span> <span class="o">==</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">step</span><span class="p">[</span><span class="mi">50</span><span class="p">:]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">test_sys</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">redsys</span><span class="p">)</span>
+<span class="n">test_sys</span><span class="p">(</span><span class="n">white</span><span class="p">,</span> <span class="n">redsys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:214: UserWarning: Synapse ((A=[[0.98382223]], B=[[-0.00375194]], C=[[-3.7826243]], D=[[0.02273466]], analog=False)) has extra delay due to passthrough (https://github.com/nengo/nengo/issues/938).
+  &#34;(https://github.com/nengo/nengo/issues/938).&#34; % sys)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_linear_model_reduction_22_1.png" src="../../_images/notebooks_research_linear_model_reduction_22_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/arvoelke/CTN/nengolib/nengolib/signal/system.py:214: UserWarning: Synapse ((A=[[0.98382223]], B=[[-0.00375194]], C=[[-3.7826243]], D=[[0.02273466]], analog=False)) has extra delay due to passthrough (https://github.com/nengo/nengo/issues/938).
+  &#34;(https://github.com/nengo/nengo/issues/938).&#34; % sys)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_linear_model_reduction_22_3.png" src="../../_images/notebooks_research_linear_model_reduction_22_3.png" />
+</div>
+</div>
+<p>However, this doesn’t work very well for matching the response of the system given white-noise input. If we care less about the steady-state response, then it is much more accurate to simply delete the less important states.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">delsys</span> <span class="o">=</span> <span class="n">nengolib</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">modred</span><span class="p">((</span><span class="n">TA</span><span class="p">,</span> <span class="n">TB</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">TD</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;del&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">delsys</span><span class="o">.</span><span class="n">order_den</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">test_sys</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">delsys</span><span class="p">)</span>
+<span class="n">test_sys</span><span class="p">(</span><span class="n">white</span><span class="p">,</span> <span class="n">delsys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_linear_model_reduction_24_0.png" src="../../_images/notebooks_research_linear_model_reduction_24_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/notebooks_research_linear_model_reduction_24_1.png" src="../../_images/notebooks_research_linear_model_reduction_24_1.png" />
+</div>
+</div>
+<p>The short-cut for all of the above is to call <code class="docutils literal"><span class="pre">nengolib.signal.balred</span></code> with a desired order and method.</p>
+</div>
+<div class="section" id="References">
+<h2>References<a class="headerlink" href="#References" title="Permalink to this headline">¶</a></h2>
+<p>[1] <a class="reference external" href="http://www.mathworks.com/help/control/ref/minreal.html">http://www.mathworks.com/help/control/ref/minreal.html</a></p>
+<p>[2] <a class="reference external" href="https://en.wikibooks.org/wiki/Control_Systems/Controllability_and_Observability">https://en.wikibooks.org/wiki/Control_Systems/Controllability_and_Observability</a></p>
+<p>[3] Laub, A.J., M.T. Heath, C.C. Paige, and R.C. Ward, “Computation of System Balancing Transformations and Other Applications of Simultaneous Diagonalization Algorithms,” <em>IEEE® Trans. Automatic Control</em>, AC-32 (1987), pp.&nbsp;115-122.</p>
+<p>[4] <a class="reference external" href="http://www.mathworks.com/help/control/ref/balreal.html">http://www.mathworks.com/help/control/ref/balreal.html</a></p>
+<p>[5] <a class="reference external" href="http://www.mathworks.com/help/control/ref/modred.html">http://www.mathworks.com/help/control/ref/modred.html</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">nengolib</h1>
+    
+  </a>
+</p>
+
+
+
+<p class="blurb">Tools for robust dynamics in Nengo.</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=arvoelke&repo=nengolib&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/arvoelke/nengolib">
+    <img
+        alt="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+        src="https://secure.travis-ci.org/arvoelke/nengolib.svg?branch=master"
+    />
+</a>
+</p>
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://codecov.io/github/arvoelke/nengolib">
+    <img
+    alt="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    src="https://codecov.io/github/arvoelke/nengolib/coverage.svg?branch=master"
+    />
+</a>
+</p>
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../notebooks.html">Notebooks</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks.examples.html">Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../notebooks.research.html">Research</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../success.html">Success stories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../notebooks.html">Notebooks</a><ul>
+  <li><a href="../../notebooks.research.html">Research</a><ul>
+      <li>Previous: <a href="geometric_decoders.html" title="previous chapter">Geometric Decoder Optimization</a></li>
+      <li>Next: <a href="sampling_high_dimensional_vectors.html" title="next chapter">Sampling High-Dimensional Vectors</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017-2018, Aaron Voelker.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/notebooks/research/linear_model_reduction.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

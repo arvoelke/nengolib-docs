@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>nengolib.signal.l1_norm &#8212; nengolib 0.5.0 documentation</title>
+    <title>nengolib.signal.l1_norm &#8212; nengolib 0.5.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.0',
+        VERSION:     '0.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <h1>nengolib.signal.l1_norm<a class="headerlink" href="#nengolib-signal-l1-norm" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="nengolib.signal.l1_norm">
-<code class="descclassname">nengolib.signal.</code><code class="descname">l1_norm</code><span class="sig-paren">(</span><em>sys</em>, <em>rtol=1e-06</em>, <em>max_length=262144</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.0/nengolib/signal/lyapunov.py#L236-L367"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.l1_norm" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nengolib.signal.</code><code class="descname">l1_norm</code><span class="sig-paren">(</span><em>sys</em>, <em>rtol=1e-06</em>, <em>max_length=262144</em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/arvoelke/nengolib/tree/v0.5.1/nengolib/signal/lyapunov.py#L236-L367"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nengolib.signal.l1_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the L1-norm of a linear system within a relative tolerance.</p>
 <p>The L1-norm of a (BIBO stable) linear system is the integral of the
 absolute value of its impulse response. For unstable systems this will be
@@ -84,7 +84,7 @@ Defaults to <code class="docutils literal"><span class="pre">2**18</span></code>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>``float``</strong></dt>
+<dt><strong>norm</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal"><span class="pre">float</span></code></span></dt>
 <dd><p class="first last">L1-norm of the output.</p>
 </dd>
 </dl>
@@ -218,7 +218,7 @@ Systems &amp; control letters 26.3 (1995): 211-221.</td></tr>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2017-2018, Aaron Voelker.
+      &copy;2017-2019, Aaron Voelker.
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
